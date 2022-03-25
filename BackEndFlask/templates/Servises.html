@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/nassar.css') }}">
+{% endblock %}
+
+
+{% block body %}
+<div class="content">
+    <span class="feat" id="heart">Heart prediction</span>
+    <span class="feat" id="diap">Diapets prediction</span>
+    <span class="feat" id="surg">Surgical operation</span>
+    <hr>
+    <div id="default">
+        <h1>No Service choosen!</h1>
+    </div>
+    <div id="surgical">
+        <h4>Surgical Operations</h4>
+        <p>in this section, we will decide is the patient ready for the operation or not?</p>
+        <form action="">
+            
+            <input type="text" class="input" placeholder="Enter the value of hemoglopen"> <br>
+            
+            <input type="text" class="input" placeholder="Enter the value of white Blood"> <br>
+            
+            <input type="text" class="input" placeholder="Enter the value of platelets"> <br>
+            
+            <input type="text" class="input" placeholder="Enter the value of liver"> <br>
+            
+            <input type="text" class="input" placeholder="Enter the value of kidney"> <br>
+            
+            <input type="text" class="input" placeholder="Enter the value of fluidity"> <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <div id="diapetes">
+        <h4>Diapetes</h4>
+        <p>in this section, we will decide is the patient Diapetic or not?</p>
+        <form action="">
+        
+            <input type="text" class="input" placeholder="Enter value of Fasting"> <br>
+        
+            <input type="text" class="input" placeholder="Enter value of After_Eating"> <br>
+        
+            <input type="text" class="input" placeholder="Enter value of 2-3 Hours_After_Eating"> <br>
+            
+            <input type="submit" value="Submit">
+        
+        </form>
+    </div>
+    <div id="heartPred">
+
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/nassar.js') }}"></script>
+{% endblock %}

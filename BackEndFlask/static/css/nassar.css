@@ -1,0 +1,48 @@
+.content{
+    border-radius: 5px;
+    background-color: #b2cad1;
+    padding: 20px;
+}
+
+.input{
+    width: 85%;
+    padding: 12px 20px ;
+    margin: 8px 0;
+    border: 1px solid rgb(134, 132, 132);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+
+.input:hover{
+    background-color: #a3bbc2;
+}
+
+.feat{
+    width: 10%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid rgb(116, 146, 155);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: rgb(123, 156, 226);
+    color: aliceblue;
+}
+
+.feat:hover{
+    background-color: rgb(60, 110, 202);
+}
+
+
+
+#surgical{
+    display: none;
+}
+#diapetes{
+    display: none;
+}
+#heartPred{
+    display: none;
+}
