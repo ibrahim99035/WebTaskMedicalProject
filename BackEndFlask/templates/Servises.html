@@ -18,36 +18,38 @@
     <div id="surgical">
         <h4>Surgical Operations</h4>
         <p>in this section, we will decide is the patient ready for the operation or not?</p>
-        <form action="">
+        <form>
             
-            <input type="text" class="input" placeholder="Enter the value of hemoglopen"> <br>
+            <input type="text" class="input" placeholder="Enter the value of hemoglopen" name="hemoglopen" value="{{ request.form['hemoglopen'] }}"/> <br>
             
-            <input type="text" class="input" placeholder="Enter the value of white Blood"> <br>
+            <input type="text" class="input" placeholder="Enter the value of white Blood" name="blood" value="{{ request.form['blood'] }}"/> <br>
             
-            <input type="text" class="input" placeholder="Enter the value of platelets"> <br>
+            <input type="text" class="input" placeholder="Enter the value of platelets" name="platelets" value="{{ request.form['platelets'] }}"/> <br>
             
-            <input type="text" class="input" placeholder="Enter the value of liver"> <br>
+            <input type="text" class="input" placeholder="Enter the value of liver" name="liver" value="{{ request.form['liver'] }}"/> <br>
             
-            <input type="text" class="input" placeholder="Enter the value of kidney"> <br>
+            <input type="text" class="input" placeholder="Enter the value of kidney" name="kidney" value="{{ request.form['kidney'] }}"/> <br>
             
-            <input type="text" class="input" placeholder="Enter the value of fluidity"> <br>
+            <input type="text" class="input" placeholder="Enter the value of fluidity" name="fluidity" value="{{ request.form['fluidity'] }}"/> <br>
             <input type="submit" value="Submit">
         </form>
     </div>
     <div id="diapetes">
         <h4>Diapetes</h4>
         <p>in this section, we will decide is the patient Diapetic or not?</p>
-        <form action="">
+        <form>
         
-            <input type="text" class="input" placeholder="Enter value of Fasting"> <br>
+            <input type="text" class="input" placeholder="Enter value of Fasting" name="fasting" value="{{ request.form['fasting'] }}"/> <br>
         
-            <input type="text" class="input" placeholder="Enter value of After_Eating"> <br>
+            <input type= "text" class="input" placeholder="Enter value of After_Eating" name="eating" value="{{ request.form['eating'] }}"/> <br>
         
-            <input type="text" class="input" placeholder="Enter value of 2-3 Hours_After_Eating"> <br>
-            
+            <input type="text" class="input" placeholder="Enter value of 2-3 Hours_After_Eating" name="afterEating" value="{{ request.form['afterEating'] }}"/> <br>
+
             <input type="submit" value="Submit">
         
-        </form>
+        </form> <br>
+        <p>{{ message }}</p> <br>
+        <p>{{ reason }}</p>
     </div>
     <div id="heartPred">
 
