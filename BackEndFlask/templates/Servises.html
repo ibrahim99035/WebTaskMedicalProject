@@ -31,8 +31,10 @@
             <input type="text" class="input" placeholder="Enter the value of kidney" name="kidney" value="{{ request.form['kidney'] }}"/> <br>
             
             <input type="text" class="input" placeholder="Enter the value of fluidity" name="fluidity" value="{{ request.form['fluidity'] }}"/> <br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="sub">
         </form>
+        <p>{{ message }}</p> <br>
+        <p>{{ reason }}</p>
     </div>
     <div id="diapetes">
         <h4>Diapetes</h4>
@@ -45,11 +47,10 @@
         
             <input type="text" class="input" placeholder="Enter value of 2-3 Hours_After_Eating" name="afterEating" value="{{ request.form['afterEating'] }}"/> <br>
 
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="sub">
         
         </form> <br>
-        <p>{{ message }}</p> <br>
-        <p>{{ reason }}</p>
+        <p> {{ diapetsResult }} </p>
     </div>
     <div id="heartPred">
 

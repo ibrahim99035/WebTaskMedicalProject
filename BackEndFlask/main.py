@@ -17,6 +17,9 @@ def servises():
     liver = 0
     kidney = 0
     fluidity = 0
+    fasting = 0
+    eating = 0
+    afterEating = 0
     if request.method == 'POST':
         # surgical part
         hemoglopen = request.form.get('hemoglopen')
@@ -34,6 +37,7 @@ def servises():
     #--------------------------------------------------------
     message = 'not predicted yet'
     reason = ''
+    diapetsResult = ''
     #System
     if 9 <= float(hemoglopen) <= 11 and 5 <= float(blood) <= 18 and 150000 <= float(platelets) <= 350000 and \
         20 <= float(liver) <= 40 and 0.5 <= float(kidney) <= 1.5 and 0.7 <= float(fluidity) <= 1.5:
@@ -43,25 +47,41 @@ def servises():
         message = 'The patient is not qualified'
         
     if float(hemoglopen)<9 or float(hemoglopen)>11:
-        reason = 'the patient have a problem with hemoglopen'
+        reason += 'the patient have a problem with hemoglopen \n'
 
     if float(blood)<5 or float(blood)>18:
-        reason = 'the patient have a problem with whiteBlood'
+        reason += 'the patient have a problem with whiteBlood \n'
 
     if float(platelets)<150000 or float(platelets)>350000:
-        reason = 'the patient have a problem with platelets'
+        reason += 'the patient have a problem with platelets \n'
 
     if float(liver)<20 or float(liver)>40:
-        reason = 'the patient have a problem with liver'
+        reason += 'the patient have a problem with liver \n'
 
     if float(kidney)<0.5 or float(kidney)>1.5:
-        reason = 'the patient have a problem with kidney'
+        reason += 'the patient have a problem with kidney \n'
 
     if float(fluidity)<0.7 or float(fluidity)>1.5:
-        reason = 'the patient have a problem with fluidity'
+        reason += 'the patient have a problem with fluidity \n'
 
     #--------------------------------------------------------
-    return render_template('Servises.html', title = 'Servises', message = message, reason = reason)
+
+    if 80 <= fasting <= 100 and 170 <= eating <= 200 and 120 <= afterEating <= 140:
+        diapetsResult = 'The patient is normal'
+        
+    if 101 <= fasting <= 125 and 190 <= eating <= 230 and 140 <= afterEating <= 160:
+        diapetsResult = 'The patient is Impaired Glucose'
+        
+    if fasting >=126 and 220 <= eating <= 300 and  afterEating >= 200:
+        diapetsResult = 'The patient is Diabetic'
+        
+    if fasting <80 :
+        diapetsResult = 'The patient is in a diabetic coma'
+        
+
+
+    #--------------------------------------------------------
+    return render_template('Servises.html', title = 'Servises', message = message, reason = reason, diapetsResult = diapetsResult)
 
 @app.route('/elements')
 def elements():

@@ -35,7 +35,16 @@
     background-color: rgb(60, 110, 202);
 }
 
-
+.sub{
+    background: #2484bb;
+    color: white;
+    border-style: outset;
+    border-color: #0c7fc2;
+    height: 50px;
+    width: 100px;
+    text-shadow: none;  
+    border-radius: 24px; 
+}
 
 #surgical{
     display: none;
@@ -46,3 +55,4 @@
 #heartPred{
     display: none;
 }
+
