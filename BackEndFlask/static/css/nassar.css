@@ -32,18 +32,16 @@
 }
 
 .feat:hover{
-    background-color: rgb(60, 110, 202);
+    background-color: rgb(60, 197, 202);
 }
 
 .sub{
-    background: #2484bb;
+    background: rgb(101, 123, 194);
     color: white;
-    border-style: outset;
-    border-color: #0c7fc2;
     height: 50px;
-    width: 100px;
+    width: 200px;
     text-shadow: none;  
-    border-radius: 24px; 
+    border-radius: 20px; 
 }
 
 #surgical{
