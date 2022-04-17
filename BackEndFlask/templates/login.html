@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+
+{% block body %}
+<div id="signup">
+    <p id="signupHeader">Create a new account</p>
+    <form action="" id="signForm">
+        <!--First name & Last name-->
+        <label for="fname">First name</label> <br>
+        <input type="text" class="fname" placeholder="Enter your first name" ><br>
+        <label for="lname">Last name</label> <br>
+        <input type="text" class="lname" placeholder="Enter your last name"><br>
+        <!--Email & Password-->
+        <label for="email">Email</label> <br>
+        <input type="text" class="email" placeholder="Enter your email"><br>
+        <label for="password">Password</label> <br>
+        <input type="password" class="password" placeholder="Enter your password"><br>
+        <!--Confirm Password-->
+        <label for="confirm_password">Confirm your password</label> <br>
+        <input type="password" class="confirm_password" placeholder="Confirm your password"><br>
+        <!--Submit Button-->
+        <input type="submit" value="Sign Up" id="sub">
+    </form>
+</div>
+{% endblock %}

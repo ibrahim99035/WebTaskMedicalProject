@@ -112,11 +112,11 @@ def about():
     return render_template('about.html', title = 'About')
 
 @app.route('/signup')
-def about():
+def signup():
     return render_template('signup.html', title = 'Sign up')
 
 @app.route('/login')
-def about():
+def login():
     return render_template('login.html', title = 'Log in')
 #-------------------------------------------------------------------------------------------
 
