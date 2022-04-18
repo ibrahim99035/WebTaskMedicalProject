@@ -1,11 +1,13 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
-
+from auth import RegistrationForm, LoginForm
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 #-------------------------------------------------------------------------------------------
 #HTML pages :
 @app.route('/')
+@app.route('/home')
 def index():
     return render_template('index.html', title = 'Home')
 
@@ -111,13 +113,26 @@ def blog_home():
 def about():
     return render_template('about.html', title = 'About')
 
-@app.route('/signup')
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    return render_template('signup.html', title = 'Sign up')
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('home'))
 
-@app.route('/login')
+    return render_template('signup.html', title = 'Sign up', form = form)
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html', title = 'Log in')
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Login Unsuccessful. Please check username and password', 'danger')
+
+    return render_template('login.html', title = 'Log in', form = form)
 #-------------------------------------------------------------------------------------------
 
 
