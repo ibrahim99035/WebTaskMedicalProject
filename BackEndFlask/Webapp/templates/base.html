@@ -47,6 +47,7 @@
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                                 <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -76,7 +77,14 @@
                                 <li><a href="blog-details.html">blog details</a></li>
                             </ul>
                         </li>
-                        <li><a href="contact.html">Contact</a></li>			          				          
+                        <li><a href="contact.html">Contact</a></li>	
+                        {% if current_user.is_authenticated %}
+                            <li><a href="{{ url_for('account') }}">Account</a></li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{{ url_for('login') }}">Login</a></li>
+                            <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+                        {% endif %}	          				          
                     </ul>
                 </nav><!-- #nav-menu-container -->		    		
                 </div>
