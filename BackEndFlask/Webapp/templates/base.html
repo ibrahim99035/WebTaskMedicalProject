@@ -73,10 +73,11 @@
                         </li>
                         <li class="menu-has-children"><a href="">blog</a>
                             <ul>
-                                <li><a href="{{ url_for('blog-home') }}">blog home</a></li>
-                                <li><a href="{{ url_for('blog-details') }}">blog details</a></li>
+                                <li><a href="{{ url_for('blog_home') }}">blog home</a></li>
+                                <li><a href="{{ url_for('blog_details') }}">blog details</a></li>
                             </ul>
                         </li>
+                        <li><a href="{{ url_for('servises') }}">Servises</a></li>
                         <li><a href="{{ url_for('contact') }}">Contact</a></li>	
                         {% if current_user.is_authenticated %}
                             <li><a href="{{ url_for('account') }}">Account</a></li>

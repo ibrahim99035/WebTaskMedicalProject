@@ -3,7 +3,7 @@ from Webapp import app, db, bcrypt
 from Webapp.auth import RegistrationForm, LoginForm
 from Webapp.models import User, Res
 from flask_login import login_user, current_user, logout_user, login_required
-
+from Webapp.surgicalOperation import SurgicalOperationForm
 
 @app.route('/')
 @app.route('/home')
@@ -12,77 +12,14 @@ def index():
 
 @app.route('/servises', methods=('GET', 'POST'))
 def servises():
-    hemoglopen = 0
-    blood = 0
-    platelets = 0
-    liver = 0
-    kidney = 0
-    fluidity = 0
-    fasting = 0
-    eating = 0
-    afterEating = 0
-    if request.method == 'POST':
-        # surgical part
-        hemoglopen = request.form.get('hemoglopen')
-        blood = request.form.get('blood')
-        platelets = request.form.get('platelets')
-        liver = request.form.get('liver')
-        kidney = request.form.get('kidney')
-        fluidity = request.form.get('fluidity')
-
-        #diapets part
-        fasting = request.form.get('fasting')
-        eating = request.form.get('eating')
-        afterEating = request.form.get('afterEating')
-
+    SurgicaForm = SurgicalOperationForm()
+    if SurgicaForm.validate_on_submit():
+        patientResult = Res(content=SurgicaForm.checkpatientResult(SurgicaForm.hemoglopen.data, SurgicaForm.whiteBlood.data, SurgicaForm.platelets.data, SurgicaForm.liver.data, SurgicaForm.kidney.data, SurgicaForm.fluidity.data) + SurgicaForm.objections(SurgicaForm.hemoglopen.data, SurgicaForm.whiteBlood.data, SurgicaForm.platelets.data, SurgicaForm.liver.data, SurgicaForm.kidney.data, SurgicaForm.fluidity.data))
+        db.session.add(patientResult)
+        db.session.commit()
+        return redirect(url_for('account'))
     #--------------------------------------------------------
-    message = 'not predicted yet'
-    reason = ''
-    diapetsResult = ''
-    #System
-    if 9 <= float(hemoglopen) <= 11 and 5 <= float(blood) <= 18 and 150000 <= float(platelets) <= 350000 and \
-        20 <= float(liver) <= 40 and 0.5 <= float(kidney) <= 1.5 and 0.7 <= float(fluidity) <= 1.5:
-        message = 'The patient is qualified'
-        
-    else:
-        message = 'The patient is not qualified'
-        
-    if float(hemoglopen)<9 or float(hemoglopen)>11:
-        reason += 'the patient have a problem with hemoglopen \n'
-
-    if float(blood)<5 or float(blood)>18:
-        reason += 'the patient have a problem with whiteBlood \n'
-
-    if float(platelets)<150000 or float(platelets)>350000:
-        reason += 'the patient have a problem with platelets \n'
-
-    if float(liver)<20 or float(liver)>40:
-        reason += 'the patient have a problem with liver \n'
-
-    if float(kidney)<0.5 or float(kidney)>1.5:
-        reason += 'the patient have a problem with kidney \n'
-
-    if float(fluidity)<0.7 or float(fluidity)>1.5:
-        reason += 'the patient have a problem with fluidity \n'
-
-    #--------------------------------------------------------
-
-    if 80 <= fasting <= 100 and 170 <= eating <= 200 and 120 <= afterEating <= 140:
-        diapetsResult = 'The patient is normal'
-        
-    if 101 <= fasting <= 125 and 190 <= eating <= 230 and 140 <= afterEating <= 160:
-        diapetsResult = 'The patient is Impaired Glucose'
-        
-    if fasting >=126 and 220 <= eating <= 300 and  afterEating >= 200:
-        diapetsResult = 'The patient is Diabetic'
-        
-    if fasting <80 :
-        diapetsResult = 'The patient is in a diabetic coma'
-        
-
-
-    #--------------------------------------------------------
-    return render_template('Servises.html', title = 'Servises', message = message, reason = reason, diapetsResult = diapetsResult)
+    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm)
 
 @app.route('/elements')
 def elements():
