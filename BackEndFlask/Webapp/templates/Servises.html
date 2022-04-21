@@ -3,6 +3,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/nassar.css') }}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 {% endblock %}
 
 
@@ -15,31 +16,100 @@
     <div id="default">
         <h1>No Service choosen!</h1>
     </div>
-    <div id="surgical">
+    <div id="surgical"  class="formstyle">
         <h4>Surgical Operations</h4>
         <p>in this section, we will decide is the patient ready for the operation or not?</p>
-        <form>
-            
-            <input type="text" class="input" placeholder="Enter the value of hemoglopen" name="hemoglopen" value="{{ request.form['hemoglopen'] }}"/> <br>
-            
-            <input type="text" class="input" placeholder="Enter the value of white Blood" name="blood" value="{{ request.form['blood'] }}"/> <br>
-            
-            <input type="text" class="input" placeholder="Enter the value of platelets" name="platelets" value="{{ request.form['platelets'] }}"/> <br>
-            
-            <input type="text" class="input" placeholder="Enter the value of liver" name="liver" value="{{ request.form['liver'] }}"/> <br>
-            
-            <input type="text" class="input" placeholder="Enter the value of kidney" name="kidney" value="{{ request.form['kidney'] }}"/> <br>
-            
-            <input type="text" class="input" placeholder="Enter the value of fluidity" name="fluidity" value="{{ request.form['fluidity'] }}"/> <br>
-            <input type="submit" value="Submit" class="sub">
+        <form method="POST">
+            {{ form1.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{ form1.hemoglopen.label(class="form-control-label") }}
+                    {% if form1.hemoglopen.errors %}
+                        {{ form1.hemoglopen(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form1.hemoglopen.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form1.hemoglopen(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form1.whiteBlood.label(class="form-control-label") }}
+                    {% if form1.whiteBlood.errors %}
+                        {{ form1.whiteBlood(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form1.whiteBlood.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form1.whiteBlood(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form1.platelets.label(class="form-control-label") }}
+                    {% if form1.platelets.errors %}
+                        {{ form1.platelets(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form1.platelets.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form1.platelets(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form1.liver.label(class="form-control-label") }}
+                    {% if form1.liver.errors %}
+                        {{ form1.liver(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form1.liver.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form1.liver(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form1.kidney.label(class="form-control-label") }}
+                    {% if form1.kidney.errors %}
+                        {{ form1.kidney(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form1.kidney.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form1.kidney(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form1.fluidity.label(class="form-control-label") }}
+                    {% if form1.fluidity.errors %}
+                        {{ form1.fluidity(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form1.fluidity.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form1.fluidity(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form1.submit(class="btn btn-outline-info") }}
+            </div>
         </form>
-        <p>{{ message }}</p> <br>
-        <p>{{ reason }}</p>
     </div>
-    <div id="diapetes">
+    <div id="diapetes" class="formstyle">
         <h4>Diapetes</h4>
         <p>in this section, we will decide is the patient Diapetic or not?</p>
-        <form>
+        <!-- <form>
         
             <input type="text" class="input" placeholder="Enter value of Fasting" name="fasting" value="{{ request.form['fasting'] }}"/> <br>
         
@@ -49,10 +119,9 @@
 
             <input type="submit" value="Submit" class="sub">
         
-        </form> <br>
-        <p> {{ diapetsResult }} </p>
+        </form> -->
     </div>
-    <div id="heartPred">
+    <div id="heartPred" class="formstyle">
 
     </div>
 </div>

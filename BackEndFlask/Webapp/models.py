@@ -24,7 +24,7 @@ class Res(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"Result ( '{self.date_posted}')"
+        return f"Result ('{self.content}', '{self.date_posted}')"
 
 
 

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import FloatField
+from wtforms import FloatField, SubmitField, StringField
 from wtforms.validators import DataRequired
 class SurgicalOperationForm(FlaskForm):
     #fields
@@ -9,6 +9,17 @@ class SurgicalOperationForm(FlaskForm):
     liver = FloatField('Liver', validators=[DataRequired()])
     kidney = FloatField('Kidney', validators=[DataRequired()])
     fluidity = FloatField('Fluidity', validators=[DataRequired()])
+
+    submit = SubmitField('Confirm')
+
+    #store float values
+    # numhemoglopen  = float(hemoglopen)
+    # numwhiteBlood = float(whiteBlood)
+    # numplatelets = float(platelets)
+    # numliver = float(liver)
+    # numkidney = float(kidney)
+    # numfluidity = float(fluidity)
+
     #basic tests
     test1  = 'Hemoglopen'
     test2  = 'White Blood'
@@ -42,7 +53,7 @@ class SurgicalOperationForm(FlaskForm):
         objection3 = platelets.data < 150000 or platelets.data > 350000
         objection4 = liver.data < 20 or liver.data > 40
         objection5 = kidney.data < 0.5 or kidney.data > 1.5
-        objection6 = fluidity.data < 0.7 or fluidity > 1.5
+        objection6 = fluidity.data < 0.7 or fluidity.data > 1.5
         objectionList = [objection1, objection2, objection3, objection4, objection5, objection6]
         TruesList = []
         problemsList = []

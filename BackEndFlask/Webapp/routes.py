@@ -14,7 +14,7 @@ def index():
 def servises():
     SurgicaForm = SurgicalOperationForm()
     if SurgicaForm.validate_on_submit():
-        patientResult = Res(content=SurgicaForm.checkpatientResult(SurgicaForm.hemoglopen.data, SurgicaForm.whiteBlood.data, SurgicaForm.platelets.data, SurgicaForm.liver.data, SurgicaForm.kidney.data, SurgicaForm.fluidity.data) + SurgicaForm.objections(SurgicaForm.hemoglopen.data, SurgicaForm.whiteBlood.data, SurgicaForm.platelets.data, SurgicaForm.liver.data, SurgicaForm.kidney.data, SurgicaForm.fluidity.data))
+        patientResult = Res(content=SurgicaForm.checkpatientResult(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity.data) + SurgicaForm.objections(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity))
         db.session.add(patientResult)
         db.session.commit()
         return redirect(url_for('account'))
