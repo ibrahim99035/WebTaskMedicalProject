@@ -18,10 +18,10 @@ class DiabetesForm(FlaskForm):
 
     def checkTheCase(self, Fasting, After_Eating, Hours_After_Eating):
         #diabetes tests boolean variables
-        test1 = 80 <= Fasting <= 100 and 170 <= After_Eating <= 200 and 120 <= Hours_After_Eating <= 140
-        test2 = 101 <= Fasting <= 125 and 190 <= After_Eating <= 230 and 140 <= Hours_After_Eating <= 160
-        test3 = Fasting >=126 and 220 <= After_Eating <= 300 and  Hours_After_Eating >= 200
-        test4 = Fasting <80
+        test1 = 80.0 <= Fasting.data <= 100.0 and 170.0 <= After_Eating.data <= 200.0 and 120.0 <= Hours_After_Eating.data <= 140.0
+        test2 = 101.0 <= Fasting.data <= 125.0 and 190.0 <= After_Eating.data <= 230.0 and 140.0 <= Hours_After_Eating.data <= 160.0
+        test3 = Fasting.data >=126.0 and 220.0 <= After_Eating.data <= 300.0 and  Hours_After_Eating.data >= 200.0
+        test4 = Fasting.data <80.0
 
         #the functionality 
         if test1:

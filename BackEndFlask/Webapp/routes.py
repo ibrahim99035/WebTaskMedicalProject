@@ -3,8 +3,11 @@ from Webapp import app, db, bcrypt
 from Webapp.auth import RegistrationForm, LoginForm
 from Webapp.models import User, Res
 from flask_login import login_user, current_user, logout_user, login_required
+#nassar tasks
 from Webapp.surgicalOperation import SurgicalOperationForm
+from Webapp.diabetes import DiabetesForm
 
+#Routes
 @app.route('/')
 @app.route('/home')
 def index():
@@ -19,7 +22,14 @@ def servises():
         db.session.commit()
         return redirect(url_for('account'))
     #--------------------------------------------------------
-    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm)
+    diabetesForm = DiabetesForm()
+    if diabetesForm.validate_on_submit():
+        diabetesResult = Res(content=diabetesForm.checkTheCase(diabetesForm.Fasting, diabetesForm.After_Eating, diabetesForm.Hours_After_Eating))
+        db.session.add(diabetesResult)
+        db.session.commit()
+        return redirect(url_for('account'))
+    #--------------------------------------------------------
+    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm)
 
 @app.route('/elements')
 def elements():

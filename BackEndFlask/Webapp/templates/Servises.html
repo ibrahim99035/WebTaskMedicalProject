@@ -109,20 +109,58 @@
     <div id="diapetes" class="formstyle">
         <h4>Diapetes</h4>
         <p>in this section, we will decide is the patient Diapetic or not?</p>
-        <!-- <form>
-        
-            <input type="text" class="input" placeholder="Enter value of Fasting" name="fasting" value="{{ request.form['fasting'] }}"/> <br>
-        
-            <input type= "text" class="input" placeholder="Enter value of After_Eating" name="eating" value="{{ request.form['eating'] }}"/> <br>
-        
-            <input type="text" class="input" placeholder="Enter value of 2-3 Hours_After_Eating" name="afterEating" value="{{ request.form['afterEating'] }}"/> <br>
-
-            <input type="submit" value="Submit" class="sub">
-        
-        </form> -->
+        <form action="" method="POST">
+            {{ form2.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{ form2.Fasting.label(class="form-control-label") }}
+                    {% if form2.Fasting.errors %}
+                        {{ form2.Fasting(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form2.Fasting.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form2.Fasting(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form2.After_Eating.label(class="form-control-label") }}
+                    {% if form2.After_Eating.errors %}
+                        {{ form2.After_Eating(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form2.After_Eating.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form2.After_Eating(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form2.Hours_After_Eating.label(class="form-control-label") }}
+                    {% if form2.Hours_After_Eating.errors %}
+                        {{ form2.Hours_After_Eating(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form2.Hours_After_Eating.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form2.Hours_After_Eating(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                
+            </fieldset>
+            <div class="form-group">
+                {{ form2.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
     </div>
+    <!--Heart-->
     <div id="heartPred" class="formstyle">
-
+        
     </div>
 </div>
 <script src="{{ url_for('static', filename='js/nassar.js') }}"></script>
