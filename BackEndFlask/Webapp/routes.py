@@ -17,14 +17,14 @@ def index():
 def servises():
     SurgicaForm = SurgicalOperationForm()
     if SurgicaForm.validate_on_submit():
-        patientResult = Res(content=SurgicaForm.checkpatientResult(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity.data) + SurgicaForm.objections(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity))
+        patientResult = Res(content=SurgicaForm.checkpatientResult(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity.data) + SurgicaForm.objections(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity), title="Surgical Operation", user_id=current_user.id)
         db.session.add(patientResult)
         db.session.commit()
         return redirect(url_for('account'))
     #--------------------------------------------------------
     diabetesForm = DiabetesForm()
     if diabetesForm.validate_on_submit():
-        diabetesResult = Res(content=diabetesForm.checkTheCase(diabetesForm.Fasting, diabetesForm.After_Eating, diabetesForm.Hours_After_Eating))
+        diabetesResult = Res(content=diabetesForm.checkTheCase(diabetesForm.Fasting, diabetesForm.After_Eating, diabetesForm.Hours_After_Eating), title="Diapetes Check", user_id=current_user.id)
         db.session.add(diabetesResult)
         db.session.commit()
         return redirect(url_for('account'))

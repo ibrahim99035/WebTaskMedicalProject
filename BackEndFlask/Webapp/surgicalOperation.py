@@ -21,20 +21,20 @@ class SurgicalOperationForm(FlaskForm):
     # numfluidity = float(fluidity)
 
     #basic tests
-    test1  = 'Hemoglopen'
-    test2  = 'White Blood'
-    test3  = 'Platelets'
-    test4  = 'Liver'
-    test5  = 'Kidney'
-    test6  = 'Fluidity'
+    test1  = '(Hemoglopen)'
+    test2  = '(White Blood)'
+    test3  = '(Platelets)'
+    test4  = '(Liver)'
+    test5  = '(Kidney)'
+    test6  = '(Fluidity)'
     #strings
-    safe = 'None'
+    safe = '(None)'
     message = 'The patient has a problem with '
     splited =''
     patientResult = ''
     objectionResult = ''
-    qualified = 'The patient is qualified'
-    unqualified = 'The patient is not qualified'
+    qualified = 'The patient is qualified, '
+    unqualified = 'The patient is not qualified, '
     
     #checking patient's results
     def checkpatientResult(self, hemoglopen, whiteBlood, platelets, liver, kidney, fluidity):

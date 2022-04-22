@@ -2,12 +2,16 @@
 
 
 {% block head %}
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">
 {% endblock %}
 
 
 {% block body %}
-
-<h1>{{ current_user.username }}</h1>
-
+    <div class="account">
+        <h1>{{ current_user.username }}</h1>
+        <p>{{ current_user.email }}</p>
+        <hr>
+        <h2>Your Results</h2>
+        <p>{{ current_user.results }} <br></p>
+    </div>
 {% endblock %}
