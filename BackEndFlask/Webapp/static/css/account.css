@@ -6,4 +6,20 @@
     margin-bottom: 20px;
     margin-right: 200px;
     margin-left: 200px;
+    color: rgb(49, 50, 61);
+}
+
+.account-head{
+    border: 1px solid #ccc;
+    background-color: rgb(162, 218, 236);
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 70px;
+    margin-left: 70px;
+    color: rgb(49, 50, 61);
+}
+
+#result{
+    font-size: 150%;
 }

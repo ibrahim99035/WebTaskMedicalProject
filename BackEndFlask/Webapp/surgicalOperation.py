@@ -29,7 +29,7 @@ class SurgicalOperationForm(FlaskForm):
     test6  = '(Fluidity)'
     #strings
     safe = '(None)'
-    message = 'The patient has a problem with '
+    message = ', The patient has a problem with '
     splited =''
     patientResult = ''
     objectionResult = ''

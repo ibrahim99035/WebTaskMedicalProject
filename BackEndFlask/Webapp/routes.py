@@ -14,17 +14,18 @@ def index():
     return render_template('index.html', title = 'Home')
 
 @app.route('/servises', methods=('GET', 'POST'))
+@login_required
 def servises():
     SurgicaForm = SurgicalOperationForm()
     if SurgicaForm.validate_on_submit():
-        patientResult = Res(content=SurgicaForm.checkpatientResult(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity.data) + SurgicaForm.objections(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity), title="Surgical Operation", user_id=current_user.id)
+        patientResult = Res(content=SurgicaForm.checkpatientResult(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity.data) + SurgicaForm.objections(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity), title="Surgical Operation", user_id=current_user.id, author=current_user)
         db.session.add(patientResult)
         db.session.commit()
         return redirect(url_for('account'))
     #--------------------------------------------------------
     diabetesForm = DiabetesForm()
     if diabetesForm.validate_on_submit():
-        diabetesResult = Res(content=diabetesForm.checkTheCase(diabetesForm.Fasting, diabetesForm.After_Eating, diabetesForm.Hours_After_Eating), title="Diapetes Check", user_id=current_user.id)
+        diabetesResult = Res(content=diabetesForm.checkTheCase(diabetesForm.Fasting, diabetesForm.After_Eating, diabetesForm.Hours_After_Eating), title="Diapetes Check", user_id=current_user.id, author=current_user)
         db.session.add(diabetesResult)
         db.session.commit()
         return redirect(url_for('account'))
@@ -100,4 +101,5 @@ def logout():
 @app.route("/account")
 @login_required
 def account():
-    return render_template('account.html', title='Account')
+    results = Res.query.all()
+    return render_template('account.html', title='Account', results=results)

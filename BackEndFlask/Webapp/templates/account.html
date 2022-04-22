@@ -7,11 +7,18 @@
 
 
 {% block body %}
-    <div class="account">
+    <div class="account-head">
         <h1>{{ current_user.username }}</h1>
         <p>{{ current_user.email }}</p>
-        <hr>
-        <h2>Your Results</h2>
-        <p>{{ current_user.results }} <br></p>
     </div>
+    
+    {% for result in results %}
+        <div class="account">
+            <h2>Your Results in {{ result.title }}</h2>
+            <p>Date of submition : {{ result.date_posted }}</p>
+            <hr>
+            <p id="result">{{ result }} <br></p>
+        </div>
+    {% endfor %}
+    
 {% endblock %}
