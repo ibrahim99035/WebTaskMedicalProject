@@ -7,6 +7,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 from Webapp.surgicalOperation import SurgicalOperationForm
 from Webapp.diabetes import DiabetesForm
 
+from Webapp.patientStay import PatientStayForm
+
 #Routes
 @app.route('/')
 @app.route('/home')
@@ -30,7 +32,13 @@ def servises():
         db.session.commit()
         return redirect(url_for('account'))
     #--------------------------------------------------------
-    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm)
+    treatmentForm = PatientStayForm()
+    if treatmentForm.validate_on_submit():
+        treatmentResult = Res(content=treatmentForm.checkPrediction(treatmentForm.Haematocrit, treatmentForm.Haemoglobins, treatmentForm.Erythrocyte, treatmentForm.Leucocyte, treatmentForm.Thrombocyte, treatmentForm.Age, treatmentForm.Gender), title="Patient Stay or not", user_id=current_user.id, author=current_user)
+        db.session.add(treatmentResult)
+        db.session.commit()
+        return redirect(url_for('account'))
+    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form3 = treatmentForm)
 
 @app.route('/elements')
 def elements():

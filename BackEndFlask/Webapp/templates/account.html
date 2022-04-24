@@ -15,7 +15,7 @@
     {% for result in results %}
         <div class="account">
             <h2>Your Results in {{ result.title }}</h2>
-            <p>Date of submition : {{ result.date_posted }}</p>
+            <p>Date of submition : {{ result.date_posted.strftime('%Y-%m-%d-%H:%M:%S') }}</p>
             <hr>
             <p id="result">{{ result }} <br></p>
         </div>

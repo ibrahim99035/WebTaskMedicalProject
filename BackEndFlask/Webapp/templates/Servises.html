@@ -2,7 +2,7 @@
 
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/nassar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Servises.css') }}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 {% endblock %}
 
@@ -12,6 +12,7 @@
     <span class="feat" id="heart">Heart prediction</span>
     <span class="feat" id="diap">Diapets prediction</span>
     <span class="feat" id="surg">Surgical operation</span>
+    <span class="feat" id="stay">Patient Treatment</span>
     <hr>
     <div id="default">
         <h1>No Service choosen!</h1>
@@ -162,6 +163,110 @@
     <div id="heartPred" class="formstyle">
         
     </div>
+    <!--Patient Staying-->
+    <div id="treatment" class="formstyle">
+        <h4>Patient Staying or not</h4>
+        <p>in this section, we will decide is the will stay in hospital or not or not?</p>
+        <form action="" method="POST">
+            {{ form3.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{ form3.Haematocrit.label(class="form-control-label") }}
+                    {% if form3.Haematocrit.errors %}
+                        {{ form3.Haematocrit(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form3.Haematocrit.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form3.Haematocrit(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form3.Haemoglobins.label(class="form-control-label") }}
+                    {% if form3.Haemoglobins.errors %}
+                        {{ form3.Haemoglobins(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form3.Haemoglobins.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form3.Haemoglobins(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form3.Erythrocyte.label(class="form-control-label") }}
+                    {% if form3.Erythrocyte.errors %}
+                        {{ form3.Erythrocyte(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form3.Erythrocyte.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form3.Erythrocyte(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form3.Leucocyte.label(class="form-control-label") }}
+                    {% if form3.Leucocyte.errors %}
+                        {{ form3.Leucocyte(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form3.Leucocyte.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form3.Leucocyte(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form3.Thrombocyte.label(class="form-control-label") }}
+                    {% if form3.Thrombocyte.errors %}
+                        {{ form3.Thrombocyte(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form3.Thrombocyte.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form3.Thrombocyte(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form3.Age.label(class="form-control-label") }}
+                    {% if form3.Age.errors %}
+                        {{ form3.Age(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form3.Age.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form3.Age(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form3.Gender.label(class="form-control-label") }}
+                    {% if form3.Gender.errors %}
+                        {{ form3.Gender(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form3.Gender.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form3.Gender(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form3.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
 </div>
-<script src="{{ url_for('static', filename='js/nassar.js') }}"></script>
+<script src="{{ url_for('static', filename='js/Servises.js') }}"></script>
 {% endblock %}
