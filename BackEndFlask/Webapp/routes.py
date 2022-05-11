@@ -6,6 +6,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 #nassar tasks
 from Webapp.surgicalOperation import SurgicalOperationForm
 from Webapp.diabetes import DiabetesForm
+from Webapp.heartPrediction import HeartPredictionForm
 
 from Webapp.patientStay import PatientStayForm
 
@@ -38,7 +39,15 @@ def servises():
         db.session.add(treatmentResult)
         db.session.commit()
         return redirect(url_for('account'))
-    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form3 = treatmentForm)
+    #--------------------------------------------------------
+    heartPredictionForm = HeartPredictionForm()
+    if heartPredictionForm.validate_on_submit():
+        heartPredictionResult = Res(content=heartPredictionForm.checkHeartPrediction(heartPredictionForm.Age, heartPredictionForm.Sex, heartPredictionForm.cp, heartPredictionForm.trestbps, heartPredictionForm.chol, heartPredictionForm.fbs, heartPredictionForm.restecg, heartPredictionForm.thalach, heartPredictionForm.exang, heartPredictionForm.oldpeak, heartPredictionForm.slope, heartPredictionForm.ca, heartPredictionForm.thal), title="Heart disease prediction", user_id=current_user.id, author=current_user)
+        db.session.add(heartPredictionResult)
+        db.session.commit()
+        return redirect(url_for('account'))
+    #--------------------------------------------------------
+    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form3 = treatmentForm, form4 = heartPredictionForm)
 
 @app.route('/elements')
 def elements():
@@ -99,6 +108,11 @@ def login():
 
     return render_template('login.html', title = 'Log in', form = form)
 
+
+@app.route('/coronavirus')
+def coronavirus():
+
+    return render_template('coronavirus.html', title = 'Coronavirus')
 
 @app.route("/logout")
 def logout():
