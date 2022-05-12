@@ -2,12 +2,35 @@
 
 
 {% block head %}
-
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Servises.css') }}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 {% endblock %}
 
-
 {% block body %}
-
+<div id="surgical"  class="formstyle">
+    <h4>Corona Viruis</h4>
+    <p>in this section, we will predict is the patient has covid19 or not?</p>
+    <form method="POST">
+        {{ form5.hidden_tag() }}
+        <fieldset class="form-group">
+            <div class="form-group">
+                {{ form5.file.label(class="form-control-label") }}
+                {% if form5.file.errors %}
+                    {{ form5.file(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                    {% for error in form1.file.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form5.file(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form5.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
 
 {% endblock %}

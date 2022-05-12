@@ -8,6 +8,8 @@ from Webapp.surgicalOperation import SurgicalOperationForm
 from Webapp.diabetes import DiabetesForm
 from Webapp.heartPrediction import HeartPredictionForm
 
+from Webapp.corona import CoronaForm
+
 from Webapp.patientStay import PatientStayForm
 
 #Routes
@@ -24,7 +26,7 @@ def servises():
         patientResult = Res(content=SurgicaForm.checkpatientResult(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity.data) + SurgicaForm.objections(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity), title="Surgical Operation", user_id=current_user.id, author=current_user)
         db.session.add(patientResult)
         db.session.commit()
-        return redirect(url_for('account'))
+        return redirect(url_for('account')) 
     #--------------------------------------------------------
     diabetesForm = DiabetesForm()
     if diabetesForm.validate_on_submit():
@@ -47,7 +49,14 @@ def servises():
         db.session.commit()
         return redirect(url_for('account'))
     #--------------------------------------------------------
-    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form3 = treatmentForm, form4 = heartPredictionForm)
+    coronaForm = CoronaForm()
+    if coronaForm.validate_on_submit():
+        coronaResult = Res(content=coronaForm.check(coronaForm.file), title="Corona Check", user_id=current_user.id, author=current_user)
+        db.session.add(coronaResult)
+        db.session.commit()
+        return redirect(url_for('account'))
+    #--------------------------------------------------------
+    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form3 = treatmentForm, form4 = heartPredictionForm, form5 = coronaForm)
 
 @app.route('/elements')
 def elements():
@@ -109,10 +118,15 @@ def login():
     return render_template('login.html', title = 'Log in', form = form)
 
 
-@app.route('/coronavirus')
-def coronavirus():
-
-    return render_template('coronavirus.html', title = 'Coronavirus')
+# @app.route('/coronavirus', methods=('GET', 'POST'))
+# def coronavirus():
+#     coronaForm = CoronaForm()
+#     if coronaForm.validate_on_submit():
+#         coronaResult = Res(content=coronaForm.check(coronaForm.file), title="Corona Check", user_id=current_user.id, author=current_user)
+#         db.session.add(coronaResult)
+#         db.session.commit()
+#         return redirect(url_for('account'))
+#     return render_template('coronavirus.html', title = 'Coronavirus', form5 = coronaForm)
 
 @app.route("/logout")
 def logout():

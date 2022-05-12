@@ -13,6 +13,7 @@
     <span class="feat" id="diap">Diapets prediction</span>
     <span class="feat" id="surg">Surgical operation</span>
     <span class="feat" id="stay">Patient Treatment</span>
+    <span class="feat" id="coronaSpan">Covid-19</span>
     <hr>
     <div id="default">
         <h1>No Service choosen!</h1>
@@ -442,6 +443,31 @@
             </fieldset>
             <div class="form-group">
                 {{ form3.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+    <div id="corona" class="formstyle">
+        <h4>Corona Viruis</h4>
+        <p>in this section, we will predict is the patient has covid19 or not?</p>
+        <form method="POST">
+            {{ form5.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{ form5.file.label(class="form-control-label") }}
+                    {% if form5.file.errors %}
+                        {{ form5.file(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form1.file.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form5.file(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form5.submit(class="btn btn-outline-info") }}
             </div>
         </form>
     </div>
