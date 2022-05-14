@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
+from matplotlib.pyplot import title
 from Webapp import app, db, bcrypt
 from Webapp.auth import RegistrationForm, LoginForm
 from Webapp.models import User, Res
@@ -8,10 +9,24 @@ from Webapp.surgicalOperation import SurgicalOperationForm
 from Webapp.diabetes import DiabetesForm
 from Webapp.heartPrediction import HeartPredictionForm
 
-from Webapp.corona import CoronaForm
+#from Webapp.corona import CoronaForm
 
 from Webapp.patientStay import PatientStayForm
 
+#------------------------------------------------------------------------------------
+import os
+from werkzeug.utils import secure_filename
+import tensorflow as tf 
+from keras.preprocessing import image
+from keras.applications.vgg16 import preprocess_input
+import numpy as np
+
+UPLOAD_FOLDER = 'upload/'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS 
+#------------------------------------------------------------------------------------
 #Routes
 @app.route('/')
 @app.route('/home')
@@ -49,14 +64,14 @@ def servises():
         db.session.commit()
         return redirect(url_for('account'))
     #--------------------------------------------------------
-    coronaForm = CoronaForm()
-    if coronaForm.validate_on_submit():
-        coronaResult = Res(content=coronaForm.check(coronaForm.file), title="Corona Check", user_id=current_user.id, author=current_user)
-        db.session.add(coronaResult)
-        db.session.commit()
-        return redirect(url_for('account'))
+    # coronaForm = CoronaForm()
+    # if coronaForm.validate_on_submit():
+    #     coronaResult = Res(content=coronaForm.check(coronaForm.file), title="Corona Check", user_id=current_user.id, author=current_user)
+    #     db.session.add(coronaResult)
+    #     db.session.commit()
+    #     return redirect(url_for('account'))
     #--------------------------------------------------------
-    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form3 = treatmentForm, form4 = heartPredictionForm, form5 = coronaForm)
+    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form3 = treatmentForm, form4 = heartPredictionForm)
 
 @app.route('/elements')
 def elements():
@@ -118,15 +133,6 @@ def login():
     return render_template('login.html', title = 'Log in', form = form)
 
 
-# @app.route('/coronavirus', methods=('GET', 'POST'))
-# def coronavirus():
-#     coronaForm = CoronaForm()
-#     if coronaForm.validate_on_submit():
-#         coronaResult = Res(content=coronaForm.check(coronaForm.file), title="Corona Check", user_id=current_user.id, author=current_user)
-#         db.session.add(coronaResult)
-#         db.session.commit()
-#         return redirect(url_for('account'))
-#     return render_template('coronavirus.html', title = 'Coronavirus', form5 = coronaForm)
 
 @app.route("/logout")
 def logout():
@@ -139,3 +145,41 @@ def logout():
 def account():
     results = Res.query.all()
     return render_template('account.html', title='Account', results=results)
+
+#-------------------------------------------------------------------------------------------
+
+
+@app.route('/coronavirus', methods=('GET', 'POST'))
+@login_required
+def coronavirus():
+    result = ''
+    if request.method == 'POST':
+        if 'image' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['image']
+
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        model = tf.keras.models.load_model(r'../covidPredict/model.wdah')    
+        img = image.load_img(r'upload/'+ file.filename , target_size=(224, 224))
+        x = image.img_to_array(img)
+        x = np.expand_dims(x, axis=0)
+        img_data = preprocess_input(x)
+        classes = model.predict(img_data)
+        New_pred = np.argmax(classes, axis=1)
+        if New_pred==[1]:
+           result ='Prediction: Normal'
+        else:
+           result = 'Prediction: Corona'
+        if os.path.exists('upload/'+ file.filename):
+            os.remove('upload/'+ file.filename)
+        
+        
+    return render_template('coronavirus.html', title='Covid-19 prediction', res = result)

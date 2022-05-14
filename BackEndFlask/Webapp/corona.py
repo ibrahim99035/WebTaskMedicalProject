@@ -14,7 +14,7 @@ from flask_wtf import FlaskForm
 from Webapp import UPLOAD_FOLDER, app 
 
 class CoronaForm(FlaskForm):
-    file = FileField('Choose the image file', validators=[DataRequired()])
+    UserFile = FileField('Choose the image file', validators=[DataRequired()])
     submit = SubmitField('Confirm')
     #-------------------------------------------------
     def allowed_file(filename):
@@ -41,7 +41,8 @@ class CoronaForm(FlaskForm):
     #     result = 'Prediction: Corona' 
     # if os.path.exists('upload/'+ file.filename):
     #     os.remove('upload/'+ file.filename)
-    
+
+    file = UserFile.data
     if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
