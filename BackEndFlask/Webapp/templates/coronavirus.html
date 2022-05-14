@@ -7,24 +7,30 @@
 {% endblock %}
 
 {% block body %}
-<div>
+<div  id="CoronaDiv" class="formstyle">
     <h4>Corona Viruis</h4>
     <p>in this section, we will predict is the patient has covid19 or not?</p>
     
     <!--display the image from user -->
-    <div>
+    <div class="form-group">
         <form action="" method="POST" enctype="multipart/form-data">
-            <div id="selectedBanner"></div>
+            
             <div class="form-group">
                 <br>
-                <label for="pwd">Image:</label>
-                <input title="Image" type="file" class="form-control" name="image" id="img" accept="image/png, image/gif, image/jpeg"/>
+                <label for="pwd" id="imageLabel">Image :</label>
+                <input title="Image" type="file" class="form-control btn btn-outline-info" name="image" id="img" accept="image/png, image/gif, image/jpeg"/>
     
             </div>
+            <div>
+                <input type="submit" class="btn btn-outline-info">
+            </div>
+            
+            <div id="selectedBanner"></div>
 
-            <input type="submit">
         </form>
-    <h3 class="result">{{ res }}</h3>
+        <div id="coronaRes">
+            <h3 class="result">{{ res }}</h3>
+        </div>
     </div>
     <script
     src="https://code.jquery.com/jquery-3.6.0.min.js"

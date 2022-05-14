@@ -47,3 +47,54 @@
 #corona{
     display: none;
 }
+
+
+#stay{
+    display: none;
+}
+
+#coronaLink{
+    font-size: 45px;
+    justify-items: center;
+    text-decoration: none;
+}
+#coronaLink:hover{
+    color: rgb(32, 116, 119);
+}
+
+#imageLabel{
+    font-size: larger;
+    font-weight: bold;
+    color: rgb(18, 25, 41);
+}
+
+#coronaRes{
+    border: 1px solid #ccc;
+    background-color: rgb(191, 231, 245);
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 200px;
+    margin-left: 200px;
+    text-align: center;
+}
+
+#selectedBanner{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 350;
+    margin-left: 350px;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
