@@ -180,6 +180,11 @@ def coronavirus():
            result = 'Prediction: Corona'
         if os.path.exists('upload/'+ file.filename):
             os.remove('upload/'+ file.filename)
+
+        covidResult = Res(content=result, title="Corona Check", user_id=current_user.id, author=current_user)
+        db.session.add(covidResult)
+        db.session.commit()
+        
         
         
     return render_template('coronavirus.html', title='Covid-19 prediction', res = result)
