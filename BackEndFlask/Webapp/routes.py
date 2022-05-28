@@ -8,6 +8,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from Webapp.surgicalOperation import SurgicalOperationForm
 from Webapp.diabetes import DiabetesForm
 from Webapp.heartPrediction import HeartPredictionForm
+from Webapp.kidney import KidneyForm
 
 #from Webapp.corona import CoronaForm
 
@@ -71,7 +72,13 @@ def servises():
     #     db.session.commit()
     #     return redirect(url_for('account'))
     #--------------------------------------------------------
-    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form3 = treatmentForm, form4 = heartPredictionForm)
+    kideneyForm = KidneyForm()
+    if  kideneyForm.validate_on_submit():
+        kideneyResult = Res(content = kideneyForm.checkKidney(kideneyForm.Creatinin, kideneyForm.Creatinin_Clearance, kideneyForm.Na, kideneyForm.Cl, kideneyForm.K, kideneyForm.Blood_Urine_Nitrogen, kideneyForm.Urea), title="Kidney Check", user_id=current_user.id, author=current_user)
+        db.session.add(kideneyResult)
+        db.session.commit()
+        return redirect(url_for('account'))
+    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form3 = treatmentForm, form4 = heartPredictionForm, form5 = kideneyForm)
 
 @app.route('/elements')
 def elements():

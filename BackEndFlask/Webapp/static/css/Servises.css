@@ -48,8 +48,11 @@
     display: none;
 }
 
-
 #stay{
+    display: none;
+}
+
+#KidneyDiv{
     display: none;
 }
 
