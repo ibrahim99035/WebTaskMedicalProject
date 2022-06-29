@@ -5,6 +5,7 @@ let surgSpan  = document.querySelector('#surg');
 let patientStaySpan  = document.querySelector('#stay');
 let CoronaSpan = document.querySelector('#coronaSpan');
 let KidenySpan = document.querySelector('#KidneySpan')
+let coronaInOutSpan = document.querySelector('#CoronaInOut')
 
 
 //divs
@@ -15,6 +16,7 @@ let defult = document.querySelector('#default');
 let treatment = document.querySelector('#treatment');
 let coronaDiv = document.querySelector('#corona');
 let kidneyDiv = document.querySelector('#KidneyDiv')
+let coronaInOutDiv = document.querySelector('#coronaInOutDiv')
 
 
 
@@ -27,6 +29,7 @@ heartSpan.addEventListener('click', () => {
     coronaDiv.style.display = "none";
     treatment.style.display = "none";
     kidneyDiv.style.display = "none";
+    coronaInOutDiv.style.display = "none";
 });
 
 diapSpan.addEventListener('click', () => {
@@ -37,6 +40,7 @@ diapSpan.addEventListener('click', () => {
     coronaDiv.style.display = "none";
     treatment.style.display = "none";
     kidneyDiv.style.display = "none";
+    coronaInOutDiv.style.display = "none";
 });
 
 
@@ -48,6 +52,7 @@ surgSpan.addEventListener('click', () => {
     coronaDiv.style.display = "none";
     treatment.style.display = "none";
     kidneyDiv.style.display = "none";
+    coronaInOutDiv.style.display = "none";
 });
 
 patientStaySpan.addEventListener('click', () => {
@@ -58,6 +63,7 @@ patientStaySpan.addEventListener('click', () => {
     coronaDiv.style.display = "none";
     treatment.style.display = "block";
     kidneyDiv.style.display = "none";
+    coronaInOutDiv.style.display = "none";
 });
 
 CoronaSpan.addEventListener('click', () => {
@@ -66,6 +72,7 @@ CoronaSpan.addEventListener('click', () => {
     surgDiv.style.display = "none";
     defult.style.display = "none";
     treatment.style.display = "none";
+    coronaInOutDiv.style.display = "none";
     coronaDiv.style.display = "block";
     kidneyDiv.style.display = "none";
 });
@@ -77,5 +84,17 @@ KidenySpan.addEventListener('click', () => {
     defult.style.display = "none";
     treatment.style.display = "none";
     coronaDiv.style.display = "none";
+    coronaInOutDiv.style.display = "none";
     kidneyDiv.style.display = "block";
 });
+
+coronaInOutSpan.addEventListener('click', () => {
+    heartDiv.style.display = "none";
+    diapDiv.style.display = "none";
+    surgDiv.style.display = "none";
+    defult.style.display = "none";
+    treatment.style.display = "none";
+    coronaDiv.style.display = "none";
+    kidneyDiv.style.display = "none";
+    coronaInOutDiv.style.display = "block";
+})

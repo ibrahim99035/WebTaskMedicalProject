@@ -24,35 +24,14 @@
     box-sizing: border-box;
     background-color: rgb(123, 156, 226);
     color: aliceblue;
+    cursor: pointer;
 }
 
 .feat:hover{
     background-color: rgb(60, 197, 202);
 }
 
-
-
-#surgical{
-    display: none;
-}
-#diapetes{
-    display: none;
-}
-#heartPred{
-    display: none;
-}
-#treatment{
-    display: none;
-}
-#corona{
-    display: none;
-}
-
-#stay{
-    display: none;
-}
-
-#KidneyDiv{
+#surgical, #diapetes, #heartPred, #treatment, #corona, #stay, #KidneyDiv, #coronaInOutDiv{
     display: none;
 }
 

@@ -14,9 +14,9 @@
         <span class="feat" id="diap">Diapets prediction</span>
         <span class="feat" id="surg">Surgical operation</span>
         <span class="feat" id="stay">Patient Treatment</span>
+        <span class="feat" id="CoronaInOut">Covid-19 Pateint out?</span>
         <span class="feat" id="KidneySpan">Kidney prediction</span>
         <span class="feat" id="coronaSpan">Covid-19 prediction</span>
-        
     </div>
     <hr>
     <div id="default">
@@ -454,7 +454,9 @@
     <div id="corona" class="formstyle">
         <a title="Covid-19" href="{{ url_for('coronavirus') }}" id="coronaLink">Corona Prediction page form here!</a>
         <br>
-        <img src="{{ url_for('static', filename='images/covid19.png') }}" alt="" width="800" height="400">
+        <a title="Covid-19" href="{{ url_for('coronavirus') }}">
+            <img src="{{ url_for('static', filename='images/covid19.png') }}" alt="" width="800" height="400">
+        </a>
     </div>
     <!--Kidney-->
     <div id="KidneyDiv" class="formstyle">
@@ -557,6 +559,71 @@
             </fieldset>
             <div class="form-group">
                 {{ form5.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+    <!--Corona patien out from hospital?-->
+    <div id="coronaInOutDiv" class="formstyle">
+        <h4>Corona In or Out</h4>
+        <p>in this section, we will detect the patient of Covid-19 can get out the hospital or not?</p>
+        <form action="" method="POST">
+            {{ form6.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{ form6.White_Blood_Cell.label(class="form-control-label") }}
+                    {% if form6.White_Blood_Cell.errors %}
+                        {{ form6.White_Blood_Cell(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form6.White_Blood_Cell.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form6.White_Blood_Cell(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form6.Erythrocyte_Sedimentation_Rate.label(class="form-control-label") }}
+                    {% if form6.Erythrocyte_Sedimentation_Rate.errors %}
+                        {{ form6.Erythrocyte_Sedimentation_Rate(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form6.Erythrocyte_Sedimentation_Rate.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form6.Erythrocyte_Sedimentation_Rate(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form6.C_Reactive_Protein.label(class="form-control-label") }}
+                    {% if form6.C_Reactive_Protein.errors %}
+                        {{ form6.C_Reactive_Protein(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form6.C_Reactive_Protein.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form6.C_Reactive_Protein(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form6.Procalcitonin.label(class="form-control-label") }}
+                    {% if form6.Procalcitonin.errors %}
+                        {{ form6.Procalcitonin(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                        {% for error in form6.Procalcitonin.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form6.Procalcitonin(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form6.submit(class="btn btn-outline-info") }}
             </div>
         </form>
     </div>

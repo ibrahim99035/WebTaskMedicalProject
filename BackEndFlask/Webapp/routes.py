@@ -9,6 +9,7 @@ from Webapp.surgicalOperation import SurgicalOperationForm
 from Webapp.diabetes import DiabetesForm
 from Webapp.heartPrediction import HeartPredictionForm
 from Webapp.kidney import KidneyForm
+from Webapp.Covid_patient_in_or_out import Corona_in_or_out_form
 
 #from Webapp.corona import CoronaForm
 
@@ -78,7 +79,14 @@ def servises():
         db.session.add(kideneyResult)
         db.session.commit()
         return redirect(url_for('account'))
-    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form3 = treatmentForm, form4 = heartPredictionForm, form5 = kideneyForm)
+    #---------------------------------------------------------
+    corona_in_out = Corona_in_or_out_form()
+    if corona_in_out.validate_on_submit():
+        CoronaInOutResult = Res(content = corona_in_out.checkTheCase(corona_in_out.White_Blood_Cell, corona_in_out.Erythrocyte_Sedimentation_Rate, corona_in_out.C_Reactive_Protein, corona_in_out.Procalcitonin), title = 'Covid-19 patient can get out the hospital or not?', user_id=current_user.id, author=current_user)
+        db.session.add(CoronaInOutResult)
+        db.session.commit()
+        return redirect(url_for('account'))
+    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form3 = treatmentForm, form4 = heartPredictionForm, form5 = kideneyForm, form6 = corona_in_out)
 
 @app.route('/elements')
 def elements():
