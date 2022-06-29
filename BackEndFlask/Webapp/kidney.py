@@ -30,12 +30,14 @@ class KidneyForm(FlaskForm):
         test2 = Creatinin.data >= 1.5 and Creatinin_Clearance.data <95 and 135 <= Na.data <= 148 and  K.data > 3.5 and 95<=Cl.data <=105 and 7<= Blood_Urine_Nitrogen.data <=20 and 40 < Urea.data < 200
         test3 = Creatinin.data > 7.0 and Creatinin_Clearance.data < 15.0 and 135 <= Na.data <= 148 and  K.data > 5.5 and 95<=Cl.data <=105 and 7.0<= Blood_Urine_Nitrogen.data <=20 and  Urea.data >200.0
 
-        if  0.7 <= Creatinin.data <= 1.4 and 97 <= Creatinin_Clearance.data <= 137 and 135 <= Na.data <= 148 and 3.5 <= K.data <=5 and 95<=Cl.data <=105 and 7<= Blood_Urine_Nitrogen.data <=20 and 20<= Urea.data <=40 :
-            self.KidneyResult = 'The Kidney is Healthy'
-        elif Creatinin.data >= 1.5 and Creatinin_Clearance.data <95 and 135 <= Na.data <= 148 and  K.data > 3.5 and 95<=Cl.data <=105 and 7<= Blood_Urine_Nitrogen.data <=20 and 40 < Urea.data < 200 :
-            self.KidneyResult = 'The Kidney is Tired'
-        elif Creatinin.data > 7.0 and Creatinin_Clearance.data < 15.0 and 135 <= Na.data <= 148 and  K.data > 5.5 and 95<=Cl.data <=105 and 7.0<= Blood_Urine_Nitrogen.data <=20 and  Urea.data >200.0 :
-            self.KidneyResult = 'The Kidney need Dialysis'
+        if test1 :
+            self.KidneyResult = self.case1
+        elif test2 :
+            self.KidneyResult = self.case1
+        elif test3 :
+            self.KidneyResult = self.case1
+        else :
+            self.KidneyResult = 'Unvalid inputs'
 
         return self.KidneyResult
 
