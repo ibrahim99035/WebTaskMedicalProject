@@ -13,12 +13,16 @@
     </div>
     
     {% for result in results %}
-        <div class="account">
-            <h2>Your Results in {{ result.title }}</h2>
-            <p>Date of submition : {{ result.date_posted.strftime('%Y-%m-%d-%H:%M:%S') }}</p>
-            <hr>
-            <p id="result">{{ result }} <br></p>
-        </div>
+        {% if result.user_id == current_user.id %}  
+            <div class="account">
+                <h2><a href="{{ url_for('result', result_id = result.id) }}">Your Results in {{ result.title }}</a></h2>
+                <div>
+                    <p>Date of submition : {{ result.date_posted.strftime('%Y-%m-%d-%H:%M:%S') }}</p>
+                </div>
+                <hr>
+                <p id="result">{{ result }} <br></p>
+            </div>
+        {% endif %}
     {% endfor %}
     
 {% endblock %}

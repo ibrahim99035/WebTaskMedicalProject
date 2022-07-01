@@ -203,3 +203,20 @@ def coronavirus():
         
         
     return render_template('coronavirus.html', title='Covid-19 prediction', res = result)
+
+
+#-------------------------------------------------------------------------------------------
+#in this section we are going to build a deletion system for the results
+@app.route('/result/<int:result_id>')
+@login_required
+def result(result_id):
+    result = Res.query.get_or_404(result_id)
+    return render_template('result.html', title='Result', result=result)
+
+@app.route('/result/<int:result_id>/delete', methods=['GET', 'POST'])
+@login_required
+def delete_result(result_id):
+    result = Res.query.get_or_404(result_id)
+    db.session.delete(result)
+    db.session.commit()
+    return redirect(url_for('account'))
