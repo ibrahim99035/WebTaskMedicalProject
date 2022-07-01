@@ -158,8 +158,12 @@ def logout():
 @app.route("/account")
 @login_required
 def account():
+    #check if the Res table have no results depending on user_id
+    no_results = False
+    if Res.query.filter_by(user_id=current_user.id).first() is None:
+        no_results = True
     results = Res.query.all()
-    return render_template('account.html', title='Account', results=results)
+    return render_template('account.html', title='Account', results=results, no_results=no_results)
 
 #-------------------------------------------------------------------------------------------
 

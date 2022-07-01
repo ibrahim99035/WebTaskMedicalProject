@@ -40,3 +40,14 @@
     height: 32px;
 }
 
+
+#defaultAccount{
+    border: 1px solid #ccc;
+    background-color: rgb(120, 180, 202);
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 70px;
+    margin-left: 70px;
+    color: rgb(18, 18, 24);
+}

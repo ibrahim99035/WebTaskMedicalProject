@@ -11,7 +11,12 @@
         <h1>{{ current_user.username }}</h1>
         <p>{{ current_user.email }}</p>
     </div>
-    
+    {% if no_results %}
+        <div id="defaultAccount">
+            <h2>No results yet!</h2>
+            <p>The results of services will appear here :)</p>
+        </div>
+    {% endif %}
     {% for result in results %}
         {% if result.user_id == current_user.id %}  
             <div class="account">
