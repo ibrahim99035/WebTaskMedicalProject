@@ -17,7 +17,7 @@
             <p>The results of services will appear here :)</p>
         </div>
     {% endif %}
-    {% for result in results %}
+    {% for result in results.items %}
         {% if result.user_id == current_user.id %}  
             <div class="account">
                 <h2><a href="{{ url_for('result', result_id = result.id) }}">Your Results in {{ result.title }}</a></h2>
@@ -27,6 +27,17 @@
                 <hr>
                 <p id="result">{{ result }} <br></p>
             </div>
+        {% endif %}
+    {% endfor %}
+    {% for page_num in results.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if results.page == page_num %}
+                <a class="btn btn-info mb-4 pagi" href="{{ url_for('account', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4 pagi" href="{{ url_for('account', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+        .....
         {% endif %}
     {% endfor %}
     
