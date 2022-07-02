@@ -164,7 +164,7 @@ def account():
         no_results = True
     #pagination
     page = request.args.get('page', 1, type=int)
-    results = Res.query.order_by(Res.date_posted.desc()).paginate(page=page, per_page=2)
+    results = Res.query.order_by(Res.date_posted.desc()).paginate(page=page, per_page=6)
     return render_template('account.html', title='Account', results=results, no_results=no_results)
 
 #-------------------------------------------------------------------------------------------
