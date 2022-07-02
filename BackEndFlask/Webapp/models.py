@@ -27,5 +27,3 @@ class Res(db.Model):
     def __repr__(self):
         return f"{self.content}"
 
-
-

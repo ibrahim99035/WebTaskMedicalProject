@@ -226,3 +226,9 @@ def delete_result(result_id):
     db.session.delete(result)
     db.session.commit()
     return redirect(url_for('account'))
+
+@app.route('/patinet')
+@login_required
+def patient():
+    
+    return render_template('patientInfo.html', title='Patient')

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">
+{% endblock %}
+
+
+{% block body %}
+    <div id="patient">
+        <h3>Patient info :</h3>
+        <hr>
+        <img src="{{ url_for('static', filename='images/default_avatar.png') }}" alt="patint image" id="avatar">
+        <hr>
+        <div>
+            <p>Name: </p>
+            <p>Age: </p>
+        </div>
+        <hr>
+        <div>
+            <h4 id="oral">Oral diagnosing</h4>
+            <p>Diabetes: </p>
+            <p>Blood presure: </p>
+        </div>
+    </div>
+{% endblock %}
