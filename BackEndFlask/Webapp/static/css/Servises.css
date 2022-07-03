@@ -4,7 +4,7 @@
     padding: 20px;
 }
 
-.formstyle{
+.formstyle,#addPatient{
     border: 1px solid #ccc;
     background-color: rgb(239, 245, 247);
     padding: 20px;

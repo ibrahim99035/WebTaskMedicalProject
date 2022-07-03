@@ -27,3 +27,17 @@ class Res(db.Model):
     def __repr__(self):
         return f"{self.content}"
 
+class Patinet(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    nationalID = db.Column(db.String(100), nullable=False)
+    date_entered = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    diabetes = db.Column(db.String(100), nullable=False, default='Unknowen')
+    blood_presure = db.Column(db.String(100), nullable=False, default='Unknowen')
+    covid_19 = db.Column(db.String(100), nullable=False, default='Unknowen')
+    profileImage = db.Column(db.String(100), nullable=False, default = 'default.jpg')
+    blood_tests_image = db.Column(db.String(100), nullable=False, default = 'default.jpg')
+
+    def __repr__(self):
+        return f"Name: {self.name}, Age: {self.age}, Dibates: {self.diabetes}, Blood pressure: {self.blood_presure}, Covid-19: {self.covid_19}"

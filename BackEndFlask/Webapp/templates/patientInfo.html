@@ -13,14 +13,17 @@
         <img src="{{ url_for('static', filename='images/default_avatar.png') }}" alt="patint image" id="avatar">
         <hr>
         <div>
-            <p>Name: </p>
-            <p>Age: </p>
+            <p>Name: {{ patient.name }}</p>
+            <p>Age: {{ patient.age }}</p>
+            <p>National ID: {{ patient.nationalID }}</p>
+            <p>Date: {{ patient.date_entered.strftime('%Y-%m-%d-%H:%M:%S') }}</p>
         </div>
         <hr>
         <div>
             <h4 id="oral">Oral diagnosing</h4>
-            <p>Diabetes: </p>
-            <p>Blood presure: </p>
+            <p>Diabetes: {{ patient.diabetes }}</p>
+            <p>Blood presure: {{ patient.blood_presure }}</p>
+            <p>Covid-19: {{ patient.covid_19 }}</p>
         </div>
     </div>
 {% endblock %}

@@ -1,8 +1,8 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
 from matplotlib.pyplot import title
 from Webapp import app, db, bcrypt
-from Webapp.auth import RegistrationForm, LoginForm
-from Webapp.models import User, Res
+from Webapp.auth import RegistrationForm, LoginForm, AddPatient
+from Webapp.models import User, Res, Patinet
 from flask_login import login_user, current_user, logout_user, login_required
 #nassar tasks
 from Webapp.surgicalOperation import SurgicalOperationForm
@@ -227,8 +227,35 @@ def delete_result(result_id):
     db.session.commit()
     return redirect(url_for('account'))
 
-@app.route('/patinet')
+@app.route('/patientslist')
 @login_required
-def patient():
+def patientslist():
+    #check if the Patient taple has no records
+    no_results = False
+    if Patinet.query.first() is None:
+        no_results = True
+    #pagination
+    page = request.args.get('page', 1, type=int)
+    results = Patinet.query.order_by(Patinet.date_entered.desc()).paginate(page=page, per_page=6)
+    return render_template('patientslist.html', title='Patients List', results=results, no_results=no_results)
+
+@app.route('/patinet/<int:patinet_id>')
+@login_required
+def patient(patinet_id):
+    patient = Patinet.query.get_or_404(patinet_id)
     
-    return render_template('patientInfo.html', title='Patient')
+    return render_template('patientInfo.html', title='Patient', patient = patient)
+
+@app.route('/addpatinet', methods=['GET', 'POST'])
+@login_required
+def addpatient():
+    addingForm = AddPatient()
+    if addingForm.validate_on_submit():
+        patient = Patinet(name=addingForm.name.data, age=addingForm.age.data,nationalID=addingForm.nationalID.data,
+        diabetes=addingForm.Diabetes.data,blood_presure=addingForm.blood_pressure.data,covid_19=addingForm.covid_19.data)
+        db.session.add(patient)
+        db.session.commit()
+        return redirect(url_for('patientslist'))
+    return render_template('addPateient.html', title='Add Patient', form=addingForm)
+
+

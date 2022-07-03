@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">
+{% endblock %}
+
+
+{% block body %}
+    {% for result in results.items %}
+        <div class="account">
+            <h2><a href="{{ url_for('patient', patinet_id = result.id) }}">{{ result.name }}</a></h2>
+            <div>
+                <p>Date of adding : {{ result.date_entered.strftime('%Y-%m-%d-%H:%M:%S') }}</p>
+            </div>
+            <hr>
+            <p id="patinetresult">{{ result }} <br></p>
+        </div>
+    {% endfor %}
+    {% for page_num in results.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if results.page == page_num %}
+                <a class="btn btn-info mb-4 pagi" href="{{ url_for('patientslist', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4 pagi" href="{{ url_for('patientslist', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+        .....
+        {% endif %}
+    {% endfor %}
+{% endblock %}
