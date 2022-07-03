@@ -2,7 +2,6 @@
 let heartSpan = document.querySelector('#heart');
 let diapSpan  = document.querySelector('#diap');
 let surgSpan  = document.querySelector('#surg');
-let patientStaySpan  = document.querySelector('#stay');
 let CoronaSpan = document.querySelector('#coronaSpan');
 let KidenySpan = document.querySelector('#KidneySpan')
 let coronaInOutSpan = document.querySelector('#CoronaInOut')
@@ -13,7 +12,6 @@ let heartDiv  = document.querySelector('#heartPred');
 let diapDiv  = document.querySelector('#diapetes');
 let surgDiv  = document.querySelector('#surgical');
 let defult = document.querySelector('#default');
-let treatment = document.querySelector('#treatment');
 let coronaDiv = document.querySelector('#corona');
 let kidneyDiv = document.querySelector('#KidneyDiv')
 let coronaInOutDiv = document.querySelector('#coronaInOutDiv')
@@ -55,16 +53,6 @@ surgSpan.addEventListener('click', () => {
     coronaInOutDiv.style.display = "none";
 });
 
-patientStaySpan.addEventListener('click', () => {
-    heartDiv.style.display = "none";
-    diapDiv.style.display = "none";
-    surgDiv.style.display = "none";
-    defult.style.display = "none";
-    coronaDiv.style.display = "none";
-    treatment.style.display = "block";
-    kidneyDiv.style.display = "none";
-    coronaInOutDiv.style.display = "none";
-});
 
 CoronaSpan.addEventListener('click', () => {
     heartDiv.style.display = "none";

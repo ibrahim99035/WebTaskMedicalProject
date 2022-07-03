@@ -31,7 +31,7 @@
     background-color: rgb(60, 197, 202);
 }
 
-#surgical, #diapetes, #heartPred, #treatment, #corona, #stay, #KidneyDiv, #coronaInOutDiv{
+#surgical, #diapetes, #heartPred, #treatment, #corona, #KidneyDiv, #coronaInOutDiv{
     display: none;
 }
 

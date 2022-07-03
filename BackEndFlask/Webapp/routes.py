@@ -16,7 +16,7 @@ from Webapp.Covid_patient_in_or_out import Corona_in_or_out_form
 
 #from Webapp.corona import CoronaForm
 
-from Webapp.patientStay import PatientStayForm
+
 
 #------------------------------------------------------------------------------------
 import os
@@ -55,13 +55,6 @@ def servises():
         db.session.commit()
         return redirect(url_for('account'))
     #--------------------------------------------------------
-    treatmentForm = PatientStayForm()
-    if treatmentForm.validate_on_submit():
-        treatmentResult = Res(content=treatmentForm.checkPrediction(treatmentForm.Haematocrit, treatmentForm.Haemoglobins, treatmentForm.Erythrocyte, treatmentForm.Leucocyte, treatmentForm.Thrombocyte, treatmentForm.Age, treatmentForm.Gender), title="Patient Stay or not", user_id=current_user.id, author=current_user)
-        db.session.add(treatmentResult)
-        db.session.commit()
-        return redirect(url_for('account'))
-    #--------------------------------------------------------
     heartPredictionForm = HeartPredictionForm()
     if heartPredictionForm.validate_on_submit():
         heartPredictionResult = Res(content=heartPredictionForm.checkHeartPrediction(heartPredictionForm.Age, heartPredictionForm.Sex, heartPredictionForm.cp, heartPredictionForm.trestbps, heartPredictionForm.chol, heartPredictionForm.fbs, heartPredictionForm.restecg, heartPredictionForm.thalach, heartPredictionForm.exang, heartPredictionForm.oldpeak, heartPredictionForm.slope, heartPredictionForm.ca, heartPredictionForm.thal), title="Heart disease prediction", user_id=current_user.id, author=current_user)
@@ -89,7 +82,7 @@ def servises():
         db.session.add(CoronaInOutResult)
         db.session.commit()
         return redirect(url_for('account'))
-    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form3 = treatmentForm, form4 = heartPredictionForm, form5 = kideneyForm, form6 = corona_in_out)
+    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form4 = heartPredictionForm, form5 = kideneyForm, form6 = corona_in_out)
 
 @app.route('/elements')
 def elements():
