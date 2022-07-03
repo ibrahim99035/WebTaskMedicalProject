@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from Webapp.models import User
 
@@ -38,4 +39,7 @@ class AddPatient(FlaskForm):
     blood_pressure = StringField('Blood Pressure', validators=[Length(min=3, max=10)])
     covid_19 = StringField('Covid-19', validators=[Length(min=3, max=10)])
     
+    patient_pic = FileField('Patient Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    blood_tests_pic = FileField('Blood Tests Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+
     submit = SubmitField('Add')

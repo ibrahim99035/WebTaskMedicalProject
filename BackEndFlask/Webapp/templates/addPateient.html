@@ -10,7 +10,7 @@
         <h3>Add Patient</h3>
         <hr>
         <div id="addPatientForm">
-            <form action="", method="POST">
+            <form action="", method="POST", enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <fieldset class="form-group">
                     <div class="form-group">
@@ -91,10 +91,31 @@
                             {{ form.covid_19(class="form-control form-control-lg") }}
                         {% endif %}
                     </div>
+                    <div class="form-group">
+                        {{ form.patient_pic.label() }}
+                        {{ form.patient_pic(class="form-control-file") }}
+                        {% if form.patient_pic.errors %}
+                            {% for error in form.patient_pic.errors %}
+                                <span class="text-danger">{{ error }}</span><br>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.blood_tests_pic.label() }}
+                        {{ form.blood_tests_pic(class="form-control-file") }}
+                        {% if form.blood_tests_pic.errors %}
+                            {% for error in form.blood_tests_pic.errors %}
+                                <span class="text-danger">{{ error }}</span><br>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </fieldset>
                 <div class="form-group">
                     {{ form.submit(class="btn btn-outline-info") }}
                 </div>
+                <hr>
+                <p>Go to patients list from <a href="{{ url_for('patientslist') }}">here</a>.</p>
+                
             </form>
         </div>
     </div>

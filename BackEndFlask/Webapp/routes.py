@@ -4,6 +4,9 @@ from Webapp import app, db, bcrypt
 from Webapp.auth import RegistrationForm, LoginForm, AddPatient
 from Webapp.models import User, Res, Patinet
 from flask_login import login_user, current_user, logout_user, login_required
+import os
+import secrets
+from PIL import Image
 #nassar tasks
 from Webapp.surgicalOperation import SurgicalOperationForm
 from Webapp.diabetes import DiabetesForm
@@ -227,6 +230,34 @@ def delete_result(result_id):
     db.session.commit()
     return redirect(url_for('account'))
 
+#-------------------------------------------------------------------------------------------
+
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
+def save_blood_test(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/blood_test', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
 @app.route('/patientslist')
 @login_required
 def patientslist():
@@ -243,8 +274,10 @@ def patientslist():
 @login_required
 def patient(patinet_id):
     patient = Patinet.query.get_or_404(patinet_id)
+    profile_image = url_for('static', filename='profile_pics/' + patient.profileImage)
+    bloodTests = url_for('static', filename='blood_test/' + patient.blood_tests_image)
     
-    return render_template('patientInfo.html', title='Patient', patient = patient)
+    return render_template('patientInfo.html', title='Patient', patient = patient, profile_image = profile_image, bloodTests = bloodTests)
 
 @app.route('/addpatinet', methods=['GET', 'POST'])
 @login_required
@@ -253,6 +286,12 @@ def addpatient():
     if addingForm.validate_on_submit():
         patient = Patinet(name=addingForm.name.data, age=addingForm.age.data,nationalID=addingForm.nationalID.data,
         diabetes=addingForm.Diabetes.data,blood_presure=addingForm.blood_pressure.data,covid_19=addingForm.covid_19.data)
+        if addingForm.patient_pic.data:
+            picture_file = save_picture(addingForm.patient_pic.data)
+            patient.profileImage = picture_file
+        if addingForm.blood_tests_pic.data:
+            picture_file = save_blood_test(addingForm.blood_tests_pic.data)
+            patient.blood_test = picture_file
         db.session.add(patient)
         db.session.commit()
         return redirect(url_for('patientslist'))

@@ -10,7 +10,7 @@
     <div id="patient">
         <h3>Patient info :</h3>
         <hr>
-        <img src="{{ url_for('static', filename='images/default_avatar.png') }}" alt="patint image" id="avatar">
+        <img src="{{ profile_image }}" alt="patient image" class="avatar">
         <hr>
         <div>
             <p>Name: {{ patient.name }}</p>
@@ -25,5 +25,8 @@
             <p>Blood presure: {{ patient.blood_presure }}</p>
             <p>Covid-19: {{ patient.covid_19 }}</p>
         </div>
+        <hr>
+        <p>Blood Tests :</p>
+        <img src="{{ bloodTests }}" alt="Blood tests" class="blood-tests">
     </div>
 {% endblock %}
