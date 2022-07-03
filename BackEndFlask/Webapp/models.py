@@ -1,4 +1,5 @@
 from datetime import datetime
+from email.policy import default
 from Webapp import db, login_manager
 from flask_login import UserMixin
 
@@ -13,6 +14,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     results = db.relationship('Res', backref='author', lazy=True)
+    userType = db.Column(db.String(60), nullable=False, default='Un defined')
+    patients = db.relationship('Patinet', backref='author', lazy=True)
+    departmet = db.Column(db.String(60), nullable=False, default='Un assigned')
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
@@ -38,6 +42,7 @@ class Patinet(db.Model):
     covid_19 = db.Column(db.String(100), nullable=False, default='Unknowen')
     profileImage = db.Column(db.String(100), nullable=False, default = 'default.jpg')
     blood_tests_image = db.Column(db.String(100), nullable=False, default = 'default.jpg')
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return f"Name: {self.name}, Age: {self.age}, Dibates: {self.diabetes}, Blood pressure: {self.blood_presure}, Covid-19: {self.covid_19}"
