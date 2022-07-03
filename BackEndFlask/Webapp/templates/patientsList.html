@@ -6,6 +6,12 @@
 
 
 {% block body %}
+    {% if no_results %}
+        <div id="defaultPatientLists">
+            <h2>No patients data here yet!</h2>
+            <p>The data of patients will appear here!</p>
+        </div>
+    {% endif %}
     {% for result in results.items %}
         <div class="account">
             <h2><a href="{{ url_for('patient', patinet_id = result.id) }}">{{ result.name }}</a></h2>

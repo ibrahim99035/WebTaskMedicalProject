@@ -41,7 +41,7 @@
 }
 
 
-#defaultAccount{
+#defaultAccount, #defaultPatientLists{
     border: 1px solid #ccc;
     background-color: rgb(120, 180, 202);
     padding: 20px;
@@ -82,4 +82,32 @@
     float: center;
     border-radius: 15%;
     margin: 10px 30% 10px 30%;
+}
+
+#deletePatient{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 40%;
+    justify-content: center;
+    justify-items: center;
+}
+
+#deleteIconPatient{
+    float: center;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    font-size: 50px;
+    font-weight: bolder;
+}
+
+#deletionButtonPatient{
+    background-image: url('/static/images/bin.png');
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    width: 80px;
+    height: 32px;
 }

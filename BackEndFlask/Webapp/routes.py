@@ -273,11 +273,14 @@ def patientslist():
 @app.route('/patinet/<int:patinet_id>')
 @login_required
 def patient(patinet_id):
+    no_result = False
+    if Patinet.query.filter_by(id=patinet_id).first() is None:
+        no_result = True
     patient = Patinet.query.get_or_404(patinet_id)
     profile_image = url_for('static', filename='profile_pics/' + patient.profileImage)
     bloodTests = url_for('static', filename='blood_test/' + patient.blood_tests_image)
     
-    return render_template('patientInfo.html', title='Patient', patient = patient, profile_image = profile_image, bloodTests = bloodTests)
+    return render_template('patientInfo.html', title='Patient', patient = patient, profile_image = profile_image, bloodTests = bloodTests, no_result = no_result)
 
 @app.route('/addpatinet', methods=['GET', 'POST'])
 @login_required
@@ -297,6 +300,13 @@ def addpatient():
         return redirect(url_for('patientslist'))
     return render_template('addPateient.html', title='Add Patient', form=addingForm)
 
+@app.route('/patinet/<int:result_id>/delete', methods=['GET', 'POST'])
+@login_required
+def delete_patient(result_id):
+    patient = Patinet.query.get_or_404(result_id)
+    db.session.delete(patient)
+    db.session.commit()
+    return redirect(url_for('patientslist'))
 #-------------------------------------------------------------------------------------------
 @app.route('/cam')
 def cam():
