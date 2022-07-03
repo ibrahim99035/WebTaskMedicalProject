@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cam.css') }}">
+{% endblock %}
+
+
+{% block body %}
+    <div id="camContainer">
+        <video src="" autoplay="true" id="videoElement">
+
+            
+        </video>
+    </div>
+    <script src="{{ url_for('static', filename='js/cam.js') }}"></script>
+{% endblock %}

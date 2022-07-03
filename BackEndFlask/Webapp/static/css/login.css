@@ -8,3 +8,21 @@
     margin-right: 200px;
     margin-left: 200px;
 }
+#label{
+    color: black;
+    font-size: larger;
+    font-weight: bold;
+    margin-left: 20px;
+}
+#camImage{
+    width: 5%;
+    height: 5%;
+    
+}
+#cameraImageContainer{
+    
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}

@@ -297,4 +297,11 @@ def addpatient():
         return redirect(url_for('patientslist'))
     return render_template('addPateient.html', title='Add Patient', form=addingForm)
 
+#-------------------------------------------------------------------------------------------
+@app.route('/cam')
+def cam():
+    return render_template('camRecognation.html', title='Camera')
 
+@app.route('/signincam')
+def signincam():
+    return render_template('camSignIn.html', title='Sign In Camera')
