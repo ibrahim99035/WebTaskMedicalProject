@@ -6,6 +6,9 @@ HeartPrediction/
 
 #Saras Work
 covidPredict/
+
+#Mahmoud Work
+face_recognition/
 #---------------------------------------------------------------------------------------------------
 ### Flask ###
 instance/*
