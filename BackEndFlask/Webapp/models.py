@@ -8,6 +8,8 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+def get_patient_id(patient_id):
+    return Patinet.query.get(patient_id)
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
@@ -19,7 +21,6 @@ class User(db.Model, UserMixin):
     results = db.relationship('Res', backref='author', lazy=True)
     userType = db.Column(db.String(100), nullable=False, default = 'none')
     department = db.Column(db.String(100), nullable=False, default = 'none')
-    patients = db.relationship('Patinet', backref='author', lazy=True)
     
 
     def __repr__(self):
@@ -39,7 +40,6 @@ class Patinet(db.Model):
     profileImage = db.Column(db.String(100), nullable=False, default = 'default.jpg')
     blood_tests_image = db.Column(db.String(100), nullable=False, default = 'default.jpg')
     results = db.relationship('Res', backref='related', lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return f"Name: {self.name}, Age: {self.age}, Dibates: {self.diabetes}, Blood pressure: {self.blood_presure}, Covid-19: {self.covid_19}"

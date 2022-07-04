@@ -12,6 +12,16 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])
+    first_name = StringField('First Name',
+                            validators=[DataRequired(), Length(min=2, max=20)])
+    last_name = StringField('Last Name',
+                           validators=[DataRequired(), Length(min=2, max=20)])
+    image_user = FileField('Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    userType = StringField('Doctor or Nurse',
+                           validators=[DataRequired(), Length(min=5, max=6)])
+    department = StringField('Department',
+                             validators=[DataRequired(), Length(min=2, max=20)])
+   
     submit = SubmitField('Sign Up')
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()

@@ -41,23 +41,26 @@ def index():
 @app.route('/servises', methods=('GET', 'POST'))
 @login_required
 def servises():
+    #the first patient in Patients table
+    patient = Patinet.query.first()
+    #-------------------------------------------------------
     SurgicaForm = SurgicalOperationForm()
     if SurgicaForm.validate_on_submit():
-        patientResult = Res(content=SurgicaForm.checkpatientResult(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity.data) + SurgicaForm.objections(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity), title="Surgical Operation", user_id=current_user.id, author=current_user)
+        patientResult = Res(content=SurgicaForm.checkpatientResult(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity.data) + SurgicaForm.objections(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity), title="Surgical Operation", user_id=current_user.id, author=current_user, patinet_id=patient.id)
         db.session.add(patientResult)
         db.session.commit()
         return redirect(url_for('account')) 
     #--------------------------------------------------------
     diabetesForm = DiabetesForm()
     if diabetesForm.validate_on_submit():
-        diabetesResult = Res(content=diabetesForm.checkTheCase(diabetesForm.Fasting, diabetesForm.After_Eating, diabetesForm.Hours_After_Eating), title="Diapetes Check", user_id=current_user.id, author=current_user)
+        diabetesResult = Res(content=diabetesForm.checkTheCase(diabetesForm.Fasting, diabetesForm.After_Eating, diabetesForm.Hours_After_Eating), title="Diapetes Check", user_id=current_user.id, author=current_user, patinet_id=patient.id)
         db.session.add(diabetesResult)
         db.session.commit()
         return redirect(url_for('account'))
     #--------------------------------------------------------
     heartPredictionForm = HeartPredictionForm()
     if heartPredictionForm.validate_on_submit():
-        heartPredictionResult = Res(content=heartPredictionForm.checkHeartPrediction(heartPredictionForm.Age, heartPredictionForm.Sex, heartPredictionForm.cp, heartPredictionForm.trestbps, heartPredictionForm.chol, heartPredictionForm.fbs, heartPredictionForm.restecg, heartPredictionForm.thalach, heartPredictionForm.exang, heartPredictionForm.oldpeak, heartPredictionForm.slope, heartPredictionForm.ca, heartPredictionForm.thal), title="Heart disease prediction", user_id=current_user.id, author=current_user)
+        heartPredictionResult = Res(content=heartPredictionForm.checkHeartPrediction(heartPredictionForm.Age, heartPredictionForm.Sex, heartPredictionForm.cp, heartPredictionForm.trestbps, heartPredictionForm.chol, heartPredictionForm.fbs, heartPredictionForm.restecg, heartPredictionForm.thalach, heartPredictionForm.exang, heartPredictionForm.oldpeak, heartPredictionForm.slope, heartPredictionForm.ca, heartPredictionForm.thal), title="Heart disease prediction", user_id=current_user.id, author=current_user, patinet_id=patient.id)
         db.session.add(heartPredictionResult)
         db.session.commit()
         return redirect(url_for('account'))
@@ -71,14 +74,14 @@ def servises():
     #--------------------------------------------------------
     kideneyForm = KidneyForm()
     if  kideneyForm.validate_on_submit():
-        kideneyResult = Res(content = kideneyForm.checkKidney(kideneyForm.Creatinin, kideneyForm.Creatinin_Clearance, kideneyForm.Na, kideneyForm.Cl, kideneyForm.K, kideneyForm.Blood_Urine_Nitrogen, kideneyForm.Urea), title="Kidney Check", user_id=current_user.id, author=current_user)
+        kideneyResult = Res(content = kideneyForm.checkKidney(kideneyForm.Creatinin, kideneyForm.Creatinin_Clearance, kideneyForm.Na, kideneyForm.Cl, kideneyForm.K, kideneyForm.Blood_Urine_Nitrogen, kideneyForm.Urea), title="Kidney Check", user_id=current_user.id, author=current_user, patinet_id=patient.id)
         db.session.add(kideneyResult)
         db.session.commit()
         return redirect(url_for('account'))
     #---------------------------------------------------------
     corona_in_out = Corona_in_or_out_form()
     if corona_in_out.validate_on_submit():
-        CoronaInOutResult = Res(content = corona_in_out.checkTheCase(corona_in_out.White_Blood_Cell, corona_in_out.Erythrocyte_Sedimentation_Rate, corona_in_out.C_Reactive_Protein, corona_in_out.Procalcitonin), title = 'Covid-19 patient can get out the hospital or not?', user_id=current_user.id, author=current_user)
+        CoronaInOutResult = Res(content = corona_in_out.checkTheCase(corona_in_out.White_Blood_Cell, corona_in_out.Erythrocyte_Sedimentation_Rate, corona_in_out.C_Reactive_Protein, corona_in_out.Procalcitonin), title = 'Covid-19 patient can get out the hospital or not?', user_id=current_user.id, author=current_user, patinet_id=patient.id)
         db.session.add(CoronaInOutResult)
         db.session.commit()
         return redirect(url_for('account'))
@@ -112,6 +115,20 @@ def blog_home():
 def about():
     return render_template('about.html', title = 'About')
 
+
+def Save_User_Pic(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if current_user.is_authenticated:
@@ -119,7 +136,10 @@ def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password, first_name = form.first_name.data, last_name = form.last_name.data, userType = form.userType.data, department = form.department.data)
+        if form.image_user.data:
+            picture_file = Save_User_Pic(form.image_user.data)
+            user.image_user = picture_file
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
@@ -161,7 +181,8 @@ def account():
     #pagination
     page = request.args.get('page', 1, type=int)
     results = Res.query.order_by(Res.date_posted.desc()).paginate(page=page, per_page=6)
-    return render_template('account.html', title='Account', results=results, no_results=no_results)
+    profile_image = url_for('static', filename='profile_pics/' + current_user.image_user)
+    return render_template('account.html', title='Account', results=results, no_results=no_results, profile_image=profile_image)
 
 #-------------------------------------------------------------------------------------------
 
@@ -198,7 +219,7 @@ def coronavirus():
         if os.path.exists('upload/'+ file.filename):
             os.remove('upload/'+ file.filename)
 
-        covidResult = Res(content=result, title="Corona Check", user_id=current_user.id, author=current_user)
+        covidResult = Res(content=result, title="Corona Check", user_id=current_user.id, author=current_user, patinet_id=patient.id)
         db.session.add(covidResult)
         db.session.commit()
         
@@ -240,8 +261,8 @@ def braintumour():
         if os.path.exists('upload/'+ file.filename):
             os.remove('upload/'+ file.filename)
 
-        covidResult = Res(content=result, title="Brain Tumour Check", user_id=current_user.id, author=current_user)
-        db.session.add(covidResult)
+        BrainResult = Res(content=result, title="Brain Tumour Check", user_id=current_user.id, author=current_user, patinet_id=patient.id)
+        db.session.add(BrainResult)
         db.session.commit()
 
     return render_template('braintumer.html', title='Brain tumour prediction', result=result)

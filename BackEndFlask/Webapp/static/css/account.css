@@ -111,3 +111,10 @@
     width: 80px;
     height: 32px;
 }
+
+#currentUserImage{
+    border-radius: 50%;
+    width: 10%;
+    height: 10%;
+    
+}
