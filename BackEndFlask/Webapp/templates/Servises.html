@@ -16,6 +16,7 @@
         <span class="feat" id="CoronaInOut">Covid-19 Pateint out?</span>
         <span class="feat" id="KidneySpan">Kidney prediction</span>
         <span class="feat" id="coronaSpan">Covid-19 prediction</span>
+        <span class="feat" id="brainTumourSpan">Brain Tumour </span>
     </div>
     <hr>
     <div id="default">
@@ -345,12 +346,23 @@
             </div>
         </form>
     </div>
+    <div id="treatment">
+        
+    </div>
     <!--Corona-->
     <div id="corona" class="formstyle">
         <a title="Covid-19" href="{{ url_for('coronavirus') }}" id="coronaLink">Corona Prediction page form here!</a>
         <br>
         <a title="Covid-19" href="{{ url_for('coronavirus') }}">
-            <img src="{{ url_for('static', filename='images/covid19.png') }}" alt="" width="800" height="400">
+            <img src="{{ url_for('static', filename='images/covid19.png') }}" alt="Covid-19" id="covidImage">
+        </a>
+    </div>
+    <!--BrainTumour-->
+    <div id="braintumourDiv" class="formstyle">
+        <a title="Brain Tumour" href="{{ url_for('braintumour') }}" id="tumourLink">Brain Tumour Prediction page form here!</a>
+        <br>
+        <a title="Brain Tumour" href="{{ url_for('braintumour') }}">
+            <img src="{{ url_for('static', filename='images/braintumour.png') }}" alt="Brain Tumour" id="brainImage">
         </a>
     </div>
     <!--Kidney-->

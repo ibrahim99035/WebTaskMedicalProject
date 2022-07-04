@@ -31,16 +31,16 @@
     background-color: rgb(60, 197, 202);
 }
 
-#surgical, #diapetes, #heartPred, #treatment, #corona, #KidneyDiv, #coronaInOutDiv{
+#surgical, #diapetes, #heartPred, #corona, #KidneyDiv, #coronaInOutDiv, #braintumourDiv{
     display: none;
 }
 
-#coronaLink{
+#coronaLink, #tumourLink{
     font-size: 45px;
     justify-items: center;
     text-decoration: none;
 }
-#coronaLink:hover{
+#coronaLink:hover, #tumourLink:hover{
     color: rgb(32, 116, 119);
 }
 
@@ -72,7 +72,13 @@
 
 
 
-
+#brainImage, #covidImage{
+    width: 60%;
+    height: 100%;
+    padding-left: 35%;
+    padding-right: 5%;
+    text-align: center;
+}
 
 
 

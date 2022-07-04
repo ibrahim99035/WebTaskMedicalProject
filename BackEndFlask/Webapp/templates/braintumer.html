@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Servises.css') }}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+<div  id="BrainTumurDiv" class="formstyle">
+    <h4>Brain Tumour</h4>
+    <p>in this section, we will predict is the patient has a brain tumour or not?</p>
+    
+    <!--display the image from user -->
+    <div class="form-group">
+        <form action="" method="POST" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <br>
+                <label for="pwd" id="imageLabel">Image :</label>
+                <input title="Image" type="file" class="form-control btn btn-outline-info" name="image" id="img" accept="image/png, image/gif, image/jpeg"/>
+    
+            </div>
+            <div>
+                <input type="submit" class="btn btn-outline-info">
+            </div>
+            
+            <div id="selectedBanner"></div>
+
+        </form>
+        <div id="coronaRes">
+            <h3 class="result">{{ result }}</h3>
+        </div>
+    </div>
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="  
+    crossorigin="anonymous"
+    ></script>
+    <script>
+        var selDiv = "";
+        var storedFiles = [];
+        $(document).ready(function () {
+            $("#img").on("change", handleFileSelect);
+            selDiv = $("#selectedBanner");
+        });
+
+        function handleFileSelect(e) {
+            var files = e.target.files;
+            var filesArr = Array.prototype.slice.call(files);
+            filesArr.forEach(function (f) {
+            if (!f.type.match("image.*")) {
+                return;
+            }
+            storedFiles.push(f);
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var html =
+                '<img src="' +
+                e.target.result +
+                "\" data-file='" +
+                f.name +
+                "alt='Category Image' height='200px' width='200px'>";
+                selDiv.html(html);
+            };
+            reader.readAsDataURL(f);
+            });
+        }
+    </script>
+
+</div>
+
+{% endblock %}

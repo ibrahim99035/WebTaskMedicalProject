@@ -208,6 +208,45 @@ def coronavirus():
 
 
 #-------------------------------------------------------------------------------------------
+@app.route('/braintumour', methods=('GET', 'POST'))
+@login_required
+def braintumour():
+    result = ''
+    if request.method == 'POST':
+        if 'image' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['image']
+
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        model = tf.keras.models.load_model(r'../BrainTumour/model.wdah_brain')    
+        img = image.load_img(r'upload/'+ file.filename , target_size=(224, 224))
+        x = image.img_to_array(img)
+        x = np.expand_dims(x, axis=0)
+        img_data = preprocess_input(x)
+        classes = model.predict(img_data)
+        New_pred = np.argmax(classes, axis=1)
+        if New_pred==[1]:
+           result ='Prediction: Positive'
+        else:
+           result = 'Prediction: Negative'
+        if os.path.exists('upload/'+ file.filename):
+            os.remove('upload/'+ file.filename)
+
+        covidResult = Res(content=result, title="Brain Tumour Check", user_id=current_user.id, author=current_user)
+        db.session.add(covidResult)
+        db.session.commit()
+
+    return render_template('braintumer.html', title='Brain tumour prediction', result=result)
+
+#-------------------------------------------------------------------------------------------
 #in this section we are going to build a deletion system for the results
 @app.route('/result/<int:result_id>')
 @login_required

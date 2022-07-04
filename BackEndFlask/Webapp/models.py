@@ -13,21 +13,19 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    first_name = db.Column(db.String(20), nullable=False, default = 'none')
+    last_name = db.Column(db.String(20), nullable=False, default = 'none')
+    image_user = db.Column(db.String(20), nullable=False, default = 'default.jpg')
     results = db.relationship('Res', backref='author', lazy=True)
+    userType = db.Column(db.String(100), nullable=False, default = 'none')
+    department = db.Column(db.String(100), nullable=False, default = 'none')
+    patients = db.relationship('Patinet', backref='author', lazy=True)
     
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
 
-class Res(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    title = db.Column(db.String(100), nullable=False)
-    content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __repr__(self):
-        return f"{self.content}"
 
 class Patinet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -40,13 +38,20 @@ class Patinet(db.Model):
     covid_19 = db.Column(db.String(100), nullable=False, default='Unknowen')
     profileImage = db.Column(db.String(100), nullable=False, default = 'default.jpg')
     blood_tests_image = db.Column(db.String(100), nullable=False, default = 'default.jpg')
+    results = db.relationship('Res', backref='related', lazy=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return f"Name: {self.name}, Age: {self.age}, Dibates: {self.diabetes}, Blood pressure: {self.blood_presure}, Covid-19: {self.covid_19}"
 
 
-class UserType(db.Model):
+class Res(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    userType = db.Column(db.String(100), nullable=False)
-    department = db.Column(db.String(100), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    patinet_id = db.Column(db.Integer, db.ForeignKey('patinet.id'), nullable=False)
+
+    def __repr__(self):
+        return f"{self.content}"
