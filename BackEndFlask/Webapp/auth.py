@@ -16,7 +16,6 @@ class RegistrationForm(FlaskForm):
                             validators=[DataRequired(), Length(min=2, max=20)])
     last_name = StringField('Last Name',
                            validators=[DataRequired(), Length(min=2, max=20)])
-    imageUser = FileField('Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     userType = StringField('Doctor or Nurse',
                            validators=[DataRequired(), Length(min=5, max=6)])
     department = StringField('Department',

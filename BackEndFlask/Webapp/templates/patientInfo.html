@@ -10,7 +10,7 @@
     <div id="patient">
         <h3>Patient info :</h3>
         <hr>
-        <img src="{{ profile_image }}" alt="patient image" class="avatar">
+        <img src="{{ url_for('static', filename='profile_pics/' + patient.profileImage) }}" alt="patient image" class="avatar">
         <hr>
         <div>
             <p>Name: {{ patient.name }}</p>
@@ -27,7 +27,7 @@
         </div>
         <hr>
         <p>Blood Tests :</p>
-        <img src="{{ bloodTests }}" alt="Blood tests" class="blood-tests">
+        <img src="{{ url_for('static', filename='blood_test/' + patient.blood_tests_image) }}" alt="Blood tests" class="blood-tests">
         <hr>
         <div id="deletePatient">
             <div id="deleteIconPatient">

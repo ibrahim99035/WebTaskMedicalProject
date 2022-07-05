@@ -8,8 +8,6 @@
 
 {% block body %}
     <div class="account-head">
-        <img src="{{ profile_image }}" alt="user image" id="currentUserImage">
-        <hr>
         <h1>{{ current_user.first_name + " " + current_user.last_name }}</h1>
         <p>{{ current_user.email }}</p>
         <p><strong>Role :</strong> {{ current_user.userType }}</p>

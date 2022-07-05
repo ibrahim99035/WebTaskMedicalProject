@@ -165,9 +165,7 @@ def signup():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password, first_name = form.first_name.data, last_name = form.last_name.data, userType = form.userType.data, department = form.department.data)
-        if form.imageUser.data:
-            picture_file = Save_User_Pic(form.imageUser.data)
-            user.image_user = picture_file
+        
         db.session.add(user)
         db.session.commit()
         
@@ -315,6 +313,34 @@ def delete_result(result_id):
     return redirect(url_for('account'))
 
 #-------------------------------------------------------------------------------------------
+
+def Save_Patient_Pic(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
+def Save_Blood_Pic(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/blood_test', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
+
 @app.route('/addpatient', methods=('GET', 'POST'))
 @login_required
 def addpatient():
@@ -322,6 +348,14 @@ def addpatient():
     if form.validate_on_submit():
         patient = Patients(name=form.name.data, age=form.age.data, nationalID=form.nationalID.data, 
             diabetes=form.Diabetes.data, blood_presure=form.blood_pressure.data,covid_19=form.covid_19.data)
+
+        if form.patient_pic.data:
+            pic_file = Save_Patient_Pic(form.patient_pic.data)
+            patient.profileImage = pic_file
+        if form.blood_tests_pic.data:
+            blood_file = Save_Blood_Pic(form.blood_tests_pic.data)
+            patient.blood_tests_image = blood_file
+        
         db.session.add(patient)
         db.session.commit()
         return redirect(url_for('patientslist'))
@@ -340,10 +374,14 @@ def patientslist():
         no_results = True
     return render_template('patientsList.html', title='Patients List', patients=patients, no_results=no_results)
 
+
+
+
 @app.route('/patientslist/<int:patient_id>')
 @login_required
 def patient(patient_id):
     patient = Patients.query.get_or_404(patient_id)
+    patient_pic = url_for('static', filename='profile_pics/' + patient.profileImage)
     return render_template('patientInfo.html', title='Patient', patient=patient)
 
 #delete the patient
