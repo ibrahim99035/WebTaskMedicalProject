@@ -2,538 +2,1063 @@
 
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/Servises.css') }}">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Servises.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 {% endblock %}
 
 
 {% block body %}
-<div class="content">
-    <div id="spans">
-        <span class="feat" id="heart">Heart prediction</span>
-        <span class="feat" id="diap">Diapets prediction</span>
-        <span class="feat" id="surg">Surgical operation</span>
-        <span class="feat" id="CoronaInOut">Covid-19 Pateint out?</span>
-        <span class="feat" id="KidneySpan">Kidney prediction</span>
-        <span class="feat" id="coronaSpan">Covid-19 prediction</span>
-        <span class="feat" id="brainTumourSpan">Brain Tumour </span>
+    <div class="content">
+        <div id="spans">
+            <span class="feat" id="heart">Heart prediction</span>
+            <span class="feat" id="diap">Diapets prediction</span>
+            <span class="feat" id="surg">Surgical operation</span>
+            <span class="feat" id="CoronaInOut">Covid-19 Pateint out?</span>
+            <span class="feat" id="KidneySpan">Kidney prediction</span>
+            <span class="feat" id="coronaSpan">Covid-19 prediction</span>
+            <span class="feat" id="brainTumourSpan">Brain Tumour </span>
+        </div>
+        <hr>
+        <div id="default">
+            <h1>No Service choosen!</h1>
+        </div>
+        <div id="surgical"  class="formstyle">
+            <h4>Surgical Operations</h4>
+            <p>in this section, we will decide is the patient ready for the operation or not?</p>
+            <form method="POST">
+                {{ form1.hidden_tag() }}
+                <fieldset class="form-group">
+                    <div class="form-group">
+                        {{ form1.hemoglopen.label(class="form-control-label") }}
+                        {% if form1.hemoglopen.errors %}
+                            {{ form1.hemoglopen(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form1.hemoglopen.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form1.hemoglopen(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form1.whiteBlood.label(class="form-control-label") }}
+                        {% if form1.whiteBlood.errors %}
+                            {{ form1.whiteBlood(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form1.whiteBlood.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form1.whiteBlood(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form1.platelets.label(class="form-control-label") }}
+                        {% if form1.platelets.errors %}
+                            {{ form1.platelets(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form1.platelets.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form1.platelets(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form1.liver.label(class="form-control-label") }}
+                        {% if form1.liver.errors %}
+                            {{ form1.liver(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form1.liver.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form1.liver(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form1.kidney.label(class="form-control-label") }}
+                        {% if form1.kidney.errors %}
+                            {{ form1.kidney(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form1.kidney.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form1.kidney(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form1.fluidity.label(class="form-control-label") }}
+                        {% if form1.fluidity.errors %}
+                            {{ form1.fluidity(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form1.fluidity.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form1.fluidity(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <div class="optionPatiet">
+                        <Span id="patinetSpan1">
+                            Add patient for this operation
+                        </Span>
+                    </div>
+                    <hr class="patientHR">
+                    <div class="patientAddArea" id="patientForm1">
+                        <div class="form-group">
+                            {{ form1.name.label(class="form-control-label") }}
+                            {% if form1.name.errors %}
+                                {{ form1.name(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form1.name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form1.name(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form1.age.label(class="form-control-label") }}
+                            {% if form1.age.errors %}
+                                {{ form1.age(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form1.age.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form1.age(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form1.nationalID.label(class="form-control-label") }}
+                            {% if form1.nationalID.errors %}
+                                {{ form1.nationalID(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form1.nationalID.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form1.nationalID(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form1.Diabetes.label(class="form-control-label") }}
+                            {% if form1.Diabetes.errors %}
+                                {{ form1.Diabetes(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form1.Diabetes.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form1.Diabetes(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form1.blood_pressure.label(class="form-control-label") }}
+                            {% if form1.blood_pressure.errors %}
+                                {{ form1.blood_pressure(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form1.blood_pressure.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form1.blood_pressure(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form1.covid_19.label(class="form-control-label") }}
+                            {% if form1.covid_19.errors %}
+                                {{ form1.covid_19(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form1.covid_19.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form1.covid_19(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form1.patient_pic.label() }}
+                            {{ form1.patient_pic(class="form-control-file") }}
+                            {% if form1.patient_pic.errors %}
+                                {% for error in form1.patient_pic.errors %}
+                                    <span class="text-danger">{{ error }}</span><br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form1.blood_tests_pic.label() }}
+                            {{ form1.blood_tests_pic(class="form-control-file") }}
+                            {% if form1.blood_tests_pic.errors %}
+                                {% for error in form1.blood_tests_pic.errors %}
+                                    <span class="text-danger">{{ error }}</span><br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                </fieldset>
+                <hr>
+                <div class="form-group">
+                    {{ form1.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+        <div id="diapetes" class="formstyle">
+            <h4>Diapetes</h4>
+            <p>in this section, we will decide is the patient Diapetic or not?</p>
+            <form action="" method="POST">
+                {{ form2.hidden_tag() }}
+                <fieldset class="form-group">
+                    <div class="form-group">
+                        {{ form2.Fasting.label(class="form-control-label") }}
+                        {% if form2.Fasting.errors %}
+                            {{ form2.Fasting(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form2.Fasting.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form2.Fasting(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form2.After_Eating.label(class="form-control-label") }}
+                        {% if form2.After_Eating.errors %}
+                            {{ form2.After_Eating(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form2.After_Eating.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form2.After_Eating(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form2.Hours_After_Eating.label(class="form-control-label") }}
+                        {% if form2.Hours_After_Eating.errors %}
+                            {{ form2.Hours_After_Eating(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form2.Hours_After_Eating.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form2.Hours_After_Eating(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <div class="optionPatiet">
+                        <Span id="patinetSpan2">
+                            Add patient for this operation
+                        </Span>
+                    </div>
+                    <hr class="patientHR">
+                    <div class="patientAddArea" id="patientForm2">
+                        <div class="form-group">
+                            {{ form2.name.label(class="form-control-label") }}
+                            {% if form2.name.errors %}
+                                {{ form2.name(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form2.name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form2.name(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form2.age.label(class="form-control-label") }}
+                            {% if form2.age.errors %}
+                                {{ form2.age(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.age.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form2.age(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form2.nationalID.label(class="form-control-label") }}
+                            {% if form2.nationalID.errors %}
+                                {{ form2.nationalID(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form2.nationalID.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form2.nationalID(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form2.Diabetes.label(class="form-control-label") }}
+                            {% if form2.Diabetes.errors %}
+                                {{ form2.Diabetes(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.Diabetes.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form2.Diabetes(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form2.blood_pressure.label(class="form-control-label") }}
+                            {% if form2.blood_pressure.errors %}
+                                {{ form2.blood_pressure(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form2.blood_pressure.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form2.blood_pressure(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form2.covid_19.label(class="form-control-label") }}
+                            {% if form2.covid_19.errors %}
+                                {{ form2.covid_19(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form2.covid_19.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form2.covid_19(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form2.patient_pic.label() }}
+                            {{ form2.patient_pic(class="form-control-file") }}
+                            {% if form2.patient_pic.errors %}
+                                {% for error in form2.patient_pic.errors %}
+                                    <span class="text-danger">{{ error }}</span><br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form2.blood_tests_pic.label() }}
+                            {{ form2.blood_tests_pic(class="form-control-file") }}
+                            {% if form2.blood_tests_pic.errors %}
+                                {% for error in form2.blood_tests_pic.errors %}
+                                    <span class="text-danger">{{ error }}</span><br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                </fieldset>
+                <hr>
+                <div class="form-group">
+                    {{ form2.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+        <!--Heart-->
+        <div id="heartPred" class="formstyle">
+            <h4>Heart Prdicition</h4>
+            <p>in this section, we will predict heart disease problems</p>
+            <form action="" method="POST">
+                {{ form4.hidden_tag() }}
+                <fieldset class="form-group">
+                    <div class="form-group">
+                        {{ form4.Age.label(class="form-control-label") }}
+                        {% if form4.Age.errors %}
+                            {{ form4.Age(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.Age.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.Age(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form4.Sex.label(class="form-control-label") }}
+                        {% if form4.Sex.errors %}
+                            {{ form4.Sex(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.Sex.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.Sex(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form4.cp.label(class="form-control-label") }}
+                        {% if form4.cp.errors %}
+                            {{ form4.cp(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.cp.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.cp(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form4.trestbps.label(class="form-control-label") }}
+                        {% if form4.trestbps.errors %}
+                            {{ form4.trestbps(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.trestbps.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.trestbps(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form4.chol.label(class="form-control-label") }}
+                        {% if form4.chol.errors %}
+                            {{ form4.chol(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.chol.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.chol(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form4.fbs.label(class="form-control-label") }}
+                        {% if form4.fbs.errors %}
+                            {{ form4.fbs(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.fbs.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.fbs(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form4.restecg.label(class="form-control-label") }}
+                        {% if form4.restecg.errors %}
+                            {{ form4.restecg(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.restecg.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.restecg(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form4.thalach.label(class="form-control-label") }}
+                        {% if form4.thalach.errors %}
+                            {{ form4.thalach(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.thalach.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.thalach(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form4.exang.label(class="form-control-label") }}
+                        {% if form4.exang.errors %}
+                            {{ form4.exang(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.exang.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.exang(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form4.oldpeak.label(class="form-control-label") }}
+                        {% if form4.oldpeak.errors %}
+                            {{ form4.oldpeak(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.oldpeak.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.oldpeak(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form4.slope.label(class="form-control-label") }}
+                        {% if form4.slope.errors %}
+                            {{ form4.slope(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.slope.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.slope(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form4.ca.label(class="form-control-label") }}
+                        {% if form4.ca.errors %}
+                            {{ form4.ca(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.ca.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.ca(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form4.thal.label(class="form-control-label") }}
+                        {% if form4.thal.errors %}
+                            {{ form4.thal(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form4.thal.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form4.thal(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <div class="optionPatiet">
+                        <Span id="patinetSpan3">
+                            Add patient for this operation
+                        </Span>
+                    </div>
+                    <hr class="patientHR">
+                    <div class="patientAddArea" id="patientForm3">
+                        <div class="form-group">
+                            {{ form4.name.label(class="form-control-label") }}
+                            {% if form4.name.errors %}
+                                {{ form4.name(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form4.name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form4.name(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form4.age.label(class="form-control-label") }}
+                            {% if form4.age.errors %}
+                                {{ form4.age(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form4.age.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form4.age(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form4.nationalID.label(class="form-control-label") }}
+                            {% if form4.nationalID.errors %}
+                                {{ form4.nationalID(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form4.nationalID.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form4.nationalID(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form4.Diabetes.label(class="form-control-label") }}
+                            {% if form4.Diabetes.errors %}
+                                {{ form4.Diabetes(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form4.Diabetes.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form4.Diabetes(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form4.blood_pressure.label(class="form-control-label") }}
+                            {% if form4.blood_pressure.errors %}
+                                {{ form4.blood_pressure(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form4.blood_pressure.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form4.blood_pressure(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form4.covid_19.label(class="form-control-label") }}
+                            {% if form4.covid_19.errors %}
+                                {{ form4.covid_19(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form4.covid_19.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form4.covid_19(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form4.patient_pic.label() }}
+                            {{ form4.patient_pic(class="form-control-file") }}
+                            {% if form4.patient_pic.errors %}
+                                {% for error in form4.patient_pic.errors %}
+                                    <span class="text-danger">{{ error }}</span><br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form4.blood_tests_pic.label() }}
+                            {{ form4.blood_tests_pic(class="form-control-file") }}
+                            {% if form4.blood_tests_pic.errors %}
+                                {% for error in form4.blood_tests_pic.errors %}
+                                    <span class="text-danger">{{ error }}</span><br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                </fieldset>
+                <hr>
+                <div class="form-group">
+                    {{ form4.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+        <div id="treatment">
+            
+        </div>
+        <!--Corona-->
+        <div id="corona" class="formstyle">
+            <a title="Covid-19" href="{{ url_for('coronavirus') }}" id="coronaLink">Corona Prediction page form here!</a>
+            <br>
+            <a title="Covid-19" href="{{ url_for('coronavirus') }}">
+                <img src="{{ url_for('static', filename='images/covid19.png') }}" alt="Covid-19" id="covidImage">
+            </a>
+        </div>
+        <!--BrainTumour-->
+        <div id="braintumourDiv" class="formstyle">
+            <a title="Brain Tumour" href="{{ url_for('braintumour') }}" id="tumourLink">Brain Tumour Prediction page form here!</a>
+            <br>
+            <a title="Brain Tumour" href="{{ url_for('braintumour') }}">
+                <img src="{{ url_for('static', filename='images/braintumour.png') }}" alt="Brain Tumour" id="brainImage">
+            </a>
+        </div>
+        <!--Kidney-->
+        <div id="KidneyDiv" class="formstyle">
+            <h4>Kidney Prediction</h4>
+            <p>in this section, we will detect the prediction or kidney state</p>
+            <form action="" method="POST">
+                {{ form5.hidden_tag() }}
+                <fieldset class="form-group">
+                    <div class="form-group">
+                        {{ form5.Creatinin.label(class="form-control-label") }}
+                        {% if form5.Creatinin.errors %}
+                            {{ form5.Creatinin(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form5.Creatinin.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form5.Creatinin(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form5.Creatinin_Clearance.label(class="form-control-label") }}
+                        {% if form5.Creatinin_Clearance.errors %}
+                            {{ form5.Creatinin_Clearance(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form5.Creatinin_Clearance.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form5.Creatinin_Clearance(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form5.Na.label(class="form-control-label") }}
+                        {% if form5.Na.errors %}
+                            {{ form5.Na(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form5.Na.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form5.Na(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form5.K.label(class="form-control-label") }}
+                        {% if form5.K.errors %}
+                            {{ form5.K(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form5.K.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form5.K(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form5.Cl.label(class="form-control-label") }}
+                        {% if form5.Cl.errors %}
+                            {{ form5.Cl(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form5.Cl.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form5.Cl(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form5.Blood_Urine_Nitrogen.label(class="form-control-label") }}
+                        {% if form5.Blood_Urine_Nitrogen.errors %}
+                            {{ form5.Blood_Urine_Nitrogen(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form5.Blood_Urine_Nitrogen.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form5.Blood_Urine_Nitrogen(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form5.Urea.label(class="form-control-label") }}
+                        {% if form5.Urea.errors %}
+                            {{ form5.Urea(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form5.Urea.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form5.Urea(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <div class="optionPatiet">
+                        <Span id="patinetSpan4">
+                            Add patient for this operation
+                        </Span>
+                    </div>
+                    <hr class="patientHR">
+                    <div class="patientAddArea" id="patientForm4">
+                        <div class="form-group">
+                            {{ form5.name.label(class="form-control-label") }}
+                            {% if form5.name.errors %}
+                                {{ form5.name(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form5.name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form5.name(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form5.age.label(class="form-control-label") }}
+                            {% if form5.age.errors %}
+                                {{ form5.age(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form5.age.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form5.age(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form5.nationalID.label(class="form-control-label") }}
+                            {% if form5.nationalID.errors %}
+                                {{ form5.nationalID(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form5.nationalID.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form5.nationalID(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form5.Diabetes.label(class="form-control-label") }}
+                            {% if form5.Diabetes.errors %}
+                                {{ form5.Diabetes(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form5.Diabetes.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form5.Diabetes(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form5.blood_pressure.label(class="form-control-label") }}
+                            {% if form5.blood_pressure.errors %}
+                                {{ form5.blood_pressure(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form5.blood_pressure.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form5.blood_pressure(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form5.covid_19.label(class="form-control-label") }}
+                            {% if form5.covid_19.errors %}
+                                {{ form5.covid_19(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form5.covid_19.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form5.covid_19(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form5.patient_pic.label() }}
+                            {{ form5.patient_pic(class="form-control-file") }}
+                            {% if form5.patient_pic.errors %}
+                                {% for error in form5.patient_pic.errors %}
+                                    <span class="text-danger">{{ error }}</span><br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form5.blood_tests_pic.label() }}
+                            {{ form5.blood_tests_pic(class="form-control-file") }}
+                            {% if form5.blood_tests_pic.errors %}
+                                {% for error in form5.blood_tests_pic.errors %}
+                                    <span class="text-danger">{{ error }}</span><br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                </fieldset>
+                <hr>
+                <div class="form-group">
+                    {{ form5.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+        <!--Corona patien out from hospital?-->
+        <div id="coronaInOutDiv" class="formstyle">
+            <h4>Corona In or Out</h4>
+            <p>in this section, we will detect the patient of Covid-19 can get out the hospital or not?</p>
+            <form action="" method="POST">
+                {{ form6.hidden_tag() }}
+                <fieldset class="form-group">
+                    <div class="form-group">
+                        {{ form6.White_Blood_Cell.label(class="form-control-label") }}
+                        {% if form6.White_Blood_Cell.errors %}
+                            {{ form6.White_Blood_Cell(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form6.White_Blood_Cell.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form6.White_Blood_Cell(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form6.Erythrocyte_Sedimentation_Rate.label(class="form-control-label") }}
+                        {% if form6.Erythrocyte_Sedimentation_Rate.errors %}
+                            {{ form6.Erythrocyte_Sedimentation_Rate(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form6.Erythrocyte_Sedimentation_Rate.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form6.Erythrocyte_Sedimentation_Rate(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form6.C_Reactive_Protein.label(class="form-control-label") }}
+                        {% if form6.C_Reactive_Protein.errors %}
+                            {{ form6.C_Reactive_Protein(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form6.C_Reactive_Protein.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form6.C_Reactive_Protein(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form6.Procalcitonin.label(class="form-control-label") }}
+                        {% if form6.Procalcitonin.errors %}
+                            {{ form6.Procalcitonin(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form6.Procalcitonin.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form6.Procalcitonin(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <div class="optionPatiet">
+                        <Span id="patinetSpan5">
+                            Add patient for this operation
+                        </Span>
+                    </div>
+                    <hr class="patientHR">
+                    <div class="patientAddArea" id="patientForm5">
+                        <div class="form-group">
+                            {{ form6.name.label(class="form-control-label") }}
+                            {% if form6.name.errors %}
+                                {{ form6.name(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form6.name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form6.name(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form6.age.label(class="form-control-label") }}
+                            {% if form6.age.errors %}
+                                {{ form6.age(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form6.age.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form6.age(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form6.nationalID.label(class="form-control-label") }}
+                            {% if form6.nationalID.errors %}
+                                {{ form6.nationalID(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form6.nationalID.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form6.nationalID(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form6.Diabetes.label(class="form-control-label") }}
+                            {% if form6.Diabetes.errors %}
+                                {{ form6.Diabetes(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form6.Diabetes.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form6.Diabetes(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form6.blood_pressure.label(class="form-control-label") }}
+                            {% if form6.blood_pressure.errors %}
+                                {{ form6.blood_pressure(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form6.blood_pressure.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form6.blood_pressure(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form6.covid_19.label(class="form-control-label") }}
+                            {% if form6.covid_19.errors %}
+                                {{ form6.covid_19(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form6.covid_19.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form6.covid_19(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form6.patient_pic.label() }}
+                            {{ form6.patient_pic(class="form-control-file") }}
+                            {% if form6.patient_pic.errors %}
+                                {% for error in form6.patient_pic.errors %}
+                                    <span class="text-danger">{{ error }}</span><br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form6.blood_tests_pic.label() }}
+                            {{ form6.blood_tests_pic(class="form-control-file") }}
+                            {% if form6.blood_tests_pic.errors %}
+                                {% for error in form6.blood_tests_pic.errors %}
+                                    <span class="text-danger">{{ error }}</span><br>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </fieldset>
+                <hr>
+                <div class="form-group">
+                    {{ form6.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
     </div>
-    <hr>
-    <div id="default">
-        <h1>No Service choosen!</h1>
-    </div>
-    <div id="surgical"  class="formstyle">
-        <h4>Surgical Operations</h4>
-        <p>in this section, we will decide is the patient ready for the operation or not?</p>
-        <form method="POST">
-            {{ form1.hidden_tag() }}
-            <fieldset class="form-group">
-                <div class="form-group">
-                    {{ form1.hemoglopen.label(class="form-control-label") }}
-                    {% if form1.hemoglopen.errors %}
-                        {{ form1.hemoglopen(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form1.hemoglopen.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form1.hemoglopen(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form1.whiteBlood.label(class="form-control-label") }}
-                    {% if form1.whiteBlood.errors %}
-                        {{ form1.whiteBlood(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form1.whiteBlood.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form1.whiteBlood(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form1.platelets.label(class="form-control-label") }}
-                    {% if form1.platelets.errors %}
-                        {{ form1.platelets(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form1.platelets.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form1.platelets(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form1.liver.label(class="form-control-label") }}
-                    {% if form1.liver.errors %}
-                        {{ form1.liver(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form1.liver.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form1.liver(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form1.kidney.label(class="form-control-label") }}
-                    {% if form1.kidney.errors %}
-                        {{ form1.kidney(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form1.kidney.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form1.kidney(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form1.fluidity.label(class="form-control-label") }}
-                    {% if form1.fluidity.errors %}
-                        {{ form1.fluidity(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form1.fluidity.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form1.fluidity(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form1.submit(class="btn btn-outline-info") }}
-            </div>
-        </form>
-    </div>
-    <div id="diapetes" class="formstyle">
-        <h4>Diapetes</h4>
-        <p>in this section, we will decide is the patient Diapetic or not?</p>
-        <form action="" method="POST">
-            {{ form2.hidden_tag() }}
-            <fieldset class="form-group">
-                <div class="form-group">
-                    {{ form2.Fasting.label(class="form-control-label") }}
-                    {% if form2.Fasting.errors %}
-                        {{ form2.Fasting(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form2.Fasting.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form2.Fasting(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form2.After_Eating.label(class="form-control-label") }}
-                    {% if form2.After_Eating.errors %}
-                        {{ form2.After_Eating(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form2.After_Eating.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form2.After_Eating(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form2.Hours_After_Eating.label(class="form-control-label") }}
-                    {% if form2.Hours_After_Eating.errors %}
-                        {{ form2.Hours_After_Eating(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form2.Hours_After_Eating.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form2.Hours_After_Eating(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                
-            </fieldset>
-            <div class="form-group">
-                {{ form2.submit(class="btn btn-outline-info") }}
-            </div>
-        </form>
-    </div>
-    <!--Heart-->
-    <div id="heartPred" class="formstyle">
-        <h4>Heart Prdicition</h4>
-        <p>in this section, we will predict heart disease problems</p>
-        <form action="" method="POST">
-            {{ form4.hidden_tag() }}
-            <fieldset class="form-group">
-                <div class="form-group">
-                    {{ form4.Age.label(class="form-control-label") }}
-                    {% if form4.Age.errors %}
-                        {{ form4.Age(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.Age.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.Age(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form4.Sex.label(class="form-control-label") }}
-                    {% if form4.Sex.errors %}
-                        {{ form4.Sex(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.Sex.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.Sex(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form4.cp.label(class="form-control-label") }}
-                    {% if form4.cp.errors %}
-                        {{ form4.cp(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.cp.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.cp(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form4.trestbps.label(class="form-control-label") }}
-                    {% if form4.trestbps.errors %}
-                        {{ form4.trestbps(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.trestbps.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.trestbps(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form4.chol.label(class="form-control-label") }}
-                    {% if form4.chol.errors %}
-                        {{ form4.chol(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.chol.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.chol(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form4.fbs.label(class="form-control-label") }}
-                    {% if form4.fbs.errors %}
-                        {{ form4.fbs(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.fbs.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.fbs(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form4.restecg.label(class="form-control-label") }}
-                    {% if form4.restecg.errors %}
-                        {{ form4.restecg(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.restecg.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.restecg(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form4.thalach.label(class="form-control-label") }}
-                    {% if form4.thalach.errors %}
-                        {{ form4.thalach(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.thalach.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.thalach(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form4.exang.label(class="form-control-label") }}
-                    {% if form4.exang.errors %}
-                        {{ form4.exang(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.exang.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.exang(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form4.oldpeak.label(class="form-control-label") }}
-                    {% if form4.oldpeak.errors %}
-                        {{ form4.oldpeak(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.oldpeak.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.oldpeak(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form4.slope.label(class="form-control-label") }}
-                    {% if form4.slope.errors %}
-                        {{ form4.slope(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.slope.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.slope(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form4.ca.label(class="form-control-label") }}
-                    {% if form4.ca.errors %}
-                        {{ form4.ca(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.ca.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.ca(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form4.thal.label(class="form-control-label") }}
-                    {% if form4.thal.errors %}
-                        {{ form4.thal(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form4.thal.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form4.thal(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form4.submit(class="btn btn-outline-info") }}
-            </div>
-        </form>
-    </div>
-    <div id="treatment">
-        
-    </div>
-    <!--Corona-->
-    <div id="corona" class="formstyle">
-        <a title="Covid-19" href="{{ url_for('coronavirus') }}" id="coronaLink">Corona Prediction page form here!</a>
-        <br>
-        <a title="Covid-19" href="{{ url_for('coronavirus') }}">
-            <img src="{{ url_for('static', filename='images/covid19.png') }}" alt="Covid-19" id="covidImage">
-        </a>
-    </div>
-    <!--BrainTumour-->
-    <div id="braintumourDiv" class="formstyle">
-        <a title="Brain Tumour" href="{{ url_for('braintumour') }}" id="tumourLink">Brain Tumour Prediction page form here!</a>
-        <br>
-        <a title="Brain Tumour" href="{{ url_for('braintumour') }}">
-            <img src="{{ url_for('static', filename='images/braintumour.png') }}" alt="Brain Tumour" id="brainImage">
-        </a>
-    </div>
-    <!--Kidney-->
-    <div id="KidneyDiv" class="formstyle">
-        <h4>Kidney Prediction</h4>
-        <p>in this section, we will detect the prediction or kidney state</p>
-        <form action="" method="POST">
-            {{ form5.hidden_tag() }}
-            <fieldset class="form-group">
-                <div class="form-group">
-                    {{ form5.Creatinin.label(class="form-control-label") }}
-                    {% if form5.Creatinin.errors %}
-                        {{ form5.Creatinin(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form5.Creatinin.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form5.Creatinin(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form5.Creatinin_Clearance.label(class="form-control-label") }}
-                    {% if form5.Creatinin_Clearance.errors %}
-                        {{ form5.Creatinin_Clearance(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form5.Creatinin_Clearance.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form5.Creatinin_Clearance(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form5.Na.label(class="form-control-label") }}
-                    {% if form5.Na.errors %}
-                        {{ form5.Na(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form5.Na.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form5.Na(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form5.K.label(class="form-control-label") }}
-                    {% if form5.K.errors %}
-                        {{ form5.K(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form5.K.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form5.K(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form5.Cl.label(class="form-control-label") }}
-                    {% if form5.Cl.errors %}
-                        {{ form5.Cl(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form5.Cl.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form5.Cl(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form5.Blood_Urine_Nitrogen.label(class="form-control-label") }}
-                    {% if form5.Blood_Urine_Nitrogen.errors %}
-                        {{ form5.Blood_Urine_Nitrogen(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form5.Blood_Urine_Nitrogen.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form5.Blood_Urine_Nitrogen(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form5.Urea.label(class="form-control-label") }}
-                    {% if form5.Urea.errors %}
-                        {{ form5.Urea(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form5.Urea.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form5.Urea(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form5.submit(class="btn btn-outline-info") }}
-            </div>
-        </form>
-    </div>
-    <!--Corona patien out from hospital?-->
-    <div id="coronaInOutDiv" class="formstyle">
-        <h4>Corona In or Out</h4>
-        <p>in this section, we will detect the patient of Covid-19 can get out the hospital or not?</p>
-        <form action="" method="POST">
-            {{ form6.hidden_tag() }}
-            <fieldset class="form-group">
-                <div class="form-group">
-                    {{ form6.White_Blood_Cell.label(class="form-control-label") }}
-                    {% if form6.White_Blood_Cell.errors %}
-                        {{ form6.White_Blood_Cell(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form6.White_Blood_Cell.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form6.White_Blood_Cell(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form6.Erythrocyte_Sedimentation_Rate.label(class="form-control-label") }}
-                    {% if form6.Erythrocyte_Sedimentation_Rate.errors %}
-                        {{ form6.Erythrocyte_Sedimentation_Rate(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form6.Erythrocyte_Sedimentation_Rate.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form6.Erythrocyte_Sedimentation_Rate(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form6.C_Reactive_Protein.label(class="form-control-label") }}
-                    {% if form6.C_Reactive_Protein.errors %}
-                        {{ form6.C_Reactive_Protein(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form6.C_Reactive_Protein.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form6.C_Reactive_Protein(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form6.Procalcitonin.label(class="form-control-label") }}
-                    {% if form6.Procalcitonin.errors %}
-                        {{ form6.Procalcitonin(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                        {% for error in form6.Procalcitonin.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form6.Procalcitonin(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form6.submit(class="btn btn-outline-info") }}
-            </div>
-        </form>
-    </div>
-</div>
-<script src="{{ url_for('static', filename='js/Servises.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/Servises.js') }}"></script>
 {% endblock %}

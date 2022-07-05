@@ -80,7 +80,7 @@
                         <li><a href="{{ url_for('servises') }}">Servises</a></li>
                         <li><a href="{{ url_for('contact') }}">Contact</a></li>	
                         {% if current_user.is_authenticated %}
-                            <li><a href="{{ url_for('addpatient') }}">Add Patient</a></li>
+                            <li><a href="{{ url_for('servises') }}">Add Patient</a></li>
                             <li><a href="{{ url_for('account') }}">Account</a></li>
                             <li><a href="{{ url_for('logout') }}">Logout</a></li>
                         {% else %}

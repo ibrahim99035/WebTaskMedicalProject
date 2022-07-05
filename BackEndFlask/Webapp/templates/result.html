@@ -23,6 +23,29 @@
         </div>
         <hr>
         <p id="result">{{ result }} <br></p>
+        <hr>
+        <div id="patient">
+            <h3>Patient info :</h3>
+            <!-- <hr>
+            <img src="" alt="patient image" class="avatar"> -->
+            <hr>
+            <div>
+                <p>Name: {{ result.name }}</p>
+                <p>Age: {{ result.age }}</p>
+                <p>National ID: {{ result.nationalID }}</p>
+                <p>Date: {{ result.date_entered.strftime('%Y-%m-%d-%H:%M:%S') }}</p>
+            </div>
+            <hr>
+            <div>
+                <h4 id="oral">Oral diagnosing</h4>
+                <p>Diabetes: {{ result.diabetes }}</p>
+                <p>Blood presure: {{ result.blood_presure }}</p>
+                <p>Covid-19: {{ result.covid_19 }}</p>
+            </div>
+            <hr>
+            <p>Blood Tests :</p>
+            <img src="{{ bloodTests }}" alt="Blood tests" class="blood-tests">
+        </div>
     </div>
     <!--Model-->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

@@ -1,13 +1,24 @@
 from flask_wtf import FlaskForm
 from wtforms import FloatField, SubmitField, StringField
-from wtforms.validators import DataRequired
+from flask_wtf.file import FileField, FileAllowed
+from wtforms.validators import DataRequired, Length
 
 class Corona_in_or_out_form(FlaskForm):
     White_Blood_Cell = FloatField('White Blood Cell Value', validators=[DataRequired()])
     Erythrocyte_Sedimentation_Rate = FloatField('Value of Erythrocyte Sedimentation Rate', validators=[DataRequired()])
     C_Reactive_Protein = StringField('Value of C_Reactive_Protein (-ve or +ve)', validators=[DataRequired()])
     Procalcitonin  = StringField('Procalcitonin value (-ve or +ve)', validators=[DataRequired()])
-
+    #---------------------------------------------------------------------------------------------------------
+    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=20)])
+    age = StringField('Age', validators=[DataRequired(), Length(min=1, max=2)])
+    nationalID = StringField('National ID', validators=[DataRequired(), Length(min=14, max=14)])
+    Diabetes = StringField('Diabetes', validators=[Length(min=3, max=10)])
+    blood_pressure = StringField('Blood Pressure', validators=[Length(min=3, max=10)])
+    covid_19 = StringField('Covid-19', validators=[Length(min=3, max=10)])
+    
+    patient_pic = FileField('Patient Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    blood_tests_pic = FileField('Blood Tests Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    #---------------------------------------------------------------------------------------------------------
     submit = SubmitField('Confirm')
 
     

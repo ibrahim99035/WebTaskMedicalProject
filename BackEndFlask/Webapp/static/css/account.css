@@ -61,12 +61,14 @@
 }
 #patient{
     border: 1px solid #ccc;
-    background-color: rgb(239, 245, 247);
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-right: 200px;
-    margin-left: 200px;
+    background-color: rgba(147, 208, 228, 0.815);
+    width: 70%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
     color: rgb(49, 50, 61);
 }
 .avatar{

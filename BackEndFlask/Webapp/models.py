@@ -8,8 +8,6 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-def get_patient_id(patient_id):
-    return Patinet.query.get(int(patient_id))
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
@@ -22,28 +20,10 @@ class User(db.Model, UserMixin):
     userType = db.Column(db.String(100), nullable=False, default = 'none')
     department = db.Column(db.String(100), nullable=False, default = 'none')
     
+    
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
-
-
-
-class Patinet(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    age = db.Column(db.Integer, nullable=False)
-    nationalID = db.Column(db.String(100), nullable=False)
-    date_entered = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    diabetes = db.Column(db.String(100), nullable=False, default='Unknowen')
-    blood_presure = db.Column(db.String(100), nullable=False, default='Unknowen')
-    covid_19 = db.Column(db.String(100), nullable=False, default='Unknowen')
-    profileImage = db.Column(db.String(100), nullable=False, default = 'default.jpg')
-    blood_tests_image = db.Column(db.String(100), nullable=False, default = 'default.jpg')
-    results = db.relationship('Res', backref='related', lazy=True)
-
-    def __repr__(self):
-        return f"Name: {self.name}, Age: {self.age}, Dibates: {self.diabetes}, Blood pressure: {self.blood_presure}, Covid-19: {self.covid_19}"
-
 
 class Res(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -51,7 +31,17 @@ class Res(db.Model):
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    patinet_id = db.Column(db.Integer, db.ForeignKey('patinet.id'), nullable=False)
+    #-------------------------------------------------------------------------------
+
+    name = db.Column(db.String(100), nullable=False, default = 'Un assigned')
+    age = db.Column(db.Integer, nullable=False, default = 'none')
+    nationalID = db.Column(db.String(100), nullable=False, default = 'none')
+    date_entered = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    diabetes = db.Column(db.String(100), nullable=False, default='Unknowen')
+    blood_presure = db.Column(db.String(100), nullable=False, default='Unknowen')
+    covid_19 = db.Column(db.String(100), nullable=False, default='Unknowen')
+    profileImage = db.Column(db.String(100), nullable=False, default = 'default.jpg')
+    blood_tests_image = db.Column(db.String(100), nullable=False, default = 'default.jpg')
 
     def __repr__(self):
         return f"{self.content}"
