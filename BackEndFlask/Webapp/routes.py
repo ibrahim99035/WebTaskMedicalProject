@@ -170,6 +170,7 @@ def signup():
             user.image_user = picture_file
         db.session.add(user)
         db.session.commit()
+        
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
 
@@ -209,7 +210,9 @@ def account():
     #pagination
     page = request.args.get('page', 1, type=int)
     results = Res.query.order_by(Res.date_posted.desc()).paginate(page=page, per_page=6)
-    profile_image = url_for('static', filename='profile_pics/' + current_user.image_user)
+    #current user image
+    image_user = User.image_user
+    profile_image = url_for('static', filename='User_pics/' + image_user)
     return render_template('account.html', title='Account', results=results, no_results=no_results, profile_image=profile_image)
 
 #-------------------------------------------------------------------------------------------
