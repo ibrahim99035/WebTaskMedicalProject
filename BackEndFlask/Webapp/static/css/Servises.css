@@ -31,7 +31,7 @@
     background-color: rgb(60, 197, 202);
 }
 
-#surgical, #diapetes, #heartPred, #corona, #KidneyDiv, #coronaInOutDiv, #braintumourDiv, .patientAddArea, .patientHR{
+#surgical, #diapetes, #heartPred, #corona, #KidneyDiv, #coronaInOutDiv, #braintumourDiv, #BreastDiv, #AnemiaDiv{
     display: none;
 }
 

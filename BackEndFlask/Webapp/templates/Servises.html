@@ -19,8 +19,10 @@
             <span class="feat" id="surg">Surgical operation</span>
             <span class="feat" id="CoronaInOut">Covid-19 Pateint out?</span>
             <span class="feat" id="KidneySpan">Kidney prediction</span>
+            <span class="feat" id="anemiaSpan">Anemia prediction</span>
+            <span class="feat" id="breastSpan">Breast Cancer</span>
             <span class="feat" id="coronaSpan">Covid-19 prediction</span>
-            <span class="feat" id="brainTumourSpan">Brain Tumour </span>
+            <span class="feat" id="brainTumourSpan">Brain Tumour </span> 
         </div>
         <hr>
         <div id="default">
@@ -109,12 +111,6 @@
                         {% else %}
                             {{ form1.fluidity(class="form-control form-control-lg") }}
                         {% endif %}
-                    </div>
-                    <hr>
-                    <div class="optionPatiet">
-                        <Span id="patinetSpan1">
-                            Add patient for this operation
-                        </Span>
                     </div>
                 </fieldset>
                 <hr>
@@ -545,6 +541,489 @@
                 <hr>
                 <div class="form-group">
                     {{ form6.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+        <!--Anemia-->
+        <div id="AnemiaDiv" class="formstyle">
+            <h4>Anemia Prediction</h4>
+            <p>in this section, we will prdict the result of Anemia test!</p>
+            <form action="" method="POST">
+                {{ form7.hidden_tag() }}
+                <fieldset class="form-group">
+                    <div class="form-group">
+                        {{ form7.Sex.label(class="form-control-label") }}
+                        {% if form7.Sex.errors %}
+                            {{ form7.Sex(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form7.Sex.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form7.Sex(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form7.Red_Blood_Cell.label(class="form-control-label") }}
+                        {% if form7.Red_Blood_Cell.errors %}
+                            {{ form7.Red_Blood_Cell(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form7.Red_Blood_Cell.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form7.Red_Blood_Cell(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form7.White_Blood_Cell.label(class="form-control-label") }}
+                        {% if form7.White_Blood_Cell.errors %}
+                            {{ form7.White_Blood_Cell(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form7.White_Blood_Cell.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form7.White_Blood_Cell(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form7.Platelets.label(class="form-control-label") }}
+                        {% if form7.Platelets.errors %}
+                            {{ form7.Platelets(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form7.Platelets.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form7.Platelets(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form7.Hemoglobin.label(class="form-control-label") }}
+                        {% if form7.Hemoglobin.errors %}
+                            {{ form7.Hemoglobin(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form7.Hemoglobin.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form7.Hemoglobin(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <hr>
+                <div class="form-group">
+                    {{ form7.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+        <!--Breast Cancer-->
+        <div id="BreastDiv" class="formstyle">
+            <h4>Breast Cancer Prediction</h4>
+            <p>in this section, we will use Logistic Regression model to predict Breast Cancer!</p>
+            <form action="" method="POST">
+                {{ form8.hidden_tag() }}
+                <fieldset class="form-group">
+                    <div class="form-group">
+                        {{ form8.radius_mean.label(class="form-control-label") }}
+                        {% if form8.radius_mean.errors %}
+                            {{ form8.radius_mean(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.radius_mean.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.radius_mean(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.texture_mean.label(class="form-control-label") }}
+                        {% if form8.texture_mean.errors %}
+                            {{ form8.texture_mean(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.texture_mean.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.texture_mean(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.perimeter_mean.label(class="form-control-label") }}
+                        {% if form8.perimeter_mean.errors %}
+                            {{ form8.perimeter_mean(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.perimeter_mean.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.perimeter_mean(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.area_mean.label(class="form-control-label") }}
+                        {% if form8.area_mean.errors %}
+                            {{ form8.area_mean(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.area_mean.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.area_mean(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.smoothness_mean.label(class="form-control-label") }}
+                        {% if form8.smoothness_mean.errors %}
+                            {{ form8.smoothness_mean(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.smoothness_mean.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.smoothness_mean(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.compactness_mean.label(class="form-control-label") }}
+                        {% if form8.compactness_mean.errors %}
+                            {{ form8.compactness_mean(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.compactness_mean.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.compactness_mean(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.concavity_mean.label(class="form-control-label") }}
+                        {% if form8.concavity_mean.errors %}
+                            {{ form8.concavity_mean(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.concavity_mean.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.concavity_mean(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.concave_points_mean.label(class="form-control-label") }}
+                        {% if form8.concave_points_mean.errors %}
+                            {{ form8.concave_points_mean(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.concave_points_mean.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.concave_points_mean(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.symmetry_mean.label(class="form-control-label") }}
+                        {% if form8.symmetry_mean.errors %}
+                            {{ form8.symmetry_mean(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.symmetry_mean.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.symmetry_mean(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.fractal_dimension_mean.label(class="form-control-label") }}
+                        {% if form8.fractal_dimension_mean.errors %}
+                            {{ form8.fractal_dimension_mean(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.fractal_dimension_mean.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.fractal_dimension_mean(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.radius_se.label(class="form-control-label") }}
+                        {% if form8.radius_se.errors %}
+                            {{ form8.radius_se(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.radius_se.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.radius_se(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.texture_se.label(class="form-control-label") }}
+                        {% if form8.texture_se.errors %}
+                            {{ form8.texture_se(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.texture_se.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.texture_se(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.perimeter_se.label(class="form-control-label") }}
+                        {% if form8.perimeter_se.errors %}
+                            {{ form8.perimeter_se(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.perimeter_se.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.perimeter_se(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.area_se.label(class="form-control-label") }}
+                        {% if form8.area_se.errors %}
+                            {{ form8.area_se(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.area_se.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.area_se(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.smoothness_se.label(class="form-control-label") }}
+                        {% if form8.smoothness_se.errors %}
+                            {{ form8.smoothness_se(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.smoothness_se.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.smoothness_se(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.compactness_se.label(class="form-control-label") }}
+                        {% if form8.compactness_se.errors %}
+                            {{ form8.compactness_se(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.compactness_se.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.compactness_se(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.concavity_se.label(class="form-control-label") }}
+                        {% if form8.concavity_se.errors %}
+                            {{ form8.concavity_se(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.concavity_se.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.concavity_se(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.concave_points_se.label(class="form-control-label") }}
+                        {% if form8.concave_points_se.errors %}
+                            {{ form8.concave_points_se(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.concave_points_se.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.concave_points_se(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.symmetry_se.label(class="form-control-label") }}
+                        {% if form8.symmetry_se.errors %}
+                            {{ form8.symmetry_se(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.symmetry_se.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.symmetry_se(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.fractal_dimension_se.label(class="form-control-label") }}
+                        {% if form8.fractal_dimension_se.errors %}
+                            {{ form8.fractal_dimension_se(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.fractal_dimension_se.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.fractal_dimension_se(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.radius_worst.label(class="form-control-label") }}
+                        {% if form8.radius_worst.errors %}
+                            {{ form8.radius_worst(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.radius_worst.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.radius_worst(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.texture_worst.label(class="form-control-label") }}
+                        {% if form8.texture_worst.errors %}
+                            {{ form8.texture_worst(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.texture_worst.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.texture_worst(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.perimeter_worst.label(class="form-control-label") }}
+                        {% if form8.perimeter_worst.errors %}
+                            {{ form8.perimeter_worst(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.perimeter_worst.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.perimeter_worst(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.area_worst.label(class="form-control-label") }}
+                        {% if form8.area_worst.errors %}
+                            {{ form8.area_worst(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.area_worst.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.area_worst(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.smoothness_worst.label(class="form-control-label") }}
+                        {% if form8.smoothness_worst.errors %}
+                            {{ form8.smoothness_worst(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.smoothness_worst.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.smoothness_worst(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.compactness_worst.label(class="form-control-label") }}
+                        {% if form8.compactness_worst.errors %}
+                            {{ form8.compactness_worst(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.compactness_worst.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.compactness_worst(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.concavity_worst.label(class="form-control-label") }}
+                        {% if form8.concavity_worst.errors %}
+                            {{ form8.concavity_worst(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.concavity_worst.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.concavity_worst(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.concave_points_worst.label(class="form-control-label") }}
+                        {% if form8.concave_points_worst.errors %}
+                            {{ form8.concave_points_worst(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.concave_points_worst.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.concave_points_worst(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.symmetry_worst.label(class="form-control-label") }}
+                        {% if form8.symmetry_worst.errors %}
+                            {{ form8.symmetry_worst(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.symmetry_worst.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.symmetry_worst(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form8.fractal_dimension_worst.label(class="form-control-label") }}
+                        {% if form8.fractal_dimension_worst.errors %}
+                            {{ form8.fractal_dimension_worst(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form8.fractal_dimension_worst.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form8.fractal_dimension_worst(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <hr>
+                <div class="form-group">
+                    {{ form8.submit(class="btn btn-outline-info") }}
                 </div>
             </form>
         </div>
