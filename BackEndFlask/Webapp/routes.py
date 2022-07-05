@@ -2,8 +2,8 @@ from unicodedata import name
 from flask import Flask, render_template, url_for, request, redirect, flash
 from matplotlib.pyplot import title
 from Webapp import app, db, bcrypt
-from Webapp.auth import RegistrationForm, LoginForm
-from Webapp.models import User, Res
+from Webapp.auth import RegistrationForm, LoginForm, PatientForm
+from Webapp.models import User, Res, Patients
 from flask_login import login_user, current_user, logout_user, login_required
 import os
 import secrets
@@ -33,33 +33,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS 
 #------------------------------------------------------------------------------------
-# def save_picture(form_picture):
-#     random_hex = secrets.token_hex(8)
-#     _, f_ext = os.path.splitext(form_picture.filename)
-#     picture_fn = random_hex + f_ext
-#     picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
-
-#     output_size = (125, 125)
-#     i = Image.open(form_picture)
-#     i.thumbnail(output_size)
-#     i.save(picture_path)
-
-#     return picture_fn
-
-# def save_blood_test(form_picture):
-#     random_hex = secrets.token_hex(8)
-#     _, f_ext = os.path.splitext(form_picture.filename)
-#     picture_fn = random_hex + f_ext
-#     picture_path = os.path.join(app.root_path, 'static/blood_test', picture_fn)
-
-#     output_size = (125, 125)
-#     i = Image.open(form_picture)
-#     i.thumbnail(output_size)
-#     i.save(picture_path)
-
-#     return picture_fn
-
-#------------------------------------------------------------------------------------
 #Routes
 @app.route('/')
 @app.route('/home')
@@ -72,33 +45,15 @@ def servises():
     SurgicaForm = SurgicalOperationForm()
     if SurgicaForm.validate_on_submit():
         patientResult = Res(content=SurgicaForm.checkpatientResult(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity.data) + SurgicaForm.objections(SurgicaForm.hemoglopen, SurgicaForm.whiteBlood, SurgicaForm.platelets, SurgicaForm.liver, SurgicaForm.kidney, SurgicaForm.fluidity), 
-            title="Surgical Operation", user_id=current_user.id, author=current_user, 
-            name=SurgicaForm.name.data, age = SurgicaForm.age.data, nationalID = SurgicaForm.nationalID.data, 
-            diabetes = SurgicaForm.Diabetes.data, blood_presure = SurgicaForm.blood_pressure.data, covid_19 = SurgicaForm.covid_19.data,)
-        
-        # if SurgicaForm.patient_pic:
-        #     picture_file = save_picture(SurgicaForm.patient_pic.data)
-        #     patientResult.profileImage = picture_file
-        # if SurgicaForm.blood_tests_pic:
-        #     picture_file = save_blood_test(SurgicaForm.blood_tests_pic.data)
-        #     patientResult.blood_tests_image = picture_file
+            title="Surgical Operation", user_id=current_user.id, author=current_user)
+
         db.session.add(patientResult)
         db.session.commit()
         return redirect(url_for('account')) 
     #--------------------------------------------------------
     diabetesForm = DiabetesForm()
     if diabetesForm.validate_on_submit():
-        diabetesResult = Res(content=diabetesForm.checkTheCase(diabetesForm.Fasting, diabetesForm.After_Eating, diabetesForm.Hours_After_Eating)
-            , title="Diapetes Check", user_id=current_user.id, author=current_user
-            , name=diabetesForm.name.data, age = diabetesForm.age.data, nationalID = diabetesForm.nationalID.data, 
-            diabetes = diabetesForm.Diabetes.data, blood_presure = diabetesForm.blood_pressure.data, covid_19 = diabetesForm.covid_19.data,)
-        
-        # if diabetesForm.patient_pic:
-        #     picture_file = save_picture(diabetesForm.patient_pic.data)
-        #     diabetesResult.profileImage = picture_file
-        # if diabetesForm.blood_tests_pic:
-        #     picture_file = save_blood_test(diabetesForm.blood_tests_pic.data)
-        #     diabetesResult.blood_tests_image = picture_file
+        diabetesResult = Res(content=diabetesForm.checkTheCase(diabetesForm.Fasting, diabetesForm.After_Eating, diabetesForm.Hours_After_Eating),title="Diabetes Prediction", user_id=current_user.id, author=current_user)
         db.session.add(diabetesResult)
         db.session.commit()
         return redirect(url_for('account'))
@@ -106,16 +61,7 @@ def servises():
     heartPredictionForm = HeartPredictionForm()
     if heartPredictionForm.validate_on_submit():
         heartPredictionResult = Res(content=heartPredictionForm.checkHeartPrediction(heartPredictionForm.Age, heartPredictionForm.Sex, heartPredictionForm.cp, heartPredictionForm.trestbps, heartPredictionForm.chol, heartPredictionForm.fbs, heartPredictionForm.restecg, heartPredictionForm.thalach, heartPredictionForm.exang, heartPredictionForm.oldpeak, heartPredictionForm.slope, heartPredictionForm.ca, heartPredictionForm.thal)
-            , title="Heart disease prediction", user_id=current_user.id, author=current_user
-            , name=heartPredictionForm.name.data, age = heartPredictionForm.age.data, nationalID = heartPredictionForm.nationalID.data, 
-            diabetes = heartPredictionForm.Diabetes.data, blood_presure = heartPredictionForm.blood_pressure.data, covid_19 = heartPredictionForm.covid_19.data,)
-       
-        # if heartPredictionForm.patient_pic:
-        #     picture_file = save_picture(heartPredictionForm.patient_pic.data)
-        #     heartPredictionResult.profileImage = picture_file
-        # if heartPredictionForm.blood_tests_pic:
-        #     picture_file = save_blood_test(heartPredictionForm.blood_tests_pic.data)
-        #     heartPredictionResult.blood_tests_image = picture_file
+            , title="Heart disease prediction", user_id=current_user.id, author=current_user)
         db.session.add(heartPredictionResult)
         db.session.commit()
         return redirect(url_for('account'))
@@ -123,16 +69,7 @@ def servises():
     kideneyForm = KidneyForm()
     if  kideneyForm.validate_on_submit():
         kideneyResult = Res(content = kideneyForm.checkKidney(kideneyForm.Creatinin, kideneyForm.Creatinin_Clearance, kideneyForm.Na, kideneyForm.Cl, kideneyForm.K, kideneyForm.Blood_Urine_Nitrogen, kideneyForm.Urea)
-            , title="Kidney Check", user_id=current_user.id, author=current_user
-            , name=kideneyForm.name.data, age = kideneyForm.age.data, nationalID = kideneyForm.nationalID.data, 
-            diabetes = kideneyForm.Diabetes.data, blood_presure = kideneyForm.blood_pressure.data, covid_19 = kideneyForm.covid_19.data,)
-        
-        # if kideneyForm.patient_pic:
-        #     picture_file = save_picture(kideneyForm.patient_pic.data)
-        #     kideneyResult.profileImage = picture_file
-        # if kideneyForm.blood_tests_pic:
-        #     picture_file = save_blood_test(kideneyForm.blood_tests_pic.data)
-        #     kideneyResult.blood_tests_image = picture_file
+            , title="Kidney Check", user_id=current_user.id, author=current_user)
         db.session.add(kideneyResult)
         db.session.commit()
         return redirect(url_for('account'))
@@ -140,16 +77,7 @@ def servises():
     corona_in_out = Corona_in_or_out_form()
     if corona_in_out.validate_on_submit():
         CoronaInOutResult = Res(content = corona_in_out.checkTheCase(corona_in_out.White_Blood_Cell, corona_in_out.Erythrocyte_Sedimentation_Rate, corona_in_out.C_Reactive_Protein, corona_in_out.Procalcitonin)
-            , title = 'Covid-19 patient can get out the hospital or not?', user_id=current_user.id, author=current_user
-            , name=corona_in_out.name.data, age = corona_in_out.age.data, nationalID = corona_in_out.nationalID.data, 
-            diabetes = corona_in_out.Diabetes.data, blood_presure = corona_in_out.blood_pressure.data, covid_19 = corona_in_out.covid_19.data,)
-        
-        # if corona_in_out.patient_pic:
-        #     picture_file = save_picture(corona_in_out.patient_pic.data)
-        #     CoronaInOutResult.profileImage = picture_file
-        # if corona_in_out.blood_tests_pic:
-        #     picture_file = save_blood_test(corona_in_out.blood_tests_pic.data)
-        #     CoronaInOutResult.blood_tests_image = picture_file
+            , title = 'Covid-19 patient can get out the hospital or not?', user_id=current_user.id, author=current_user)
         db.session.add(CoronaInOutResult)
         db.session.commit()
         return redirect(url_for('account'))
@@ -353,6 +281,46 @@ def delete_result(result_id):
     db.session.commit()
     return redirect(url_for('account'))
 
+#-------------------------------------------------------------------------------------------
+@app.route('/addpatient', methods=('GET', 'POST'))
+@login_required
+def addpatient():
+    form = PatientForm()
+    if form.validate_on_submit():
+        patient = Patients(name=form.name.data, age=form.age.data, nationalID=form.nationalID.data, 
+            diabetes=form.Diabetes.data, blood_presure=form.blood_pressure.data,covid_19=form.covid_19.data)
+        db.session.add(patient)
+        db.session.commit()
+        return redirect(url_for('patientslist'))
+    return render_template('addPateient.html', title='Add Patients', form=form)
+
+@app.route('/patientslist')
+@login_required
+def patientslist():
+    #pagination
+    page = request.args.get('page', 1, type=int)
+    patients = Patients.query.order_by(Patients.date_entered.desc()).paginate(page=page, per_page=6)
+
+    #check if there us no result in the table
+    no_results = False
+    if Patients.query.first() is None:
+        no_results = True
+    return render_template('patientsList.html', title='Patients List', patients=patients, no_results=no_results)
+
+@app.route('/patientslist/<int:patient_id>')
+@login_required
+def patient(patient_id):
+    patient = Patients.query.get_or_404(patient_id)
+    return render_template('patientInfo.html', title='Patient', patient=patient)
+
+#delete the patient
+@app.route('/patientslist/<int:patient_id>/delete', methods=['GET', 'POST'])
+@login_required
+def delete_patient(patient_id):
+    patient = Patients.query.get_or_404(patient_id)
+    db.session.delete(patient)
+    db.session.commit()
+    return redirect(url_for('patientslist'))
 #-------------------------------------------------------------------------------------------
 @app.route('/cam')
 def cam():

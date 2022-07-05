@@ -14,6 +14,10 @@
         <p>{{ current_user.email }}</p>
         <p><strong>Role :</strong> {{ current_user.userType }}</p>
         <p><strong>Department :</strong> {{ current_user.department }}</p>
+        <hr>
+        <div>
+            <p>Download the Excel template file from <a href="{{ url_for('static', filename='Excel/Excel.xlsx') }}" >here</a>.</p>
+        </div>  
     </div>
     {% if no_results %}
         <div id="defaultAccount">
@@ -31,9 +35,6 @@
                 <hr>
                 <p id="result">{{ result }} <br></p>
                 <hr>
-                <div>
-                    <p>Patient: {{ result.name }}</p>
-                </div>
             </div>
         {% endif %}
     {% endfor %}
