@@ -120,7 +120,7 @@ def Save_User_Pic(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+    picture_path = os.path.join(app.root_path, 'static/User_pics', picture_fn)
 
     output_size = (125, 125)
     i = Image.open(form_picture)
@@ -137,8 +137,8 @@ def signup():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password, first_name = form.first_name.data, last_name = form.last_name.data, userType = form.userType.data, department = form.department.data)
-        if form.image_user.data:
-            picture_file = Save_User_Pic(form.image_user.data)
+        if form.imageUser.data:
+            picture_file = Save_User_Pic(form.imageUser.data)
             user.image_user = picture_file
         db.session.add(user)
         db.session.commit()
