@@ -242,9 +242,9 @@ def coronavirus():
         classes = model.predict(img_data)
         New_pred = np.argmax(classes, axis=1)
         if New_pred==[1]:
-           result ='Prediction: Normal'
+           result ='Prediction: Negative'
         else:
-           result = 'Prediction: Corona'
+           result = 'Prediction: Positive'
         if os.path.exists('upload/'+ file.filename):
             os.remove('upload/'+ file.filename)
 
