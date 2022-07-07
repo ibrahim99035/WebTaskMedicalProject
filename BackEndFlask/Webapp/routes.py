@@ -3,7 +3,7 @@ from flask import Flask, render_template, url_for, request, redirect, flash
 from matplotlib.pyplot import title
 from sqlalchemy import null
 from Webapp import app, db, bcrypt
-from Webapp.auth import RegistrationForm, LoginForm, PatientForm
+from Webapp.auth import RegistrationForm, LoginForm, PatientForm, PatientSearch
 from Webapp.Excel import Excelentry
 from Webapp.models import User, Res, Patients
 from flask_login import login_user, current_user, logout_user, login_required
@@ -361,9 +361,23 @@ def addpatient():
         return redirect(url_for('patientslist'))
     return render_template('addPateient.html', title='Add Patients', form=form)
 
-@app.route('/patientslist')
+@app.route('/patientslist', methods=('GET', 'POST'))
 @login_required
 def patientslist():
+    #Search Patients
+    patientsTable = Patients()
+    SearchForm = PatientSearch()
+    instance = ''
+    SearchResult = ''
+    
+    if SearchForm.validate_on_submit():
+        instance = SearchForm.search.data
+        for patient in Patients.query.all():
+            if patient.name == instance:
+                SearchResult = patient
+                break
+            else:
+                SearchResult = 'No result found'
     #pagination
     page = request.args.get('page', 1, type=int)
     patients = Patients.query.order_by(Patients.date_entered.desc()).paginate(page=page, per_page=6)
@@ -372,7 +386,7 @@ def patientslist():
     no_results = False
     if Patients.query.first() is None:
         no_results = True
-    return render_template('patientsList.html', title='Patients List', patients=patients, no_results=no_results)
+    return render_template('patientsList.html', title='Patients List', patients=patients, no_results=no_results, SearchResult=SearchResult, SearchForm=SearchForm)
 
 
 

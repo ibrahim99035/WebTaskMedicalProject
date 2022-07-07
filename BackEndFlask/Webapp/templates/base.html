@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.datetimepicker.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/linearicons.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Servises.css') }}">
     {% block head %}{% endblock %}
 </head>
 <body>
@@ -56,9 +57,12 @@
         </div>
         <div id="header" id="home">
             <div class="container">
+                <img src="{{ url_for('static', filename='images/logo/fcultyLogo.png') }}" alt="FCI Logo" id="FCI">
                 <div class="row align-items-center justify-content-between d-flex">
                 <div id="logo">
                     <a href="{{ url_for('index') }}" title="home"><img src="{{ url_for('static', filename='images/logo/logo.png') }}" alt="" title="" /></a>
+                    <br>
+                    
                 </div>
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">

@@ -119,3 +119,16 @@
     height: 10%;
     
 }
+
+#SearchBar{
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: #ccc 1px solid;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+    background-color: rgb(167, 238, 238);
+}
+

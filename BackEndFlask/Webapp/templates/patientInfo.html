@@ -3,61 +3,66 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 {% endblock %}
 
 
 {% block body %}
-    <div id="patient">
-        <h3>Patient info :</h3>
-        <hr>
-        <img src="{{ url_for('static', filename='profile_pics/' + patient.profileImage) }}" alt="patient image" class="avatar">
-        <hr>
-        <div>
-            <p>Name: {{ patient.name }}</p>
-            <p>Age: {{ patient.age }}</p>
-            <p>National ID: {{ patient.nationalID }}</p>
-            <p>Date: {{ patient.date_entered.strftime('%Y-%m-%d-%H:%M:%S') }}</p>
-        </div>
-        <hr>
-        <div>
-            <h4 id="oral">Oral diagnosing</h4>
-            <p>Diabetes: {{ patient.diabetes }}</p>
-            <p>Blood presure: {{ patient.blood_presure }}</p>
-            <p>Covid-19: {{ patient.covid_19 }}</p>
-        </div>
-        <hr>
-        <p>Blood Tests :</p>
-        <img src="{{ url_for('static', filename='blood_test/' + patient.blood_tests_image) }}" alt="Blood tests" class="blood-tests">
-        <hr>
-        <div id="deletePatient">
-            <div id="deleteIconPatient">
-                <small>Delete this patient!</small>
-                <button title="delete button" id="deletionButtonPatient" type="submit"  data-toggle="modal" data-target="#deleteModal">
+    <div id="bodyPatien">
+        
+        <div id="patient">
+            <h3>Patient info :</h3>
+            <hr>
+            <img src="{{ url_for('static', filename='profile_pics/' + patient.profileImage) }}" alt="patient image" class="avatar">
+            <hr>
+            <div>
+                <p>Name: {{ patient.name }}</p>
+                <p>Age: {{ patient.age }}</p>
+                <p>National ID: {{ patient.nationalID }}</p>
+                <p>Date: {{ patient.date_entered.strftime('%Y-%m-%d-%H:%M:%S') }}</p>
+            </div>
+            <hr>
+            <div>
+                <h4 id="oral">Oral diagnosing</h4>
+                <p>Diabetes: {{ patient.diabetes }}</p>
+                <p>Blood presure: {{ patient.blood_presure }}</p>
+                <p>Covid-19: {{ patient.covid_19 }}</p>
+            </div>
+            <hr>
+            <p>Blood Tests :</p>
+            <img src="{{ url_for('static', filename='blood_test/' + patient.blood_tests_image) }}" alt="Blood tests" class="blood-tests">
+            <hr>
+            <div id="deletePatient">
+                <div id="deleteIconPatient">
+                    <small>Delete this patient!</small>
+                    <button title="delete button" id="deletionButtonPatient" type="submit"  data-toggle="modal" data-target="#deleteModal">
+                        
+                    </button>
                     
-                </button>
-                
+                </div>
+            </div>
+        </div>
+        
+        <!--Model-->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Confirm that you want to delete this patient result.</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!--form with button field with url for deletion method-->
+                        <form action="{{ url_for('delete_patient', patient_id=patient.id) }}" method="post">
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     
-    <!--Model-->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Confirm that you want to delete this patient result.</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <!--form with button field with url for deletion method-->
-                    <form action="{{ url_for('delete_patient', patient_id=patient.id) }}" method="post">
-                        <button type="submit" class="btn btn-primary">Delete</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}

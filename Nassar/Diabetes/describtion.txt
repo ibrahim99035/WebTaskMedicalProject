@@ -1,1 +1,0 @@
-This folder is for mohamed nassar for diabetes prediction algorithm Task

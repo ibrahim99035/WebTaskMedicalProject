@@ -2,6 +2,15 @@ from flask_wtf import FlaskForm
 from wtforms import FloatField, SubmitField, StringField, IntegerField
 from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import DataRequired, Length
+
+import os
+from werkzeug.utils import secure_filename
+import tensorflow as tf 
+from keras.preprocessing import image
+from keras.applications.vgg16 import preprocess_input
+import numpy as np
+
+
 class BreastCancerForm(FlaskForm):
     
     radius_mean = FloatField('radius_mean', validators=[DataRequired()])
@@ -47,5 +56,11 @@ class BreastCancerForm(FlaskForm):
         radius_worst, texture_worst, perimeter_worst, area_worst, smoothness_worst, compactness_worst, concavity_worst, 
         concave_points_worst, symmetry_worst, fractal_dimension_worst):
         #--------------------------------------------------------------------------------------
-        model = 'Model : Logistic Regression'
+        model = tf.keras.models.load_model(r'../BreastCancer/model.wdah_breast')
+        #--------------------------------------------------------------------------------------
+        arr = np.array([[radius_mean.data, texture_mean.data, perimeter_mean.data, area_mean.data, smoothness_mean.data, compactness_mean.data,concavity_mean.data, concave_points_mean.data, symmetry_mean.data, fractal_dimension_mean.data, radius_se.data, texture_se.data, perimeter_se.data, 
+        area_se.data, smoothness_se.data, compactness_se.data, concavity_se.data, concave_points_se.data, symmetry_se.data, fractal_dimension_se.data, 
+        radius_worst.data, texture_worst.data, perimeter_worst.data, area_worst.data, smoothness_worst.data, compactness_worst.data, concavity_worst.data, 
+        concave_points_worst.data, symmetry_worst.data, fractal_dimension_worst.data]])
+        #--------------------------------------------------------------------------------------
         return self.breastCancerResult

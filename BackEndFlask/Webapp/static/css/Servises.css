@@ -113,3 +113,9 @@
     background-color: rgb(95, 133, 204);
 }
 
+#FCI{
+    width: 7%;
+    height: 7%;
+    float: right;
+    margin-left: 35px;
+}

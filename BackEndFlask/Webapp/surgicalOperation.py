@@ -42,7 +42,7 @@ class SurgicalOperationForm(FlaskForm):
     
     #checking patient's results
     def checkpatientResult(self, hemoglopen, whiteBlood, platelets, liver, kidney, fluidity):
-        if 9 <= hemoglopen.data <= 11 and 5 <= whiteBlood.data <= 18 and 150000 <= platelets.data <= 350000 and \
+        if 9 <= hemoglopen.data <= 11 and 5000.0 <= whiteBlood.data <= 10000.0 and 150000 <= platelets.data <= 350000 and \
         20 <= liver.data <= 40 and 0.5 <= kidney.data <= 1.5 and 0.7 <= fluidity.data <= 1.5:
             patientResult = self.qualified
         else:

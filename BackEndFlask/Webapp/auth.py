@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, SearchField
 from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from Webapp.models import User
@@ -51,3 +51,8 @@ class PatientForm(FlaskForm):
     blood_tests_pic = FileField('Blood Tests Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 
     submit = SubmitField('Add Patient')
+
+
+class PatientSearch(FlaskForm):
+    search  = SearchField('Search', validators=[DataRequired()])
+    submit = SubmitField('Search')
