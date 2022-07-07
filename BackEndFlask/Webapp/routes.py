@@ -4,7 +4,7 @@ from matplotlib.pyplot import title
 from sqlalchemy import null
 from Webapp import app, db, bcrypt
 from Webapp.auth import RegistrationForm, LoginForm, PatientForm, PatientSearch
-from Webapp.Excel import Excelentry
+
 from Webapp.models import User, Res, Patients
 from flask_login import login_user, current_user, logout_user, login_required
 import os
@@ -407,40 +407,40 @@ def delete_patient(patient_id):
     db.session.commit()
     return redirect(url_for('patientslist'))
 #-------------------------------------------------------------------------------------------
-def SaveExcelFile(file_exc):
-    randomHex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(file_exc.filename)
-    if f_ext not in ('./data/[^~]*.xlsx'):
-        file_name = randomHex + f_ext
-        file_path = os.path.join(app.root_path, 'static/Save_Excel', file_name)
-        file_exc.save(file_path)
-    return file_path
-@app.route('/ExcelFile', methods=('GET', 'POST'))
-@login_required
-def uploadexcel():
-    userResult = ''
-    store = True
-    Excel_Form = Excelentry()
-    if Excel_Form.validate_on_submit():
-        saved = SaveExcelFile(Excel_Form.TheFile.data)
-        resultList = Excel_Form.addRecord(saved)
+# def SaveExcelFile(file_exc):
+#     randomHex = secrets.token_hex(8)
+#     _, f_ext = os.path.splitext(file_exc.filename)
+#     if f_ext not in ('./data/[^~]*.xlsx'):
+#         file_name = randomHex + f_ext
+#         file_path = os.path.join(app.root_path, 'static/Save_Excel', file_name)
+#         file_exc.save(file_path)
+#     return file_path
+# @app.route('/ExcelFile', methods=('GET', 'POST'))
+# @login_required
+# def uploadexcel():
+#     userResult = ''
+#     store = True
+#     Excel_Form = Excelentry()
+#     if Excel_Form.validate_on_submit():
+#         saved = SaveExcelFile(Excel_Form.TheFile.data)
+#         resultList = Excel_Form.addRecord(saved)
         
-        if resultList.is_empty():
-            userResult = 'Please check the excel file'
-            store = False   
-        else:
-            userResult = 'Sucess'
-        if store:
-            dbInstance = Patients(name=resultList[0], age=resultList[1], nationalID=resultList[2],diabetes=resultList[3],blood_presure=resultList[4],covid_19=resultList[5])
-            db.session.add(dbInstance)
-            db.session.commit()
+#         if resultList.is_empty():
+#             userResult = 'Please check the excel file'
+#             store = False   
+#         else:
+#             userResult = 'Sucess'
+#         if store:
+#             dbInstance = Patients(name=resultList[0], age=resultList[1], nationalID=resultList[2],diabetes=resultList[3],blood_presure=resultList[4],covid_19=resultList[5])
+#             db.session.add(dbInstance)
+#             db.session.commit()
 
-    return render_template('uploadexcel.html', title='Upload Excel Sheet data', form = Excel_Form, userResult = userResult)
+#     return render_template('uploadexcel.html', title='Upload Excel Sheet data', form = Excel_Form, userResult = userResult)
 #-------------------------------------------------------------------------------------------
-@app.route('/cam')
-def cam():
-    return render_template('camRecognation.html', title='Camera')
+# @app.route('/cam')
+# def cam():
+#     return render_template('camRecognation.html', title='Camera')
 
-@app.route('/signincam')
-def signincam():
-    return render_template('camSignIn.html', title='Sign In Camera')
+# @app.route('/signincam')
+# def signincam():
+#     return render_template('camSignIn.html', title='Sign In Camera')
