@@ -1,6 +1,5 @@
 from unicodedata import name
 from flask import Flask, render_template, url_for, request, redirect, flash
-from matplotlib.pyplot import title
 from sqlalchemy import null
 from Webapp import app, db, bcrypt
 from Webapp.auth import RegistrationForm, LoginForm, PatientForm, PatientSearch
@@ -18,9 +17,7 @@ from Webapp.kidney import KidneyForm
 from Webapp.Covid_patient_in_or_out import Corona_in_or_out_form
 from Webapp.animea import AnemiaForm
 
-#from Webapp.corona import CoronaForm
 
-from Webapp.breastCancer import BreastCancerForm
 
 
 #------------------------------------------------------------------------------------
@@ -95,25 +92,8 @@ def servises():
         db.session.commit()
         return redirect(url_for('account'))
     #---------------------------------------------------------
-    breast_cancer_Form = BreastCancerForm()
-    if breast_cancer_Form.validate_on_submit():
-        BreastCancerResult = Res(content = breast_cancer_Form.checkBreastCancer(breast_cancer_Form.radius_mean, 
-        breast_cancer_Form.texture_mean, breast_cancer_Form.perimeter_mean, breast_cancer_Form.area_mean, 
-        breast_cancer_Form.smoothness_mean, breast_cancer_Form.compactness_mean, 
-        breast_cancer_Form.concavity_mean, breast_cancer_Form.concave_points_mean, breast_cancer_Form.symmetry_mean, 
-        breast_cancer_Form.fractal_dimension_mean, breast_cancer_Form.radius_se, breast_cancer_Form.texture_se, 
-        breast_cancer_Form.perimeter_se, breast_cancer_Form.area_se, breast_cancer_Form.smoothness_se, 
-        breast_cancer_Form.compactness_se, breast_cancer_Form.concavity_se, breast_cancer_Form.concave_points_se, 
-        breast_cancer_Form.symmetry_se, breast_cancer_Form.fractal_dimension_se, breast_cancer_Form.radius_worst, 
-        breast_cancer_Form.texture_worst, breast_cancer_Form.perimeter_worst, breast_cancer_Form.area_worst, 
-        breast_cancer_Form.smoothness_worst, breast_cancer_Form.compactness_worst, breast_cancer_Form.concavity_worst, 
-        breast_cancer_Form.concave_points_worst, breast_cancer_Form.symmetry_worst, breast_cancer_Form.fractal_dimension_worst)
-        , title = 'Breast Cancer Prediction', user_id=current_user.id, author=current_user)
-        db.session.add(BreastCancerResult)
-        db.session.commit()
-        return redirect(url_for('account'))
-    #---------------------------------------------------------
-    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form4 = heartPredictionForm, form5 = kideneyForm, form6 = corona_in_out, form7 = anemiaForm, form8 = breast_cancer_Form)
+    
+    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form4 = heartPredictionForm, form5 = kideneyForm, form6 = corona_in_out, form7 = anemiaForm)
 
 @app.route('/elements')
 def elements():

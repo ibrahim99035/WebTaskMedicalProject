@@ -35,6 +35,7 @@ class Corona_in_or_out_form(FlaskForm):
         else:
             Corona_in_or_out_result = self.failuer
         
+        
         if test2:
             Corona_in_or_out_result += self.failuerReason1
 

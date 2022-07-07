@@ -36,5 +36,7 @@ class DiabetesForm(FlaskForm):
             diabetesResult = self.case3
         elif test4:
             diabetesResult = self.case4
+        else:
+            diabetesResult = 'invalid inputs'
         
         return diabetesResult
