@@ -31,16 +31,16 @@
     background-color: rgb(60, 197, 202);
 }
 
-#surgical, #diapetes, #heartPred, #corona, #KidneyDiv, #coronaInOutDiv, #braintumourDiv, #BreastDiv, #AnemiaDiv{
+#surgical, #diapetes, #heartPred, #corona, #KidneyDiv, #coronaInOutDiv, #braintumourDiv, #BreastDiv, #AnemiaDiv, #HepPredictionDiv, #BreastDivForm{
     display: none;
 }
 
-#coronaLink, #tumourLink{
+#coronaLink, #tumourLink, #HepLink{
     font-size: 45px;
     justify-items: center;
     text-decoration: none;
 }
-#coronaLink:hover, #tumourLink:hover{
+#coronaLink:hover, #tumourLink:hover, #HepLink:hover{
     color: rgb(32, 116, 119);
 }
 
@@ -72,7 +72,7 @@
 
 
 
-#brainImage, #covidImage{
+#brainImage, #covidImage, #hepImage{
     width: 60%;
     height: 100%;
     padding-left: 35%;
@@ -118,4 +118,13 @@
     height: 7%;
     float: right;
     margin-left: 35px;
+}
+
+
+
+.doctor-img{
+    width: 50%;
+    height: 150%;
+    margin-left: 25%;
+    margin-right: 25%;
 }

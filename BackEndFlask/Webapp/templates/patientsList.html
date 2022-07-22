@@ -31,7 +31,11 @@
                 </div>
             </form>
             <div id="SearchResult">
-                <p>{{ SearchResult }} </p>
+                <!-- <p>{{ SearchResult }} </p> -->
+                {% for i in range(0, SearchResultListLength) %}
+                    <p id="PatientSearchResult">{{ SearchResultList[0] }}</p>
+                    <hr>
+                {% endfor %}
             </div>
         </div>
         <hr>

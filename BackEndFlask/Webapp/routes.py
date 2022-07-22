@@ -1,5 +1,5 @@
 from unicodedata import name
-from flask import Flask, render_template, url_for, request, redirect, flash
+from flask import Flask, render_template, url_for, request, redirect, flash ,jsonify
 from sqlalchemy import null
 from Webapp import app, db, bcrypt
 from Webapp.auth import RegistrationForm, LoginForm, PatientForm, PatientSearch
@@ -18,7 +18,7 @@ from Webapp.Covid_patient_in_or_out import Corona_in_or_out_form
 from Webapp.animea import AnemiaForm
 
 
-
+from Webapp.breastCancer import BreastCancerForm
 
 #------------------------------------------------------------------------------------
 import os
@@ -27,7 +27,18 @@ import tensorflow as tf
 from keras.preprocessing import image
 from keras.applications.vgg16 import preprocess_input
 import numpy as np
+import pandas as pd 
+import joblib
+#------------------------------------------------------------------------------------
+def load_model(model_file):
+	loaded_model = joblib.load(open(os.path.join(model_file),"rb"))
+	return loaded_model
 
+def get_key(val,my_dict):
+	for key ,value in my_dict.items():
+		if val == value:
+			return key
+#------------------------------------------------------------------------------------
 UPLOAD_FOLDER = 'upload/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -69,7 +80,7 @@ def servises():
     #--------------------------------------------------------
     kideneyForm = KidneyForm()
     if  kideneyForm.validate_on_submit():
-        kideneyResult = Res(content = kideneyForm.checkKidney(kideneyForm.Creatinin, kideneyForm.Creatinin_Clearance, kideneyForm.Na, kideneyForm.Cl, kideneyForm.K, kideneyForm.Blood_Urine_Nitrogen, kideneyForm.Urea)
+        kideneyResult = Res(content = kideneyForm.checkKidney(kideneyForm.Creatinin, kideneyForm.Creatinin_Clearance, kideneyForm.Na, kideneyForm.K, kideneyForm.Cl, kideneyForm.Blood_Urine_Nitrogen, kideneyForm.Urea)
             , title="Kidney Check", user_id=current_user.id, author=current_user)
         db.session.add(kideneyResult)
         db.session.commit()
@@ -92,16 +103,42 @@ def servises():
         db.session.commit()
         return redirect(url_for('account'))
     #---------------------------------------------------------
+    breastCancerForm = BreastCancerForm()
+    if breastCancerForm.validate_on_submit():
+        breastCancerResult = Res(content = breastCancerForm.checkBreastCancer(breastCancerForm.radius_mean, 
+            breastCancerForm.texture_mean ,breastCancerForm.perimeter_mean ,
+            breastCancerForm.area_mean ,breastCancerForm.smoothness_mean ,
+            breastCancerForm.compactness_mean ,breastCancerForm.concavity_mean ,
+            breastCancerForm.concave_points_mean ,
+            breastCancerForm.symmetry_mean ,breastCancerForm.fractal_dimension_mean ,
+            breastCancerForm.radius_se ,
+            breastCancerForm.texture_se ,breastCancerForm.perimeter_se ,
+            breastCancerForm.area_se ,breastCancerForm.smoothness_se ,
+            breastCancerForm.compactness_se ,
+            breastCancerForm.concavity_se ,breastCancerForm.concave_points_se ,
+            breastCancerForm.symmetry_se ,breastCancerForm.fractal_dimension_se ,
+            breastCancerForm.radius_worst ,
+            breastCancerForm.texture_worst ,breastCancerForm.perimeter_worst ,
+            breastCancerForm.area_worst ,breastCancerForm.smoothness_worst ,
+            breastCancerForm.compactness_worst ,
+            breastCancerForm.concavity_worst ,breastCancerForm.concave_points_worst ,
+            breastCancerForm.symmetry_worst ), title = 'Breast Cancer', user_id=current_user.id, author=current_user)
+        db.session.add(breastCancerResult)
+        db.session.commit()
+        return redirect(url_for('account'))
+    #---------------------------------------------------------
     
-    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, form2 = diabetesForm, form4 = heartPredictionForm, form5 = kideneyForm, form6 = corona_in_out, form7 = anemiaForm)
+    return render_template('Servises.html', title = 'Servises', form1 = SurgicaForm, 
+        form2 = diabetesForm, form4 = heartPredictionForm, form5 = kideneyForm, 
+        form6 = corona_in_out, form7 = anemiaForm, form8 = breastCancerForm)
 
 @app.route('/elements')
 def elements():
     return render_template('elements.html', title = 'Elements')
 
-@app.route('/doctors')
+@app.route('/stuff')
 def doctors():
-    return render_template('doctors.html', title = 'Doctors')
+    return render_template('doctors.html', title = 'Stuff')
 
 @app.route('/departments')
 def departments():
@@ -349,16 +386,20 @@ def patientslist():
     SearchForm = PatientSearch()
     instance = ''
     SearchResult = ''
-    
+    SearchResultList = []
+    SearchResultListLength = 0
+    non_result = 'No result found'
     if SearchForm.validate_on_submit():
         instance = SearchForm.search.data
         for patient in Patients.query.all():
             if patient.name == instance:
                 SearchResult = patient
-                break
-            else:
+                SearchResultList.append(SearchResult)
+            else: 
                 SearchResult = 'No result found'
+                SearchResultList.append(SearchResult)
     #pagination
+    SearchResultListLength = len(SearchResultList)
     page = request.args.get('page', 1, type=int)
     patients = Patients.query.order_by(Patients.date_entered.desc()).paginate(page=page, per_page=6)
 
@@ -366,7 +407,9 @@ def patientslist():
     no_results = False
     if Patients.query.first() is None:
         no_results = True
-    return render_template('patientsList.html', title='Patients List', patients=patients, no_results=no_results, SearchResult=SearchResult, SearchForm=SearchForm)
+    return render_template('patientsList.html', title='Patients List', patients=patients, 
+            no_results=no_results, SearchResult=SearchResult, SearchForm=SearchForm
+            , SearchResultList=SearchResultList, SearchResultListLength=SearchResultListLength)
 
 
 
@@ -386,41 +429,58 @@ def delete_patient(patient_id):
     db.session.delete(patient)
     db.session.commit()
     return redirect(url_for('patientslist'))
-#-------------------------------------------------------------------------------------------
-# def SaveExcelFile(file_exc):
-#     randomHex = secrets.token_hex(8)
-#     _, f_ext = os.path.splitext(file_exc.filename)
-#     if f_ext not in ('./data/[^~]*.xlsx'):
-#         file_name = randomHex + f_ext
-#         file_path = os.path.join(app.root_path, 'static/Save_Excel', file_name)
-#         file_exc.save(file_path)
-#     return file_path
-# @app.route('/ExcelFile', methods=('GET', 'POST'))
-# @login_required
-# def uploadexcel():
-#     userResult = ''
-#     store = True
-#     Excel_Form = Excelentry()
-#     if Excel_Form.validate_on_submit():
-#         saved = SaveExcelFile(Excel_Form.TheFile.data)
-#         resultList = Excel_Form.addRecord(saved)
-        
-#         if resultList.is_empty():
-#             userResult = 'Please check the excel file'
-#             store = False   
-#         else:
-#             userResult = 'Sucess'
-#         if store:
-#             dbInstance = Patients(name=resultList[0], age=resultList[1], nationalID=resultList[2],diabetes=resultList[3],blood_presure=resultList[4],covid_19=resultList[5])
-#             db.session.add(dbInstance)
-#             db.session.commit()
 
-#     return render_template('uploadexcel.html', title='Upload Excel Sheet data', form = Excel_Form, userResult = userResult)
-#-------------------------------------------------------------------------------------------
-# @app.route('/cam')
-# def cam():
-#     return render_template('camRecognation.html', title='Camera')
 
-# @app.route('/signincam')
-# def signincam():
-#     return render_template('camSignIn.html', title='Sign In Camera')
+#-------------------------------------------------------------------------------------------
+#hep
+@app.route('/predict', methods=('GET', 'POST'))
+@login_required
+def hep():
+    sample_result = {}
+    final_result = ''
+    pred_probalility_score = {}
+    if request.method == 'POST':
+        age = request.form['age']
+        sex = request.form['sex']
+        steroid= request.form['steroid']
+        antivirals= request.form['antivirals']
+        fatigue= request.form['fatigue']
+        spiders= request.form['spiders']
+        ascites= request.form['ascites']
+        varices= request.form['varices']
+        bilirubin= request.form['bilirubin']
+        alk_phosphate= request.form['alk_phosphate']
+        sgot= request.form['sgot']
+        albumin= request.form['albumin']
+        protime= request.form['protime']
+        histology= request.form['histology']
+        sample_result = {
+            "age":age,
+            "sex":sex,
+            "steroid":steroid,
+            "antivirals":antivirals,
+            "fatigue":fatigue,
+            "spiders":spiders,
+            "ascites":ascites,
+            "varices":varices,
+            "bilirubin":bilirubin,
+            "alk_phosphate":alk_phosphate,
+            "sgot":sgot,
+            "albumin":albumin,
+            "protime":protime,
+            "histolog":histology
+        }
+        single_data = [age,sex,steroid,antivirals,fatigue,spiders,ascites,varices,bilirubin,alk_phosphate,sgot,albumin,protime,histology]
+        numerical_encoded_data = [ float(int(x)) for x in single_data ]
+        model = load_model('../HepModels/logistic_regression_hepB_model.pkl')
+        prediction = model.predict(np.array(numerical_encoded_data).reshape(1,-1))
+        prediction_label = {"Die":1,"Live":2}
+        final_result = get_key(prediction[0],prediction_label)
+        pred_prob = model.predict_proba(np.array(numerical_encoded_data).reshape(1,-1))
+        pred_probalility_score = {"Die":pred_prob[0][0]*100,"Live":pred_prob[0][1]*100}
+        contentDB = f'{final_result}, {pred_probalility_score}' 
+        DBResults = Res(content=contentDB, title="Hepatitis Prediction", user_id=current_user.id, author=current_user)
+        db.session.add(DBResults)
+        db.session.commit()
+    return render_template('hep.html', title='Hepatitis', sample_result=sample_result,prediction=final_result,pred_probalility_score=pred_probalility_score)
+

@@ -2,14 +2,14 @@
 
 
 {% block head %}
-<title>Services</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">
 {% endblock %}
 
 
 {% block body %}
 
 <!-- Map Area Starts -->
-<section class="map-area section-padding">
+<!-- <section class="map-area section-padding">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -24,13 +24,13 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- Map Area End -->
 
 
 <!-- Contact Form Starts -->
 <section class="contact-form section-padding3">
-    <div class="container">
+    <div class="container" id="contactsID">
         <div class="row">
             <div class="col-lg-3 mb-5 mb-lg-0">
                 <div class="d-flex">
@@ -38,8 +38,8 @@
                         <i class="fa fa-home"></i>
                     </div>
                     <div class="info-text">
-                        <h3>California, United States</h3>
-                        <p>Santa monica bullevard</p>
+                        <h3>Tanta, Egypt</h3>
+                        <p>IT department, FCI, Tanta Unversity</p>
                     </div>
                 </div>
                 <div class="d-flex">

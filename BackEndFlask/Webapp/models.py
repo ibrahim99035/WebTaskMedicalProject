@@ -51,4 +51,4 @@ class Patients(db.Model):
     blood_tests_image = db.Column(db.String(100), nullable=False, default = 'default.jpg')
 
     def __repr__(self):
-        return f"{self.name}, {self.age}, {self.nationalID}, {self.date_entered} !"
+        return f"{self.name}, {self.age} years old,  National ID{self.nationalID}, Entered in :{self.date_entered.strftime('%Y-%m-%d-%H:%M:%S')}"

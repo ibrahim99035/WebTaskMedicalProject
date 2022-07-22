@@ -7,6 +7,8 @@ let KidenySpan = document.querySelector('#KidneySpan')
 let coronaInOutSpan = document.querySelector('#CoronaInOut')
 let BrainTumourSpan = document.querySelector('#brainTumourSpan')
 let anemiaSpan = document.querySelector('#anemiaSpan')
+let hepSpan = document.querySelector('#hepSpan')
+let BreastSpan = document.querySelector('#BreastSpan')
 
 
 //divs
@@ -19,6 +21,8 @@ let kidneyDiv = document.querySelector('#KidneyDiv')
 let coronaInOutDiv = document.querySelector('#coronaInOutDiv')
 let BrainTumourDiv = document.querySelector('#braintumourDiv')
 let AnemiaDiv = document.querySelector('#AnemiaDiv')
+let HepPredictionDiv = document.querySelector('#HepPredictionDiv')
+let BreastDivForm = document.querySelector('#BreastDivForm')
 
 
 
@@ -30,8 +34,10 @@ heartSpan.addEventListener('click', () => {
     surgDiv.style.display = "none";
     defult.style.display = "none";
     coronaDiv.style.display = "none";
+    HepPredictionDiv.style.display = "none";
     treatment.style.display = "none";
     AnemiaDiv.style.display = "none";
+    BreastDivForm.style.display = "none";
     kidneyDiv.style.display = "none";
     BrainTumourDiv.style.display = "none";
     coronaInOutDiv.style.display = "none";
@@ -44,7 +50,9 @@ diapSpan.addEventListener('click', () => {
     defult.style.display = "none";
     coronaDiv.style.display = "none";
     treatment.style.display = "none";
+    HepPredictionDiv.style.display = "none";
     AnemiaDiv.style.display = "none";
+    BreastDivForm.style.display = "none";
     kidneyDiv.style.display = "none";
     BrainTumourDiv.style.display = "none";
     coronaInOutDiv.style.display = "none";
@@ -56,8 +64,10 @@ surgSpan.addEventListener('click', () => {
     diapDiv.style.display = "none";
     surgDiv.style.display = "block";
     defult.style.display = "none";
+    HepPredictionDiv.style.display = "none";
     coronaDiv.style.display = "none";
     treatment.style.display = "none";
+    BreastDivForm.style.display = "none";
     AnemiaDiv.style.display = "none";
     kidneyDiv.style.display = "none";
     BrainTumourDiv.style.display = "none";
@@ -74,6 +84,8 @@ CoronaSpan.addEventListener('click', () => {
     coronaInOutDiv.style.display = "none";
     AnemiaDiv.style.display = "none";
     coronaDiv.style.display = "block";
+    BreastDivForm.style.display = "none";
+    HepPredictionDiv.style.display = "none";
     kidneyDiv.style.display = "none";
     BrainTumourDiv.style.display = "none";
 });
@@ -84,7 +96,9 @@ KidenySpan.addEventListener('click', () => {
     surgDiv.style.display = "none";
     defult.style.display = "none";
     treatment.style.display = "none";
+    HepPredictionDiv.style.display = "none";
     AnemiaDiv.style.display = "none";
+    BreastDivForm.style.display = "none";
     coronaDiv.style.display = "none";
     coronaInOutDiv.style.display = "none";
     kidneyDiv.style.display = "block";
@@ -98,6 +112,8 @@ coronaInOutSpan.addEventListener('click', () => {
     defult.style.display = "none";
     treatment.style.display = "none";
     coronaDiv.style.display = "none";
+    BreastDivForm.style.display = "none";
+    HepPredictionDiv.style.display = "none";
     AnemiaDiv.style.display = "none";
     kidneyDiv.style.display = "none";
     coronaInOutDiv.style.display = "block";
@@ -111,9 +127,11 @@ BrainTumourSpan.addEventListener('click', () => {
     surgDiv.style.display = "none";
     defult.style.display = "none";
     coronaDiv.style.display = "none";
+    HepPredictionDiv.style.display = "none";
     treatment.style.display = "none";
     AnemiaDiv.style.display = "none";
     kidneyDiv.style.display = "none";
+    BreastDivForm.style.display = "none";
     coronaInOutDiv.style.display = "none";
     BrainTumourDiv.style.display = "block";
 });
@@ -126,9 +144,39 @@ anemiaSpan.addEventListener('click', () => {
     coronaDiv.style.display = "none";
     treatment.style.display = "none";
     kidneyDiv.style.display = "none";
+    HepPredictionDiv.style.display = "none";
     coronaInOutDiv.style.display = "none";
+    BreastDivForm.style.display = "none";
     BrainTumourDiv.style.display = "none";
     AnemiaDiv.style.display = "block";
 });
 
+hepSpan.addEventListener('click', () => {
+    heartDiv.style.display = "none";
+    diapDiv.style.display = "none";
+    surgDiv.style.display = "none";
+    defult.style.display = "none";
+    coronaDiv.style.display = "none";
+    treatment.style.display = "none";
+    kidneyDiv.style.display = "none";
+    coronaInOutDiv.style.display = "none";
+    BreastDivForm.style.display = "none";
+    BrainTumourDiv.style.display = "none";
+    AnemiaDiv.style.display = "none";
+    HepPredictionDiv.style.display = "block";
+});
 
+BreastSpan.addEventListener('click', () => {
+    heartDiv.style.display = "none";
+    diapDiv.style.display = "none";
+    surgDiv.style.display = "none";
+    defult.style.display = "none";
+    coronaDiv.style.display = "none";
+    treatment.style.display = "none";
+    HepPredictionDiv.style.display = "none";
+    AnemiaDiv.style.display = "none";
+    kidneyDiv.style.display = "none";
+    BrainTumourDiv.style.display = "none";
+    coronaInOutDiv.style.display = "none";
+    BreastDivForm.style.display = "block";
+});

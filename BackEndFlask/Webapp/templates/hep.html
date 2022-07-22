@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+    
+  <!-- Bootstrap core CSS
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.3/css/mdb.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/hep.css') }}">
+{% endblock %}
+
+
+{% block body %}
+<div id="hepHead">
+    <h3>In this page we are using machine leariningr to predict the problems asociated with hepatitis</h3>
+</div>
+<div class="container" >
+    <form method="POST" action="/predict">
+            
+            <!-- Clean Layout -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                      <div class="card mb-10 shadow-sm" id="custom_card">
+                           <!-- Feature Starts here -->
+                          <div class="form-group">
+                            <label for="age">Age:</label>
+                            <input type="number" class="form-control form-control-sm" id="age" name="age" min=7 value="7">
+                          </div>
+                          <!-- Feature Ends here -->
+                          <!-- Feature Starts here -->
+                          <div>
+                           <div class="form-check-inline">
+                               <label class="form-check-label">
+                               <h6>Gender</h6>
+                           </label>
+                           </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="sex" value="1" checked="checked">Male
+                            </label>
+                          </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="sex" value="2">Female
+                            </label>
+                          </div>
+                          </div>
+                          <!-- Feature Ends here -->
+                          <!-- Feature Starts here -->
+                          <div>
+                           <div class="form-check-inline">
+                               <label class="form-check-label">
+                               <h6>Do You Take Steriods?</h6
+                                   >
+                           </label>
+                           </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="steroid" value="1" checked="checked">No
+                            </label>
+                          </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="steroid" value="2">Yes
+                            </label>
+                          </div>
+                          </div>
+                          <!-- Feature Ends here -->
+                          <!-- Feature Starts here -->
+                          <div>
+                           <div class="form-check-inline">
+                               <label class="form-check-label">
+                               <h6>Do You Take Antivirals?</h6>
+                           </label>
+                           </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="antivirals" value="1" checked="checked">No
+                            </label>
+                          </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="antivirals" value="2">Yes
+                            </label>
+                          </div>
+                          </div>
+                          <!-- Feature Ends here -->
+                          <!-- Feature Starts here -->
+                          <div>
+                           <div class="form-check-inline">
+                               <label class="form-check-label">
+                               <h6>Do You Have Fatigue?</h6>
+                           </label>
+                           </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="fatigue" value="1" checked="checked">No
+                            </label>
+                          </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="fatigue" value="2">Yes
+                            </label>
+                          </div>
+                          </div>
+                          <!-- Feature Ends here -->
+                          <!-- Feature Starts here -->
+                          <div>
+                           <div class="form-check-inline">
+                               <label class="form-check-label">
+                               <h6>Presence of Spider Naevi</h6>
+                           </label>
+                           </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="spiders" value="1" checked="checked">No
+                            </label>
+                          </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="spiders" value="2">Yes
+                            </label>
+                          </div>
+                          </div>
+                          <!-- Feature Ends here -->
+                          <!-- Feature Starts here -->
+                          <div>
+                           <div class="form-group">
+                            <label for="varices">Presence of Varices:</label>
+                            <select class="form-control" id="varices" name='varices'>
+                              <option value="1">No</option>
+                              <option value="2">Yes</option>
+                            </select>
+                          </div>
+                          </div>
+                          <!-- Feature Ends here -->
+                        <!-- Feature Starts here -->
+                        <div>
+                         <div class="form-group">
+                          <label for="varices">Presence of Ascites:</label>
+                          <select class="form-control" id="ascites" name='ascites' title="ascites">
+                            <option value="1">No</option>
+                            <option value="2">Yes</option>
+                          </select>
+                        </div>
+                        </div>
+                        <!-- Feature Ends here -->
+                    </div>
+                </div>
+    
+    
+    
+                <div class="col-md-5">
+                      <div class="card mb-10 shadow-sm" id="custom_card2">
+                          
+                           <!-- Feature Starts here -->
+                          <div class="form-group">
+                            <label for="bilirubin">Bilirubin:</label>
+                            <input type="number" class="form-control form-control-sm" id="bilirubin" name="bilirubin" min=0 value='0' max="9">
+                          </div>
+                          <!-- Feature Ends here -->
+                           <!-- Feature Starts here -->
+                          <div class="form-group">
+                            <label for="alk_phosphate">Alk Phostate:</label>
+                            <input type="number" class="form-control form-control-sm" id="alk_phosphate" name="alk_phosphate" min=0 value='0' max="296">
+                          </div>
+                          <!-- Feature Ends here -->
+                           <!-- Feature Starts here -->
+                          <div class="form-group">
+                            <label for="sgot">SGOT:</label>
+                            <input type="number" class="form-control form-control-sm" id="sgot" name="sgot" min=0 value='0' max="650">
+                          </div>
+                          <!-- Feature Ends here -->
+                           <!-- Feature Starts here -->
+                          <div class="form-group">
+                            <label for="albumin">Albumin:</label>
+                            <input type="number" class="form-control form-control-sm" id="albumin" name="albumin" min=0 value='0' max="7.0">
+                          </div>
+                          <!-- Feature Ends here -->
+                           <!-- Feature Starts here -->
+                          <div class="form-group">
+                            <label for="protime">Protime:</label>
+                            <input type="number" class="form-control form-control-sm" id="protime" name="protime" min=0 value='0' max="100">
+                          </div>
+                          <!-- Feature Ends here -->
+                          <!-- Feature Starts here -->
+                          <div>
+                           <div class="form-group">
+                            <label for="histology1">Histology</label>
+                            <select class="form-control" id="histology1" name="histology">
+                              <option value="1">No</option>
+                              <option value="2">Yes</option>
+                            </select>
+                          </div>
+                          </div>
+                          <!-- Feature Ends here -->
+                        
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- Clean Layout ends here -->	
+        <button type="reset" class="btn btn-outline-success">Reset</button>
+        <button type="submit" class="btn btn-primary">Predict</button>
+    </form>
+    </div>
+    <br/>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6" >
+              <div class="card mb-10 shadow-sm" id="custom_card">
+                  <h4>Result</h4>
+                  <h6>Original Data</h6>
+                  <pre>{{ sample_result }}</pre>
+                  <br/>
+    
+                
+            </div>
+        </div>
+    
+    
+    
+        <div class="col-md-6" >
+            <div class="card mb-10 shadow-sm darki" id="custom_card2">
+                <h4>Prediction</h4>
+                <div class="alert alert-primary" role="alert">
+                    {{ prediction }}
+                </div>
+                <hr/>
+                <h6>Probability Score</h6>
+                <p>{{ pred_probalility_score }}</p>
+                
+            </div>
+        </div>
+    </div>
+        <br/>
+      <br/>
+      <br/>
+    
+    </div>
+    
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.3/js/mdb.min.js"></script>
+    
+
+{% endblock %}

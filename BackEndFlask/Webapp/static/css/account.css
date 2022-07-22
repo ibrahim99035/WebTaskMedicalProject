@@ -132,3 +132,17 @@
     background-color: rgb(167, 238, 238);
 }
 
+#PatientSearchResult{
+    font-size: larger;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+}
+
+
+#contactsID{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    padding: 20px 20px 20px 20px;
+    border: rgb(16, 108, 122) solid 1px;
+}
